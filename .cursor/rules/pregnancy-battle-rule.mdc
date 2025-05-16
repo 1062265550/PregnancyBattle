@@ -1,0 +1,44 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 孕期大作战项目规则
+
+## 项目概览
+
+- **项目名称:** 孕期大作战 (PregnancyBattle)
+- **平台:** iOS 应用程序
+- **核心理念:** 以孕妈妈为中心，提供科学、便捷、温暖的孕期陪伴与指导。
+
+## 技术栈
+
+### 前端
+- **语言/框架:** Swift (SwiftUI 为主, 可结合 UIKit)
+- **架构:** MVVM
+- **项目文件夹:** `@PregnancyBattle` (在工作区根目录下的 `PregnancyBattle/`)
+- **目录结构参考:** `PregnancyBattle/项目目录结构.md`
+- **资源管理:** 不同模块有单独的资源管理文件，需遵守 `PregnancyBattle/资源管理规范.md` 的要求。
+
+### 后端
+- **语言/框架:** C# ASP.NET Core 8.0
+- **架构:** Clean Architecture
+- **数据库:** Supabase (基于 PostgreSQL)
+- **数据访问:** Dapper, Npgsql
+- **认证授权:** JWT, Supabase Auth
+- **项目文件夹:** `@Backend` (在工作区根目录下的 `Backend/`)
+- **数据库表结构参考:** `Backend/数据库表设计.md`
+- **项目架构文档参考:** `Backend/项目架构文档.md`
+- **项目的异常处理机制参考**:`Backend/全局异常处理文档.md`
+- **API开发文档参考:** `Backend/API开发文档.md`
+    - **开发状态:** 目前仅用户认证相关的接口已开发完成，其他接口暂未开发。
+
+## 开发计划与规范
+- **整体开发计划:** `PregnancyBattle/孕期大作战开发计划.md`
+
+## 目标用户
+- 孕期女性
+
+## 项目目标
+- 提供全面的孕期健康管理、信息获取、社区交流等功能。
+
