@@ -50,7 +50,7 @@ struct MainTabView: View {
 
             // 我的
             NavigationView {
-                Text("我的")
+                ProfileView()
                     .navigationTitle("我的")
             }
             .tabItem {
