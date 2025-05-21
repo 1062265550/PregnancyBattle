@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PregnancyBattle.Application.DTOs;
 using PregnancyBattle.Application.Services;
+using PregnancyBattle.Api.Models; // Assuming ApiResponse is here
+using System.Security.Claims;
 
 namespace PregnancyBattle.Api.Controllers
 {
@@ -11,7 +13,9 @@ namespace PregnancyBattle.Api.Controllers
     /// 孕期信息控制器
     /// </summary>
     [Authorize]
-    public class PregnancyInfoController : BaseApiController
+    [Route("api/[controller]")]
+    [ApiController]
+    public class PregnancyInfoController : ControllerBase
     {
         private readonly IPregnancyInfoService _pregnancyInfoService;
         
@@ -24,20 +28,34 @@ namespace PregnancyBattle.Api.Controllers
             _pregnancyInfoService = pregnancyInfoService;
         }
         
+        private Guid GetUserId()
+        {
+            var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userIdClaim) || !Guid.TryParse(userIdClaim, out var userId))
+            {
+                throw new UnauthorizedAccessException("User ID not found in token.");
+            }
+            return userId;
+        }
+        
         /// <summary>
         /// 创建孕期信息
         /// </summary>
-        /// <param name="createPregnancyInfoDto">创建孕期信息请求</param>
+        /// <param name="createDto">创建孕期信息请求</param>
         /// <returns>孕期信息</returns>
         [HttpPost]
-        [ProducesResponseType(typeof(PregnancyInfoDto), 200)]
+        [ProducesResponseType(typeof(ApiResponse<PregnancyInfoDto>), 200)]
         [ProducesResponseType(typeof(ValidationProblemDetails), 400)]
         [ProducesResponseType(typeof(ProblemDetails), 401)]
-        public async Task<IActionResult> CreatePregnancyInfo([FromBody] CreatePregnancyInfoDto createPregnancyInfoDto)
+        public async Task<IActionResult> CreatePregnancyInfo([FromBody] CreatePregnancyInfoDto createDto)
         {
             var userId = GetUserId();
-            var pregnancyInfo = await _pregnancyInfoService.CreatePregnancyInfoAsync(Guid.Parse(userId), createPregnancyInfoDto);
-            return Ok(pregnancyInfo);
+            var result = await _pregnancyInfoService.CreatePregnancyInfoAsync(userId, createDto);
+            if (!result.Success)
+            {
+                return BadRequest(new ApiResponse<object>(false, result.Message ?? "Failed to create pregnancy info", null, result.ErrorCode));
+            }
+            return Ok(new ApiResponse<PregnancyInfoDto>(true, "Pregnancy info created successfully", result.Data));
         }
         
         /// <summary>
@@ -45,31 +63,48 @@ namespace PregnancyBattle.Api.Controllers
         /// </summary>
         /// <returns>孕期信息</returns>
         [HttpGet]
-        [ProducesResponseType(typeof(PregnancyInfoDto), 200)]
+        [ProducesResponseType(typeof(ApiResponse<PregnancyInfoDto>), 200)]
         [ProducesResponseType(typeof(ProblemDetails), 401)]
         [ProducesResponseType(typeof(ProblemDetails), 404)]
         public async Task<IActionResult> GetPregnancyInfo()
         {
             var userId = GetUserId();
-            var pregnancyInfo = await _pregnancyInfoService.GetPregnancyInfoAsync(Guid.Parse(userId));
-            return Ok(pregnancyInfo);
+            var result = await _pregnancyInfoService.GetPregnancyInfoAsync(userId);
+            if (!result.Success)
+            {
+                // API文档中404代表信息不存在，服务层应返回相应ErrorCode
+                if (result.ErrorCode == "404") 
+                {
+                    return NotFound(new ApiResponse<object>(false, result.Message ?? "Pregnancy info not found", null, result.ErrorCode));
+                }
+                return BadRequest(new ApiResponse<object>(false, result.Message ?? "Failed to get pregnancy info", null, result.ErrorCode));
+            }
+            return Ok(new ApiResponse<PregnancyInfoDto>(true, "Pregnancy info retrieved successfully", result.Data));
         }
         
         /// <summary>
         /// 更新孕期信息
         /// </summary>
-        /// <param name="updatePregnancyInfoDto">更新孕期信息请求</param>
+        /// <param name="updateDto">更新孕期信息请求</param>
         /// <returns>孕期信息</returns>
         [HttpPut]
-        [ProducesResponseType(typeof(PregnancyInfoDto), 200)]
+        [ProducesResponseType(typeof(ApiResponse<PregnancyInfoDto>), 200)]
         [ProducesResponseType(typeof(ValidationProblemDetails), 400)]
         [ProducesResponseType(typeof(ProblemDetails), 401)]
         [ProducesResponseType(typeof(ProblemDetails), 404)]
-        public async Task<IActionResult> UpdatePregnancyInfo([FromBody] UpdatePregnancyInfoDto updatePregnancyInfoDto)
+        public async Task<IActionResult> UpdatePregnancyInfo([FromBody] UpdatePregnancyInfoDto updateDto)
         {
             var userId = GetUserId();
-            var pregnancyInfo = await _pregnancyInfoService.UpdatePregnancyInfoAsync(Guid.Parse(userId), updatePregnancyInfoDto);
-            return Ok(pregnancyInfo);
+            var result = await _pregnancyInfoService.UpdatePregnancyInfoAsync(userId, updateDto);
+            if (!result.Success)
+            {
+                if (result.ErrorCode == "404") 
+                {
+                    return NotFound(new ApiResponse<object>(false, result.Message ?? "Pregnancy info not found to update", null, result.ErrorCode));
+                }
+                return BadRequest(new ApiResponse<object>(false, result.Message ?? "Failed to update pregnancy info", null, result.ErrorCode));
+            }
+            return Ok(new ApiResponse<PregnancyInfoDto>(true, "Pregnancy info updated successfully", result.Data));
         }
         
         /// <summary>
@@ -77,14 +112,22 @@ namespace PregnancyBattle.Api.Controllers
         /// </summary>
         /// <returns>孕期信息</returns>
         [HttpGet("current-week")]
-        [ProducesResponseType(typeof(PregnancyInfoDto), 200)]
+        [ProducesResponseType(typeof(ApiResponse<PregnancyInfoDto>), 200)]
         [ProducesResponseType(typeof(ProblemDetails), 401)]
         [ProducesResponseType(typeof(ProblemDetails), 404)]
-        public async Task<IActionResult> CalculateCurrentPregnancyWeek()
+        public async Task<IActionResult> GetCurrentWeekAndDay()
         {
             var userId = GetUserId();
-            var pregnancyInfo = await _pregnancyInfoService.CalculateCurrentPregnancyWeekAsync(Guid.Parse(userId));
-            return Ok(pregnancyInfo);
+            var result = await _pregnancyInfoService.GetCurrentWeekAndDayAsync(userId);
+             if (!result.Success)
+            {
+                if (result.ErrorCode == "404") 
+                {
+                    return NotFound(new ApiResponse<object>(false, result.Message ?? "Pregnancy info not found", null, result.ErrorCode));
+                }
+                return BadRequest(new ApiResponse<object>(false, result.Message ?? "Failed to get current week info", null, result.ErrorCode));
+            }
+            return Ok(new ApiResponse<PregnancyInfoDto>(true, "Current week info retrieved successfully", result.Data));
         }
     }
 }
