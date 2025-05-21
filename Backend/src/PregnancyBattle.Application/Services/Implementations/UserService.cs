@@ -357,24 +357,39 @@ namespace PregnancyBattle.Application.Services.Implementations
                 throw new BusinessException("用户不存在", "User.NotFound");
             }
 
-            // 更新用户信息
-            user.Nickname = updateUserDto.Nickname ?? user.Nickname;
-            user.AvatarUrl = updateUserDto.AvatarUrl ?? user.AvatarUrl;
+            bool changed = false;
 
-            // 更新用户
-            var updatedUser = await _userRepository.UpdateAsync(user);
+            // 更新昵称 (如果提供了)
+            if (updateUserDto.Nickname != null)
+            {
+                user.Nickname = updateUserDto.Nickname;
+                changed = true;
+            }
 
-            // 返回用户信息
+            // 更新头像URL (如果提供了)
+            if (updateUserDto.AvatarUrl != null)
+            {
+                user.AvatarUrl = updateUserDto.AvatarUrl; // 允许设置为空字符串以清空头像
+                changed = true;
+            }
+
+            // 如果有字段更改，则更新用户
+            if (changed)
+            {
+                 await _userRepository.UpdateAsync(user);
+            }
+
+            // 返回用户信息 (即使没有更改，也返回当前用户信息)
             return new UserDto
             {
-                Id = updatedUser.Id,
-                Username = updatedUser.Username,
-                Email = updatedUser.Email,
-                PhoneNumber = updatedUser.PhoneNumber,
-                Nickname = updatedUser.Nickname,
-                AvatarUrl = updatedUser.AvatarUrl,
-                CreatedAt = updatedUser.CreatedAt,
-                LastLoginAt = updatedUser.LastLoginAt
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                Nickname = user.Nickname,
+                AvatarUrl = user.AvatarUrl,
+                CreatedAt = user.CreatedAt,
+                LastLoginAt = user.LastLoginAt // 注意：如果需要更新LastLoginAt，确保在UpdateAsync之前或之后进行
             };
         }
 

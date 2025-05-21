@@ -87,12 +87,12 @@ namespace PregnancyBattle.Application.DTOs
         /// <summary>
         /// 昵称
         /// </summary>
-        public string Nickname { get; set; }
+        public string? Nickname { get; set; }
 
         /// <summary>
         /// 头像URL
         /// </summary>
-        public string AvatarUrl { get; set; }
+        public string? AvatarUrl { get; set; }
     }
 
     /// <summary>

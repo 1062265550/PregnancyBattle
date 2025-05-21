@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using PregnancyBattle.Application.DTOs;
+using PregnancyBattle.Application.Models;
 
 namespace PregnancyBattle.Application.Services
 {
@@ -13,30 +14,30 @@ namespace PregnancyBattle.Application.Services
         /// 创建孕期信息
         /// </summary>
         /// <param name="userId">用户ID</param>
-        /// <param name="createPregnancyInfoDto">创建孕期信息请求</param>
+        /// <param name="createDto">创建孕期信息请求</param>
         /// <returns>孕期信息</returns>
-        Task<PregnancyInfoDto> CreatePregnancyInfoAsync(Guid userId, CreatePregnancyInfoDto createPregnancyInfoDto);
+        Task<ServiceResult<PregnancyInfoDto>> CreatePregnancyInfoAsync(Guid userId, CreatePregnancyInfoDto createDto);
         
         /// <summary>
         /// 获取孕期信息
         /// </summary>
         /// <param name="userId">用户ID</param>
         /// <returns>孕期信息</returns>
-        Task<PregnancyInfoDto> GetPregnancyInfoAsync(Guid userId);
+        Task<ServiceResult<PregnancyInfoDto>> GetPregnancyInfoAsync(Guid userId);
         
         /// <summary>
         /// 更新孕期信息
         /// </summary>
         /// <param name="userId">用户ID</param>
-        /// <param name="updatePregnancyInfoDto">更新孕期信息请求</param>
+        /// <param name="updateDto">更新孕期信息请求</param>
         /// <returns>孕期信息</returns>
-        Task<PregnancyInfoDto> UpdatePregnancyInfoAsync(Guid userId, UpdatePregnancyInfoDto updatePregnancyInfoDto);
+        Task<ServiceResult<PregnancyInfoDto>> UpdatePregnancyInfoAsync(Guid userId, UpdatePregnancyInfoDto updateDto);
         
         /// <summary>
         /// 计算当前孕周和孕天
         /// </summary>
         /// <param name="userId">用户ID</param>
         /// <returns>孕期信息</returns>
-        Task<PregnancyInfoDto> CalculateCurrentPregnancyWeekAsync(Guid userId);
+        Task<ServiceResult<PregnancyInfoDto>> GetCurrentWeekAndDayAsync(Guid userId);
     }
 }

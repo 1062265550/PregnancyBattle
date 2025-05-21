@@ -48,7 +48,7 @@ namespace PregnancyBattle.Infrastructure.Data.Repositories
                         id, username, email,
                         phone_number as PhoneNumber,
                         password_hash as PasswordHash,
-                        nickname, avatar_url,
+                        nickname, avatar_url AS ""AvatarUrl"",
                         created_at as CreatedAt,
                         updated_at as UpdatedAt,
                         last_login_at as LastLoginAt
@@ -59,6 +59,7 @@ namespace PregnancyBattle.Infrastructure.Data.Repositories
 
                 if (result != null)
                 {
+                    _logger.LogInformation($"[UserRepository.GetByEmailAsync] Raw AvatarUrl from Dapper for user {result.Email}: '{result.AvatarUrl}'");
                     _logger.LogInformation($"查询到用户，ID: {result.Id}, 邮箱: {result.Email}, 密码哈希: {result.PasswordHash ?? "NULL"}");
                 }
 
@@ -93,7 +94,7 @@ namespace PregnancyBattle.Infrastructure.Data.Repositories
                         id, username, email,
                         phone_number as PhoneNumber,
                         password_hash as PasswordHash,
-                        nickname, avatar_url,
+                        nickname, avatar_url AS ""AvatarUrl"",
                         created_at as CreatedAt,
                         updated_at as UpdatedAt,
                         last_login_at as LastLoginAt
@@ -104,6 +105,7 @@ namespace PregnancyBattle.Infrastructure.Data.Repositories
 
                 if (result != null)
                 {
+                    _logger.LogInformation($"[UserRepository.GetByUsernameAsync] Raw AvatarUrl from Dapper for user {result.Username}: '{result.AvatarUrl}'");
                     _logger.LogInformation($"查询到用户，ID: {result.Id}, 用户名: {result.Username}, 密码哈希: {result.PasswordHash ?? "NULL"}, 手机号: {result.PhoneNumber ?? "NULL"}");
 
                     // 检查所有属性是否正确映射
@@ -141,7 +143,7 @@ namespace PregnancyBattle.Infrastructure.Data.Repositories
                         id, username, email,
                         phone_number as PhoneNumber,
                         password_hash as PasswordHash,
-                        nickname, avatar_url,
+                        nickname, avatar_url AS ""AvatarUrl"",
                         created_at as CreatedAt,
                         updated_at as UpdatedAt,
                         last_login_at as LastLoginAt
@@ -152,6 +154,7 @@ namespace PregnancyBattle.Infrastructure.Data.Repositories
 
                 if (result != null)
                 {
+                    _logger.LogInformation($"[UserRepository.GetByPhoneNumberAsync] Raw AvatarUrl from Dapper for user with phone {result.PhoneNumber}: '{result.AvatarUrl}'");
                     _logger.LogInformation($"查询到用户，ID: {result.Id}, 手机号: {result.PhoneNumber}, 密码哈希: {result.PasswordHash ?? "NULL"}");
                 }
 
@@ -238,7 +241,7 @@ namespace PregnancyBattle.Infrastructure.Data.Repositories
                     RETURNING id, username, email,
                              phone_number as PhoneNumber,
                              password_hash as PasswordHash,
-                             nickname, avatar_url,
+                             nickname, avatar_url AS ""AvatarUrl"",
                              created_at as CreatedAt,
                              updated_at as UpdatedAt,
                              last_login_at as LastLoginAt";
@@ -301,7 +304,7 @@ namespace PregnancyBattle.Infrastructure.Data.Repositories
                     RETURNING id, username, email,
                              phone_number as PhoneNumber,
                              password_hash as PasswordHash,
-                             nickname, avatar_url,
+                             nickname, avatar_url AS ""AvatarUrl"",
                              created_at as CreatedAt,
                              updated_at as UpdatedAt,
                              last_login_at as LastLoginAt";

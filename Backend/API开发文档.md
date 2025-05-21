@@ -330,7 +330,7 @@
 
 ## 六、孕期信息相关API
 
-### 1. 创建孕期信息
+### 1. 创建孕期信息 ✅
 
 - **URL**: `/pregnancyinfo`
 - **方法**: POST
@@ -354,20 +354,24 @@
 
 ```json
 {
-  "id": "guid", // 孕期信息ID
-  "userId": "guid", // 用户ID
-  "lmpDate": "date", // 末次月经日期
-  "dueDate": "date", // 预产期
-  "calculationMethod": "string", // 预产期计算方式
-  "ultrasoundDate": "date", // B超日期
-  "ultrasoundWeeks": "integer", // B超孕周
-  "ultrasoundDays": "integer", // B超孕天
-  "isMultiplePregnancy": "boolean", // 是否多胎妊娠
-  "fetusCount": "integer", // 胎儿数量
-  "currentWeek": "integer", // 当前孕周
-  "currentDay": "integer", // 当前孕天
-  "pregnancyStage": "string", // 孕期阶段 (早期/中期/晚期)
-  "daysUntilDueDate": "integer" // 距离预产期天数
+  "success": true,
+  "message": "孕期信息创建成功",
+  "data": {
+    "id": "guid", // 孕期信息ID
+    "userId": "guid", // 用户ID
+    "lmpDate": "date", // 末次月经日期
+    "dueDate": "date", // 预产期
+    "calculationMethod": "string", // 预产期计算方式
+    "ultrasoundDate": "date", // B超日期
+    "ultrasoundWeeks": "integer", // B超孕周
+    "ultrasoundDays": "integer", // B超孕天
+    "isMultiplePregnancy": "boolean", // 是否多胎妊娠
+    "fetusCount": "integer", // 胎儿数量
+    "currentWeek": "integer", // 当前孕周
+    "currentDay": "integer", // 当前孕天
+    "pregnancyStage": "string", // 孕期阶段 (早期/中期/晚期)
+    "daysUntilDueDate": "integer" // 距离预产期天数
+  }
 }
 ```
 
@@ -376,7 +380,7 @@
   - 401: 未授权
   - 409: 用户已有孕期信息
 
-### 2. 获取孕期信息
+### 2. 获取孕期信息 ✅
 
 - **URL**: `/pregnancyinfo`
 - **方法**: GET
@@ -386,20 +390,24 @@
 
 ```json
 {
-  "id": "guid", // 孕期信息ID
-  "userId": "guid", // 用户ID
-  "lmpDate": "date", // 末次月经日期
-  "dueDate": "date", // 预产期
-  "calculationMethod": "string", // 预产期计算方式
-  "ultrasoundDate": "date", // B超日期
-  "ultrasoundWeeks": "integer", // B超孕周
-  "ultrasoundDays": "integer", // B超孕天
-  "isMultiplePregnancy": "boolean", // 是否多胎妊娠
-  "fetusCount": "integer", // 胎儿数量
-  "currentWeek": "integer", // 当前孕周
-  "currentDay": "integer", // 当前孕天
-  "pregnancyStage": "string", // 孕期阶段 (早期/中期/晚期)
-  "daysUntilDueDate": "integer" // 距离预产期天数
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "id": "guid", // 孕期信息ID
+    "userId": "guid", // 用户ID
+    "lmpDate": "date", // 末次月经日期
+    "dueDate": "date", // 预产期
+    "calculationMethod": "string", // 预产期计算方式
+    "ultrasoundDate": "date", // B超日期
+    "ultrasoundWeeks": "integer", // B超孕周
+    "ultrasoundDays": "integer", // B超孕天
+    "isMultiplePregnancy": "boolean", // 是否多胎妊娠
+    "fetusCount": "integer", // 胎儿数量
+    "currentWeek": "integer", // 当前孕周
+    "currentDay": "integer", // 当前孕天
+    "pregnancyStage": "string", // 孕期阶段 (早期/中期/晚期)
+    "daysUntilDueDate": "integer" // 距离预产期天数
+  }
 }
 ```
 
@@ -407,7 +415,7 @@
   - 401: 未授权
   - 404: 孕期信息不存在
 
-### 3. 更新孕期信息
+### 3. 更新孕期信息 ✅
 
 - **URL**: `/pregnancyinfo`
 - **方法**: PUT
@@ -431,20 +439,24 @@
 
 ```json
 {
-  "id": "guid", // 孕期信息ID
-  "userId": "guid", // 用户ID
-  "lmpDate": "date", // 末次月经日期
-  "dueDate": "date", // 预产期
-  "calculationMethod": "string", // 预产期计算方式
-  "ultrasoundDate": "date", // B超日期
-  "ultrasoundWeeks": "integer", // B超孕周
-  "ultrasoundDays": "integer", // B超孕天
-  "isMultiplePregnancy": "boolean", // 是否多胎妊娠
-  "fetusCount": "integer", // 胎儿数量
-  "currentWeek": "integer", // 当前孕周
-  "currentDay": "integer", // 当前孕天
-  "pregnancyStage": "string", // 孕期阶段 (早期/中期/晚期)
-  "daysUntilDueDate": "integer" // 距离预产期天数
+  "success": true,
+  "message": "更新成功",
+  "data": {
+    "id": "guid", // 孕期信息ID
+    "userId": "guid", // 用户ID
+    "lmpDate": "date", // 末次月经日期
+    "dueDate": "date", // 预产期
+    "calculationMethod": "string", // 预产期计算方式
+    "ultrasoundDate": "date", // B超日期
+    "ultrasoundWeeks": "integer", // B超孕周
+    "ultrasoundDays": "integer", // B超孕天
+    "isMultiplePregnancy": "boolean", // 是否多胎妊娠
+    "fetusCount": "integer", // 胎儿数量
+    "currentWeek": "integer", // 当前孕周
+    "currentDay": "integer", // 当前孕天
+    "pregnancyStage": "string", // 孕期阶段 (早期/中期/晚期)
+    "daysUntilDueDate": "integer" // 距离预产期天数
+  }
 }
 ```
 
@@ -453,7 +465,7 @@
   - 401: 未授权
   - 404: 孕期信息不存在
 
-### 4. 计算当前孕周和孕天
+### 4. 计算当前孕周和孕天 ✅
 
 - **URL**: `/pregnancyinfo/current-week`
 - **方法**: GET
@@ -463,20 +475,24 @@
 
 ```json
 {
-  "id": "guid", // 孕期信息ID
-  "userId": "guid", // 用户ID
-  "lmpDate": "date", // 末次月经日期
-  "dueDate": "date", // 预产期
-  "calculationMethod": "string", // 预产期计算方式
-  "ultrasoundDate": "date", // B超日期
-  "ultrasoundWeeks": "integer", // B超孕周
-  "ultrasoundDays": "integer", // B超孕天
-  "isMultiplePregnancy": "boolean", // 是否多胎妊娠
-  "fetusCount": "integer", // 胎儿数量
-  "currentWeek": "integer", // 当前孕周
-  "currentDay": "integer", // 当前孕天
-  "pregnancyStage": "string", // 孕期阶段 (早期/中期/晚期)
-  "daysUntilDueDate": "integer" // 距离预产期天数
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "id": "guid", // 孕期信息ID
+    "userId": "guid", // 用户ID
+    "lmpDate": "date", // 末次月经日期
+    "dueDate": "date", // 预产期
+    "calculationMethod": "string", // 预产期计算方式
+    "ultrasoundDate": "date", // B超日期
+    "ultrasoundWeeks": "integer", // B超孕周
+    "ultrasoundDays": "integer", // B超孕天
+    "isMultiplePregnancy": "boolean", // 是否多胎妊娠
+    "fetusCount": "integer", // 胎儿数量
+    "currentWeek": "integer", // 当前孕周
+    "currentDay": "integer", // 当前孕天
+    "pregnancyStage": "string", // 孕期阶段 (早期/中期/晚期)
+    "daysUntilDueDate": "integer" // 距离预产期天数
+  }
 }
 ```
 
@@ -514,22 +530,26 @@
 
 ```json
 {
-  "id": "guid", // 健康档案ID
-  "userId": "guid", // 用户ID
-  "height": "decimal", // 身高（厘米）
-  "prePregnancyWeight": "decimal", // 孕前体重（千克）
-  "currentWeight": "decimal", // 当前体重（千克）
-  "bloodType": "string", // 血型
-  "age": "integer", // 年龄
-  "medicalHistory": "string", // 个人病史
-  "familyHistory": "string", // 家族病史
-  "allergiesHistory": "string", // 过敏史
-  "obstetricHistory": "string", // 既往孕产史
-  "isSmoking": "boolean", // 是否吸烟
-  "isDrinking": "boolean", // 是否饮酒
-  "createdAt": "datetime", // 创建时间
-  "updatedAt": "datetime", // 更新时间
-  "bmi": "decimal" // BMI指数
+  "success": true,
+  "message": "创建成功",
+  "data": {
+    "id": "guid", // 健康档案ID
+    "userId": "guid", // 用户ID
+    "height": "decimal", // 身高（厘米）
+    "prePregnancyWeight": "decimal", // 孕前体重（千克）
+    "currentWeight": "decimal", // 当前体重（千克）
+    "bloodType": "string", // 血型
+    "age": "integer", // 年龄
+    "medicalHistory": "string", // 个人病史
+    "familyHistory": "string", // 家族病史
+    "allergiesHistory": "string", // 过敏史
+    "obstetricHistory": "string", // 既往孕产史
+    "isSmoking": "boolean", // 是否吸烟
+    "isDrinking": "boolean", // 是否饮酒
+    "createdAt": "datetime", // 创建时间
+    "updatedAt": "datetime", // 更新时间
+    "bmi": "decimal" // BMI指数
+  }
 }
 ```
 
@@ -548,22 +568,26 @@
 
 ```json
 {
-  "id": "guid", // 健康档案ID
-  "userId": "guid", // 用户ID
-  "height": "decimal", // 身高（厘米）
-  "prePregnancyWeight": "decimal", // 孕前体重（千克）
-  "currentWeight": "decimal", // 当前体重（千克）
-  "bloodType": "string", // 血型
-  "age": "integer", // 年龄
-  "medicalHistory": "string", // 个人病史
-  "familyHistory": "string", // 家族病史
-  "allergiesHistory": "string", // 过敏史
-  "obstetricHistory": "string", // 既往孕产史
-  "isSmoking": "boolean", // 是否吸烟
-  "isDrinking": "boolean", // 是否饮酒
-  "createdAt": "datetime", // 创建时间
-  "updatedAt": "datetime", // 更新时间
-  "bmi": "decimal" // BMI指数
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "id": "guid", // 健康档案ID
+    "userId": "guid", // 用户ID
+    "height": "decimal", // 身高（厘米）
+    "prePregnancyWeight": "decimal", // 孕前体重（千克）
+    "currentWeight": "decimal", // 当前体重（千克）
+    "bloodType": "string", // 血型
+    "age": "integer", // 年龄
+    "medicalHistory": "string", // 个人病史
+    "familyHistory": "string", // 家族病史
+    "allergiesHistory": "string", // 过敏史
+    "obstetricHistory": "string", // 既往孕产史
+    "isSmoking": "boolean", // 是否吸烟
+    "isDrinking": "boolean", // 是否饮酒
+    "createdAt": "datetime", // 创建时间
+    "updatedAt": "datetime", // 更新时间
+    "bmi": "decimal" // BMI指数
+  }
 }
 ```
 
@@ -597,22 +621,26 @@
 
 ```json
 {
-  "id": "guid", // 健康档案ID
-  "userId": "guid", // 用户ID
-  "height": "decimal", // 身高（厘米）
-  "prePregnancyWeight": "decimal", // 孕前体重（千克）
-  "currentWeight": "decimal", // 当前体重（千克）
-  "bloodType": "string", // 血型
-  "age": "integer", // 年龄
-  "medicalHistory": "string", // 个人病史
-  "familyHistory": "string", // 家族病史
-  "allergiesHistory": "string", // 过敏史
-  "obstetricHistory": "string", // 既往孕产史
-  "isSmoking": "boolean", // 是否吸烟
-  "isDrinking": "boolean", // 是否饮酒
-  "createdAt": "datetime", // 创建时间
-  "updatedAt": "datetime", // 更新时间
-  "bmi": "decimal" // BMI指数
+  "success": true,
+  "message": "更新成功",
+  "data": {
+    "id": "guid", // 健康档案ID
+    "userId": "guid", // 用户ID
+    "height": "decimal", // 身高（厘米）
+    "prePregnancyWeight": "decimal", // 孕前体重（千克）
+    "currentWeight": "decimal", // 当前体重（千克）
+    "bloodType": "string", // 血型
+    "age": "integer", // 年龄
+    "medicalHistory": "string", // 个人病史
+    "familyHistory": "string", // 家族病史
+    "allergiesHistory": "string", // 过敏史
+    "obstetricHistory": "string", // 既往孕产史
+    "isSmoking": "boolean", // 是否吸烟
+    "isDrinking": "boolean", // 是否饮酒
+    "createdAt": "datetime", // 创建时间
+    "updatedAt": "datetime", // 更新时间
+    "bmi": "decimal" // BMI指数
+  }
 }
 ```
 
@@ -631,20 +659,24 @@
 
 ```json
 {
-  "weightRecords": [
-    {
-      "date": "date", // 记录日期
-      "weight": "decimal", // 体重（千克）
-      "pregnancyWeek": "integer", // 孕周
-      "pregnancyDay": "integer" // 孕天
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "weightRecords": [
+      {
+        "date": "date", // 记录日期
+        "weight": "decimal", // 体重（千克）
+        "pregnancyWeek": "integer", // 孕周
+        "pregnancyDay": "integer" // 孕天
+      }
+    ],
+    "startWeight": "decimal", // 起始体重
+    "currentWeight": "decimal", // 当前体重
+    "weightGain": "decimal", // 增重
+    "recommendedWeightGain": {
+      "min": "decimal", // 推荐最小增重
+      "max": "decimal" // 推荐最大增重
     }
-  ],
-  "startWeight": "decimal", // 起始体重
-  "currentWeight": "decimal", // 当前体重
-  "weightGain": "decimal", // 增重
-  "recommendedWeightGain": {
-    "min": "decimal", // 推荐最小增重
-    "max": "decimal" // 推荐最大增重
   }
 }
 ```
@@ -663,22 +695,26 @@
 
 ```json
 {
-  "bmiCategory": "string", // BMI分类（偏瘦/正常/超重/肥胖）
-  "bmiRisk": "string", // BMI风险评估
-  "ageRisk": "string", // 年龄风险评估
-  "medicalRisks": [
-    {
-      "type": "string", // 风险类型
-      "description": "string", // 风险描述
-      "severity": "string" // 严重程度（低/中/高）
-    }
-  ],
-  "recommendations": [
-    {
-      "category": "string", // 建议类别
-      "description": "string" // 建议描述
-    }
-  ]
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "bmiCategory": "string", // BMI分类（偏瘦/正常/超重/肥胖）
+    "bmiRisk": "string", // BMI风险评估
+    "ageRisk": "string", // 年龄风险评估
+    "medicalRisks": [
+      {
+        "type": "string", // 风险类型
+        "description": "string", // 风险描述
+        "severity": "string" // 严重程度（低/中/高）
+      }
+    ],
+    "recommendations": [
+      {
+        "category": "string", // 建议类别
+        "description": "string" // 建议描述
+      }
+    ]
+  }
 }
 ```
 
@@ -717,26 +753,30 @@
 
 ```json
 {
-  "id": "guid", // 日记ID
-  "userId": "guid", // 用户ID
-  "title": "string", // 日记标题
-  "content": "string", // 日记内容
-  "mood": "string", // 情绪状态
-  "diaryDate": "date", // 日记日期
-  "pregnancyWeek": "integer", // 孕周
-  "pregnancyDay": "integer", // 孕天
-  "createdAt": "datetime", // 创建时间
-  "updatedAt": "datetime", // 更新时间
-  "tags": ["string"], // 标签列表
-  "mediaFiles": [ // 媒体文件列表
-    {
-      "id": "guid", // 媒体文件ID
-      "mediaType": "string", // 媒体类型
-      "mediaUrl": "string", // 媒体URL
-      "description": "string", // 媒体描述
-      "createdAt": "datetime" // 创建时间
-    }
-  ]
+  "success": true,
+  "message": "创建成功",
+  "data": {
+    "id": "guid", // 日记ID
+    "userId": "guid", // 用户ID
+    "title": "string", // 日记标题
+    "content": "string", // 日记内容
+    "mood": "string", // 情绪状态
+    "diaryDate": "date", // 日记日期
+    "pregnancyWeek": "integer", // 孕周
+    "pregnancyDay": "integer", // 孕天
+    "createdAt": "datetime", // 创建时间
+    "updatedAt": "datetime", // 更新时间
+    "tags": ["string"], // 标签列表
+    "mediaFiles": [ // 媒体文件列表
+      {
+        "id": "guid", // 媒体文件ID
+        "mediaType": "string", // 媒体类型
+        "mediaUrl": "string", // 媒体URL
+        "description": "string", // 媒体描述
+        "createdAt": "datetime" // 创建时间
+      }
+    ]
+  }
 }
 ```
 
@@ -756,26 +796,30 @@
 
 ```json
 {
-  "id": "guid", // 日记ID
-  "userId": "guid", // 用户ID
-  "title": "string", // 日记标题
-  "content": "string", // 日记内容
-  "mood": "string", // 情绪状态
-  "diaryDate": "date", // 日记日期
-  "pregnancyWeek": "integer", // 孕周
-  "pregnancyDay": "integer", // 孕天
-  "createdAt": "datetime", // 创建时间
-  "updatedAt": "datetime", // 更新时间
-  "tags": ["string"], // 标签列表
-  "mediaFiles": [ // 媒体文件列表
-    {
-      "id": "guid", // 媒体文件ID
-      "mediaType": "string", // 媒体类型
-      "mediaUrl": "string", // 媒体URL
-      "description": "string", // 媒体描述
-      "createdAt": "datetime" // 创建时间
-    }
-  ]
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "id": "guid", // 日记ID
+    "userId": "guid", // 用户ID
+    "title": "string", // 日记标题
+    "content": "string", // 日记内容
+    "mood": "string", // 情绪状态
+    "diaryDate": "date", // 日记日期
+    "pregnancyWeek": "integer", // 孕周
+    "pregnancyDay": "integer", // 孕天
+    "createdAt": "datetime", // 创建时间
+    "updatedAt": "datetime", // 更新时间
+    "tags": ["string"], // 标签列表
+    "mediaFiles": [ // 媒体文件列表
+      {
+        "id": "guid", // 媒体文件ID
+        "mediaType": "string", // 媒体类型
+        "mediaUrl": "string", // 媒体URL
+        "description": "string", // 媒体描述
+        "createdAt": "datetime" // 创建时间
+      }
+    ]
+  }
 }
 ```
 
@@ -799,34 +843,38 @@
 
 ```json
 {
-  "items": [
-    {
-      "id": "guid", // 日记ID
-      "userId": "guid", // 用户ID
-      "title": "string", // 日记标题
-      "content": "string", // 日记内容
-      "mood": "string", // 情绪状态
-      "diaryDate": "date", // 日记日期
-      "pregnancyWeek": "integer", // 孕周
-      "pregnancyDay": "integer", // 孕天
-      "createdAt": "datetime", // 创建时间
-      "updatedAt": "datetime", // 更新时间
-      "tags": ["string"], // 标签列表
-      "mediaFiles": [ // 媒体文件列表
-        {
-          "id": "guid", // 媒体文件ID
-          "mediaType": "string", // 媒体类型
-          "mediaUrl": "string", // 媒体URL
-          "description": "string", // 媒体描述
-          "createdAt": "datetime" // 创建时间
-        }
-      ]
-    }
-  ],
-  "totalCount": "integer", // 总数量
-  "pageCount": "integer", // 总页数
-  "currentPage": "integer", // 当前页码
-  "pageSize": "integer" // 每页数量
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "items": [
+      {
+        "id": "guid", // 日记ID
+        "userId": "guid", // 用户ID
+        "title": "string", // 日记标题
+        "content": "string", // 日记内容
+        "mood": "string", // 情绪状态
+        "diaryDate": "date", // 日记日期
+        "pregnancyWeek": "integer", // 孕周
+        "pregnancyDay": "integer", // 孕天
+        "createdAt": "datetime", // 创建时间
+        "updatedAt": "datetime", // 更新时间
+        "tags": ["string"], // 标签列表
+        "mediaFiles": [ // 媒体文件列表
+          {
+            "id": "guid", // 媒体文件ID
+            "mediaType": "string", // 媒体类型
+            "mediaUrl": "string", // 媒体URL
+            "description": "string", // 媒体描述
+            "createdAt": "datetime" // 创建时间
+          }
+        ]
+      }
+    ],
+    "totalCount": "integer", // 总数量
+    "pageCount": "integer", // 总页数
+    "currentPage": "integer", // 当前页码
+    "pageSize": "integer" // 每页数量
+  }
 }
 ```
 
@@ -850,34 +898,38 @@
 
 ```json
 {
-  "items": [
-    {
-      "id": "guid", // 日记ID
-      "userId": "guid", // 用户ID
-      "title": "string", // 日记标题
-      "content": "string", // 日记内容
-      "mood": "string", // 情绪状态
-      "diaryDate": "date", // 日记日期
-      "pregnancyWeek": "integer", // 孕周
-      "pregnancyDay": "integer", // 孕天
-      "createdAt": "datetime", // 创建时间
-      "updatedAt": "datetime", // 更新时间
-      "tags": ["string"], // 标签列表
-      "mediaFiles": [ // 媒体文件列表
-        {
-          "id": "guid", // 媒体文件ID
-          "mediaType": "string", // 媒体类型
-          "mediaUrl": "string", // 媒体URL
-          "description": "string", // 媒体描述
-          "createdAt": "datetime" // 创建时间
-        }
-      ]
-    }
-  ],
-  "totalCount": "integer", // 总数量
-  "pageCount": "integer", // 总页数
-  "currentPage": "integer", // 当前页码
-  "pageSize": "integer" // 每页数量
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "items": [
+      {
+        "id": "guid", // 日记ID
+        "userId": "guid", // 用户ID
+        "title": "string", // 日记标题
+        "content": "string", // 日记内容
+        "mood": "string", // 情绪状态
+        "diaryDate": "date", // 日记日期
+        "pregnancyWeek": "integer", // 孕周
+        "pregnancyDay": "integer", // 孕天
+        "createdAt": "datetime", // 创建时间
+        "updatedAt": "datetime", // 更新时间
+        "tags": ["string"], // 标签列表
+        "mediaFiles": [ // 媒体文件列表
+          {
+            "id": "guid", // 媒体文件ID
+            "mediaType": "string", // 媒体类型
+            "mediaUrl": "string", // 媒体URL
+            "description": "string", // 媒体描述
+            "createdAt": "datetime" // 创建时间
+          }
+        ]
+      }
+    ],
+    "totalCount": "integer", // 总数量
+    "pageCount": "integer", // 总页数
+    "currentPage": "integer", // 当前页码
+    "pageSize": "integer" // 每页数量
+  }
 }
 ```
 
@@ -902,34 +954,38 @@
 
 ```json
 {
-  "items": [
-    {
-      "id": "guid", // 日记ID
-      "userId": "guid", // 用户ID
-      "title": "string", // 日记标题
-      "content": "string", // 日记内容
-      "mood": "string", // 情绪状态
-      "diaryDate": "date", // 日记日期
-      "pregnancyWeek": "integer", // 孕周
-      "pregnancyDay": "integer", // 孕天
-      "createdAt": "datetime", // 创建时间
-      "updatedAt": "datetime", // 更新时间
-      "tags": ["string"], // 标签列表
-      "mediaFiles": [ // 媒体文件列表
-        {
-          "id": "guid", // 媒体文件ID
-          "mediaType": "string", // 媒体类型
-          "mediaUrl": "string", // 媒体URL
-          "description": "string", // 媒体描述
-          "createdAt": "datetime" // 创建时间
-        }
-      ]
-    }
-  ],
-  "totalCount": "integer", // 总数量
-  "pageCount": "integer", // 总页数
-  "currentPage": "integer", // 当前页码
-  "pageSize": "integer" // 每页数量
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "items": [
+      {
+        "id": "guid", // 日记ID
+        "userId": "guid", // 用户ID
+        "title": "string", // 日记标题
+        "content": "string", // 日记内容
+        "mood": "string", // 情绪状态
+        "diaryDate": "date", // 日记日期
+        "pregnancyWeek": "integer", // 孕周
+        "pregnancyDay": "integer", // 孕天
+        "createdAt": "datetime", // 创建时间
+        "updatedAt": "datetime", // 更新时间
+        "tags": ["string"], // 标签列表
+        "mediaFiles": [ // 媒体文件列表
+          {
+            "id": "guid", // 媒体文件ID
+            "mediaType": "string", // 媒体类型
+            "mediaUrl": "string", // 媒体URL
+            "description": "string", // 媒体描述
+            "createdAt": "datetime" // 创建时间
+          }
+        ]
+      }
+    ],
+    "totalCount": "integer", // 总数量
+    "pageCount": "integer", // 总页数
+    "currentPage": "integer", // 当前页码
+    "pageSize": "integer" // 每页数量
+  }
 }
 ```
 
@@ -953,34 +1009,38 @@
 
 ```json
 {
-  "items": [
-    {
-      "id": "guid", // 日记ID
-      "userId": "guid", // 用户ID
-      "title": "string", // 日记标题
-      "content": "string", // 日记内容
-      "mood": "string", // 情绪状态
-      "diaryDate": "date", // 日记日期
-      "pregnancyWeek": "integer", // 孕周
-      "pregnancyDay": "integer", // 孕天
-      "createdAt": "datetime", // 创建时间
-      "updatedAt": "datetime", // 更新时间
-      "tags": ["string"], // 标签列表
-      "mediaFiles": [ // 媒体文件列表
-        {
-          "id": "guid", // 媒体文件ID
-          "mediaType": "string", // 媒体类型
-          "mediaUrl": "string", // 媒体URL
-          "description": "string", // 媒体描述
-          "createdAt": "datetime" // 创建时间
-        }
-      ]
-    }
-  ],
-  "totalCount": "integer", // 总数量
-  "pageCount": "integer", // 总页数
-  "currentPage": "integer", // 当前页码
-  "pageSize": "integer" // 每页数量
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "items": [
+      {
+        "id": "guid", // 日记ID
+        "userId": "guid", // 用户ID
+        "title": "string", // 日记标题
+        "content": "string", // 日记内容
+        "mood": "string", // 情绪状态
+        "diaryDate": "date", // 日记日期
+        "pregnancyWeek": "integer", // 孕周
+        "pregnancyDay": "integer", // 孕天
+        "createdAt": "datetime", // 创建时间
+        "updatedAt": "datetime", // 更新时间
+        "tags": ["string"], // 标签列表
+        "mediaFiles": [ // 媒体文件列表
+          {
+            "id": "guid", // 媒体文件ID
+            "mediaType": "string", // 媒体类型
+            "mediaUrl": "string", // 媒体URL
+            "description": "string", // 媒体描述
+            "createdAt": "datetime" // 创建时间
+          }
+        ]
+      }
+    ],
+    "totalCount": "integer", // 总数量
+    "pageCount": "integer", // 总页数
+    "currentPage": "integer", // 当前页码
+    "pageSize": "integer" // 每页数量
+  }
 }
 ```
 
@@ -1011,26 +1071,30 @@
 
 ```json
 {
-  "id": "guid", // 日记ID
-  "userId": "guid", // 用户ID
-  "title": "string", // 日记标题
-  "content": "string", // 日记内容
-  "mood": "string", // 情绪状态
-  "diaryDate": "date", // 日记日期
-  "pregnancyWeek": "integer", // 孕周
-  "pregnancyDay": "integer", // 孕天
-  "createdAt": "datetime", // 创建时间
-  "updatedAt": "datetime", // 更新时间
-  "tags": ["string"], // 标签列表
-  "mediaFiles": [ // 媒体文件列表
-    {
-      "id": "guid", // 媒体文件ID
-      "mediaType": "string", // 媒体类型
-      "mediaUrl": "string", // 媒体URL
-      "description": "string", // 媒体描述
-      "createdAt": "datetime" // 创建时间
-    }
-  ]
+  "success": true,
+  "message": "更新成功",
+  "data": {
+    "id": "guid", // 日记ID
+    "userId": "guid", // 用户ID
+    "title": "string", // 日记标题
+    "content": "string", // 日记内容
+    "mood": "string", // 情绪状态
+    "diaryDate": "date", // 日记日期
+    "pregnancyWeek": "integer", // 孕周
+    "pregnancyDay": "integer", // 孕天
+    "createdAt": "datetime", // 创建时间
+    "updatedAt": "datetime", // 更新时间
+    "tags": ["string"], // 标签列表
+    "mediaFiles": [ // 媒体文件列表
+      {
+        "id": "guid", // 媒体文件ID
+        "mediaType": "string", // 媒体类型
+        "mediaUrl": "string", // 媒体URL
+        "description": "string", // 媒体描述
+        "createdAt": "datetime" // 创建时间
+      }
+    ]
+  }
 }
 ```
 
@@ -1052,7 +1116,8 @@
 
 ```json
 {
-  "success": true
+  "success": true,
+  "message": "删除成功"
 }
 ```
 
@@ -1081,8 +1146,12 @@
 
 ```json
 {
-  "id": "guid", // 日记ID
-  "tags": ["string"] // 更新后的标签列表
+  "success": true,
+  "message": "操作成功",
+  "data": {
+    "id": "guid", // 日记ID
+    "tags": ["string"] // 更新后的标签列表
+  }
 }
 ```
 
@@ -1105,8 +1174,12 @@
 
 ```json
 {
-  "id": "guid", // 日记ID
-  "tags": ["string"] // 更新后的标签列表
+  "success": true,
+  "message": "删除成功",
+  "data": {
+    "id": "guid", // 日记ID
+    "tags": ["string"] // 更新后的标签列表
+  }
 }
 ```
 
@@ -1137,12 +1210,16 @@
 
 ```json
 {
-  "id": "guid", // 媒体文件ID
-  "diaryId": "guid", // 日记ID
-  "mediaType": "string", // 媒体类型
-  "mediaUrl": "string", // 媒体URL
-  "description": "string", // 媒体描述
-  "createdAt": "datetime" // 创建时间
+  "success": true,
+  "message": "操作成功",
+  "data": {
+    "id": "guid", // 媒体文件ID
+    "diaryId": "guid", // 日记ID
+    "mediaType": "string", // 媒体类型
+    "mediaUrl": "string", // 媒体URL
+    "description": "string", // 媒体描述
+    "createdAt": "datetime" // 创建时间
+  }
 }
 ```
 
@@ -1165,7 +1242,8 @@
 
 ```json
 {
-  "success": true
+  "success": true,
+  "message": "删除成功"
 }
 ```
 
@@ -1199,17 +1277,21 @@
 
 ```json
 {
-  "id": "guid", // 胎动记录ID
-  "userId": "guid", // 用户ID
-  "startTime": "datetime", // 开始时间
-  "endTime": "datetime", // 结束时间
-  "count": "integer", // 胎动次数
-  "duration": "integer", // 持续时间（秒）
-  "strength": "string", // 强度
-  "note": "string", // 备注
-  "pregnancyWeek": "integer", // 孕周
-  "pregnancyDay": "integer", // 孕天
-  "createdAt": "datetime" // 创建时间
+  "success": true,
+  "message": "创建成功",
+  "data": {
+    "id": "guid", // 胎动记录ID
+    "userId": "guid", // 用户ID
+    "startTime": "datetime", // 开始时间
+    "endTime": "datetime", // 结束时间
+    "count": "integer", // 胎动次数
+    "duration": "integer", // 持续时间（秒）
+    "strength": "string", // 强度
+    "note": "string", // 备注
+    "pregnancyWeek": "integer", // 孕周
+    "pregnancyDay": "integer", // 孕天
+    "createdAt": "datetime" // 创建时间
+  }
 }
 ```
 
@@ -1229,17 +1311,21 @@
 
 ```json
 {
-  "id": "guid", // 胎动记录ID
-  "userId": "guid", // 用户ID
-  "startTime": "datetime", // 开始时间
-  "endTime": "datetime", // 结束时间
-  "count": "integer", // 胎动次数
-  "duration": "integer", // 持续时间（秒）
-  "strength": "string", // 强度
-  "note": "string", // 备注
-  "pregnancyWeek": "integer", // 孕周
-  "pregnancyDay": "integer", // 孕天
-  "createdAt": "datetime" // 创建时间
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "id": "guid", // 胎动记录ID
+    "userId": "guid", // 用户ID
+    "startTime": "datetime", // 开始时间
+    "endTime": "datetime", // 结束时间
+    "count": "integer", // 胎动次数
+    "duration": "integer", // 持续时间（秒）
+    "strength": "string", // 强度
+    "note": "string", // 备注
+    "pregnancyWeek": "integer", // 孕周
+    "pregnancyDay": "integer", // 孕天
+    "createdAt": "datetime" // 创建时间
+  }
 }
 ```
 
@@ -1265,25 +1351,29 @@
 
 ```json
 {
-  "items": [
-    {
-      "id": "guid", // 胎动记录ID
-      "userId": "guid", // 用户ID
-      "startTime": "datetime", // 开始时间
-      "endTime": "datetime", // 结束时间
-      "count": "integer", // 胎动次数
-      "duration": "integer", // 持续时间（秒）
-      "strength": "string", // 强度
-      "note": "string", // 备注
-      "pregnancyWeek": "integer", // 孕周
-      "pregnancyDay": "integer", // 孕天
-      "createdAt": "datetime" // 创建时间
-    }
-  ],
-  "totalCount": "integer", // 总数量
-  "pageCount": "integer", // 总页数
-  "currentPage": "integer", // 当前页码
-  "pageSize": "integer" // 每页数量
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "items": [
+      {
+        "id": "guid", // 胎动记录ID
+        "userId": "guid", // 用户ID
+        "startTime": "datetime", // 开始时间
+        "endTime": "datetime", // 结束时间
+        "count": "integer", // 胎动次数
+        "duration": "integer", // 持续时间（秒）
+        "strength": "string", // 强度
+        "note": "string", // 备注
+        "pregnancyWeek": "integer", // 孕周
+        "pregnancyDay": "integer", // 孕天
+        "createdAt": "datetime" // 创建时间
+      }
+    ],
+    "totalCount": "integer", // 总数量
+    "pageCount": "integer", // 总页数
+    "currentPage": "integer", // 当前页码
+    "pageSize": "integer" // 每页数量
+  }
 }
 ```
 
@@ -1315,17 +1405,21 @@
 
 ```json
 {
-  "id": "guid", // 胎动记录ID
-  "userId": "guid", // 用户ID
-  "startTime": "datetime", // 开始时间
-  "endTime": "datetime", // 结束时间
-  "count": "integer", // 胎动次数
-  "duration": "integer", // 持续时间（秒）
-  "strength": "string", // 强度
-  "note": "string", // 备注
-  "pregnancyWeek": "integer", // 孕周
-  "pregnancyDay": "integer", // 孕天
-  "createdAt": "datetime" // 创建时间
+  "success": true,
+  "message": "更新成功",
+  "data": {
+    "id": "guid", // 胎动记录ID
+    "userId": "guid", // 用户ID
+    "startTime": "datetime", // 开始时间
+    "endTime": "datetime", // 结束时间
+    "count": "integer", // 胎动次数
+    "duration": "integer", // 持续时间（秒）
+    "strength": "string", // 强度
+    "note": "string", // 备注
+    "pregnancyWeek": "integer", // 孕周
+    "pregnancyDay": "integer", // 孕天
+    "createdAt": "datetime" // 创建时间
+  }
 }
 ```
 
@@ -1369,27 +1463,31 @@
 
 ```json
 {
-  "dailyStats": [
-    {
-      "date": "date", // 日期
-      "totalCount": "integer", // 总次数
-      "averageStrength": "string", // 平均强度
-      "pregnancyWeek": "integer", // 孕周
-      "pregnancyDay": "integer" // 孕天
-    }
-  ],
-  "weeklyStats": [
-    {
-      "weekStartDate": "date", // 周开始日期
-      "weekEndDate": "date", // 周结束日期
-      "totalCount": "integer", // 总次数
-      "dailyAverage": "decimal", // 日均次数
-      "pregnancyWeek": "integer" // 孕周
-    }
-  ],
-  "totalRecords": "integer", // 总记录数
-  "averageCountPerDay": "decimal", // 日均次数
-  "mostActiveTimeOfDay": "string" // 最活跃时段
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "dailyStats": [
+      {
+        "date": "date", // 日期
+        "totalCount": "integer", // 总次数
+        "averageStrength": "string", // 平均强度
+        "pregnancyWeek": "integer", // 孕周
+        "pregnancyDay": "integer" // 孕天
+      }
+    ],
+    "weeklyStats": [
+      {
+        "weekStartDate": "date", // 周开始日期
+        "weekEndDate": "date", // 周结束日期
+        "totalCount": "integer", // 总次数
+        "dailyAverage": "decimal", // 日均次数
+        "pregnancyWeek": "integer" // 孕周
+      }
+    ],
+    "totalRecords": "integer", // 总记录数
+    "averageCountPerDay": "decimal", // 日均次数
+    "mostActiveTimeOfDay": "string" // 最活跃时段
+  }
 }
 ```
 
@@ -1420,17 +1518,21 @@
 
 ```json
 {
-  "id": "guid", // 宫缩记录ID
-  "userId": "guid", // 用户ID
-  "startTime": "datetime", // 开始时间
-  "endTime": "datetime", // 结束时间
-  "duration": "integer", // 持续时间（秒）
-  "intensity": "string", // 强度
-  "painLevel": "integer", // 疼痛等级
-  "note": "string", // 备注
-  "pregnancyWeek": "integer", // 孕周
-  "pregnancyDay": "integer", // 孕天
-  "createdAt": "datetime" // 创建时间
+  "success": true,
+  "message": "创建成功",
+  "data": {
+    "id": "guid", // 宫缩记录ID
+    "userId": "guid", // 用户ID
+    "startTime": "datetime", // 开始时间
+    "endTime": "datetime", // 结束时间
+    "duration": "integer", // 持续时间（秒）
+    "intensity": "string", // 强度
+    "painLevel": "integer", // 疼痛等级
+    "note": "string", // 备注
+    "pregnancyWeek": "integer", // 孕周
+    "pregnancyDay": "integer", // 孕天
+    "createdAt": "datetime" // 创建时间
+  }
 }
 ```
 
@@ -1450,17 +1552,21 @@
 
 ```json
 {
-  "id": "guid", // 宫缩记录ID
-  "userId": "guid", // 用户ID
-  "startTime": "datetime", // 开始时间
-  "endTime": "datetime", // 结束时间
-  "duration": "integer", // 持续时间（秒）
-  "intensity": "string", // 强度
-  "painLevel": "integer", // 疼痛等级
-  "note": "string", // 备注
-  "pregnancyWeek": "integer", // 孕周
-  "pregnancyDay": "integer", // 孕天
-  "createdAt": "datetime" // 创建时间
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "id": "guid", // 宫缩记录ID
+    "userId": "guid", // 用户ID
+    "startTime": "datetime", // 开始时间
+    "endTime": "datetime", // 结束时间
+    "duration": "integer", // 持续时间（秒）
+    "intensity": "string", // 强度
+    "painLevel": "integer", // 疼痛等级
+    "note": "string", // 备注
+    "pregnancyWeek": "integer", // 孕周
+    "pregnancyDay": "integer", // 孕天
+    "createdAt": "datetime" // 创建时间
+  }
 }
 ```
 
@@ -1486,25 +1592,29 @@
 
 ```json
 {
-  "items": [
-    {
-      "id": "guid", // 宫缩记录ID
-      "userId": "guid", // 用户ID
-      "startTime": "datetime", // 开始时间
-      "endTime": "datetime", // 结束时间
-      "duration": "integer", // 持续时间（秒）
-      "intensity": "string", // 强度
-      "painLevel": "integer", // 疼痛等级
-      "note": "string", // 备注
-      "pregnancyWeek": "integer", // 孕周
-      "pregnancyDay": "integer", // 孕天
-      "createdAt": "datetime" // 创建时间
-    }
-  ],
-  "totalCount": "integer", // 总数量
-  "pageCount": "integer", // 总页数
-  "currentPage": "integer", // 当前页码
-  "pageSize": "integer" // 每页数量
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "items": [
+      {
+        "id": "guid", // 宫缩记录ID
+        "userId": "guid", // 用户ID
+        "startTime": "datetime", // 开始时间
+        "endTime": "datetime", // 结束时间
+        "duration": "integer", // 持续时间（秒）
+        "intensity": "string", // 强度
+        "painLevel": "integer", // 疼痛等级
+        "note": "string", // 备注
+        "pregnancyWeek": "integer", // 孕周
+        "pregnancyDay": "integer", // 孕天
+        "createdAt": "datetime" // 创建时间
+      }
+    ],
+    "totalCount": "integer", // 总数量
+    "pageCount": "integer", // 总页数
+    "currentPage": "integer", // 当前页码
+    "pageSize": "integer" // 每页数量
+  }
 }
 ```
 
@@ -1536,17 +1646,21 @@
 
 ```json
 {
-  "id": "guid", // 宫缩记录ID
-  "userId": "guid", // 用户ID
-  "startTime": "datetime", // 开始时间
-  "endTime": "datetime", // 结束时间
-  "duration": "integer", // 持续时间（秒）
-  "intensity": "string", // 强度
-  "painLevel": "integer", // 疼痛等级
-  "note": "string", // 备注
-  "pregnancyWeek": "integer", // 孕周
-  "pregnancyDay": "integer", // 孕天
-  "createdAt": "datetime" // 创建时间
+  "success": true,
+  "message": "更新成功",
+  "data": {
+    "id": "guid", // 宫缩记录ID
+    "userId": "guid", // 用户ID
+    "startTime": "datetime", // 开始时间
+    "endTime": "datetime", // 结束时间
+    "duration": "integer", // 持续时间（秒）
+    "intensity": "string", // 强度
+    "painLevel": "integer", // 疼痛等级
+    "note": "string", // 备注
+    "pregnancyWeek": "integer", // 孕周
+    "pregnancyDay": "integer", // 孕天
+    "createdAt": "datetime" // 创建时间
+  }
 }
 ```
 
@@ -1590,34 +1704,38 @@
 
 ```json
 {
-  "dailyStats": [
-    {
-      "date": "date", // 日期
-      "totalCount": "integer", // 总次数
-      "averageDuration": "integer", // 平均持续时间（秒）
-      "averageInterval": "integer", // 平均间隔时间（秒）
-      "averagePainLevel": "decimal", // 平均疼痛等级
-      "pregnancyWeek": "integer", // 孕周
-      "pregnancyDay": "integer" // 孕天
-    }
-  ],
-  "weeklyStats": [
-    {
-      "weekStartDate": "date", // 周开始日期
-      "weekEndDate": "date", // 周结束日期
-      "totalCount": "integer", // 总次数
-      "dailyAverage": "decimal", // 日均次数
-      "averageDuration": "integer", // 平均持续时间（秒）
-      "averageInterval": "integer", // 平均间隔时间（秒）
-      "pregnancyWeek": "integer" // 孕周
-    }
-  ],
-  "totalRecords": "integer", // 总记录数
-  "averageCountPerDay": "decimal", // 日均次数
-  "averageDuration": "integer", // 平均持续时间（秒）
-  "averageInterval": "integer", // 平均间隔时间（秒）
-  "laborWarning": "boolean", // 是否有临产警告
-  "laborWarningReason": "string" // 临产警告原因
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "dailyStats": [
+      {
+        "date": "date", // 日期
+        "totalCount": "integer", // 总次数
+        "averageDuration": "integer", // 平均持续时间（秒）
+        "averageInterval": "integer", // 平均间隔时间（秒）
+        "averagePainLevel": "decimal", // 平均疼痛等级
+        "pregnancyWeek": "integer", // 孕周
+        "pregnancyDay": "integer" // 孕天
+      }
+    ],
+    "weeklyStats": [
+      {
+        "weekStartDate": "date", // 周开始日期
+        "weekEndDate": "date", // 周结束日期
+        "totalCount": "integer", // 总次数
+        "dailyAverage": "decimal", // 日均次数
+        "averageDuration": "integer", // 平均持续时间（秒）
+        "averageInterval": "integer", // 平均间隔时间（秒）
+        "pregnancyWeek": "integer" // 孕周
+      }
+    ],
+    "totalRecords": "integer", // 总记录数
+    "averageCountPerDay": "decimal", // 日均次数
+    "averageDuration": "integer", // 平均持续时间（秒）
+    "averageInterval": "integer", // 平均间隔时间（秒）
+    "laborWarning": "boolean", // 是否有临产警告
+    "laborWarningReason": "string" // 临产警告原因
+  }
 }
 ```
 
@@ -1637,16 +1755,20 @@
 
 ```json
 {
-  "stages": [
-    {
-      "id": "guid", // 阶段ID
-      "name": "string", // 阶段名称
-      "startWeek": "integer", // 开始周数
-      "endWeek": "integer", // 结束周数
-      "description": "string", // 阶段描述
-      "imageUrl": "string" // 阶段图片URL
-    }
-  ]
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "stages": [
+      {
+        "id": "guid", // 阶段ID
+        "name": "string", // 阶段名称
+        "startWeek": "integer", // 开始周数
+        "endWeek": "integer", // 结束周数
+        "description": "string", // 阶段描述
+        "imageUrl": "string" // 阶段图片URL
+      }
+    ]
+  }
 }
 ```
 
@@ -1665,61 +1787,65 @@
 
 ```json
 {
-  "week": "integer", // 孕周
-  "title": "string", // 标题
-  "summary": "string", // 摘要
-  "babyDevelopment": {
-    "size": "string", // 胎儿大小
-    "weight": "string", // 胎儿重量
-    "length": "string", // 胎儿长度
-    "description": "string", // 发育描述
-    "imageUrl": "string" // 胎儿发育图片URL
-  },
-  "motherChanges": {
-    "physicalChanges": "string", // 身体变化
-    "commonSymptoms": ["string"], // 常见症状
-    "weightGain": "string", // 体重增长
-    "description": "string" // 详细描述
-  },
-  "tips": [
-    {
-      "category": "string", // 提示类别
-      "title": "string", // 提示标题
-      "content": "string", // 提示内容
-      "imageUrl": "string" // 提示图片URL
-    }
-  ],
-  "nutrition": {
-    "keyNutrients": ["string"], // 关键营养素
-    "foodRecommendations": ["string"], // 食物推荐
-    "foodsToAvoid": ["string"], // 需要避免的食物
-    "description": "string" // 详细描述
-  },
-  "exercises": [
-    {
-      "name": "string", // 运动名称
-      "description": "string", // 运动描述
-      "benefits": ["string"], // 运动益处
-      "cautions": ["string"], // 注意事项
-      "imageUrl": "string", // 运动图片URL
-      "videoUrl": "string" // 运动视频URL
-    }
-  ],
-  "checkups": [
-    {
-      "name": "string", // 检查名称
-      "description": "string", // 检查描述
-      "isRecommended": "boolean", // 是否推荐
-      "timing": "string" // 检查时机
-    }
-  ],
-  "faqs": [
-    {
-      "question": "string", // 问题
-      "answer": "string" // 回答
-    }
-  ],
-  "nextSteps": "string" // 下一步建议
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "week": "integer", // 孕周
+    "title": "string", // 标题
+    "summary": "string", // 摘要
+    "babyDevelopment": {
+      "size": "string", // 胎儿大小
+      "weight": "string", // 胎儿重量
+      "length": "string", // 胎儿长度
+      "description": "string", // 发育描述
+      "imageUrl": "string" // 胎儿发育图片URL
+    },
+    "motherChanges": {
+      "physicalChanges": "string", // 身体变化
+      "commonSymptoms": ["string"], // 常见症状
+      "weightGain": "string", // 体重增长
+      "description": "string" // 详细描述
+    },
+    "tips": [
+      {
+        "category": "string", // 提示类别
+        "title": "string", // 提示标题
+        "content": "string", // 提示内容
+        "imageUrl": "string" // 提示图片URL
+      }
+    ],
+    "nutrition": {
+      "keyNutrients": ["string"], // 关键营养素
+      "foodRecommendations": ["string"], // 食物推荐
+      "foodsToAvoid": ["string"], // 需要避免的食物
+      "description": "string" // 详细描述
+    },
+    "exercises": [
+      {
+        "name": "string", // 运动名称
+        "description": "string", // 运动描述
+        "benefits": ["string"], // 运动益处
+        "cautions": ["string"], // 注意事项
+        "imageUrl": "string", // 运动图片URL
+        "videoUrl": "string" // 运动视频URL
+      }
+    ],
+    "checkups": [
+      {
+        "name": "string", // 检查名称
+        "description": "string", // 检查描述
+        "isRecommended": "boolean", // 是否推荐
+        "timing": "string" // 检查时机
+      }
+    ],
+    "faqs": [
+      {
+        "question": "string", // 问题
+        "answer": "string" // 回答
+      }
+    ],
+    "nextSteps": "string" // 下一步建议
+  }
 }
 ```
 
@@ -1738,61 +1864,65 @@
 
 ```json
 {
-  "week": "integer", // 孕周
-  "title": "string", // 标题
-  "summary": "string", // 摘要
-  "babyDevelopment": {
-    "size": "string", // 胎儿大小
-    "weight": "string", // 胎儿重量
-    "length": "string", // 胎儿长度
-    "description": "string", // 发育描述
-    "imageUrl": "string" // 胎儿发育图片URL
-  },
-  "motherChanges": {
-    "physicalChanges": "string", // 身体变化
-    "commonSymptoms": ["string"], // 常见症状
-    "weightGain": "string", // 体重增长
-    "description": "string" // 详细描述
-  },
-  "tips": [
-    {
-      "category": "string", // 提示类别
-      "title": "string", // 提示标题
-      "content": "string", // 提示内容
-      "imageUrl": "string" // 提示图片URL
-    }
-  ],
-  "nutrition": {
-    "keyNutrients": ["string"], // 关键营养素
-    "foodRecommendations": ["string"], // 食物推荐
-    "foodsToAvoid": ["string"], // 需要避免的食物
-    "description": "string" // 详细描述
-  },
-  "exercises": [
-    {
-      "name": "string", // 运动名称
-      "description": "string", // 运动描述
-      "benefits": ["string"], // 运动益处
-      "cautions": ["string"], // 注意事项
-      "imageUrl": "string", // 运动图片URL
-      "videoUrl": "string" // 运动视频URL
-    }
-  ],
-  "checkups": [
-    {
-      "name": "string", // 检查名称
-      "description": "string", // 检查描述
-      "isRecommended": "boolean", // 是否推荐
-      "timing": "string" // 检查时机
-    }
-  ],
-  "faqs": [
-    {
-      "question": "string", // 问题
-      "answer": "string" // 回答
-    }
-  ],
-  "nextSteps": "string" // 下一步建议
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "week": "integer", // 孕周
+    "title": "string", // 标题
+    "summary": "string", // 摘要
+    "babyDevelopment": {
+      "size": "string", // 胎儿大小
+      "weight": "string", // 胎儿重量
+      "length": "string", // 胎儿长度
+      "description": "string", // 发育描述
+      "imageUrl": "string" // 胎儿发育图片URL
+    },
+    "motherChanges": {
+      "physicalChanges": "string", // 身体变化
+      "commonSymptoms": ["string"], // 常见症状
+      "weightGain": "string", // 体重增长
+      "description": "string" // 详细描述
+    },
+    "tips": [
+      {
+        "category": "string", // 提示类别
+        "title": "string", // 提示标题
+        "content": "string", // 提示内容
+        "imageUrl": "string" // 提示图片URL
+      }
+    ],
+    "nutrition": {
+      "keyNutrients": ["string"], // 关键营养素
+      "foodRecommendations": ["string"], // 食物推荐
+      "foodsToAvoid": ["string"], // 需要避免的食物
+      "description": "string" // 详细描述
+    },
+    "exercises": [
+      {
+        "name": "string", // 运动名称
+        "description": "string", // 运动描述
+        "benefits": ["string"], // 运动益处
+        "cautions": ["string"], // 注意事项
+        "imageUrl": "string", // 运动图片URL
+        "videoUrl": "string" // 运动视频URL
+      }
+    ],
+    "checkups": [
+      {
+        "name": "string", // 检查名称
+        "description": "string", // 检查描述
+        "isRecommended": "boolean", // 是否推荐
+        "timing": "string" // 检查时机
+      }
+    ],
+    "faqs": [
+      {
+        "question": "string", // 问题
+        "answer": "string" // 回答
+      }
+    ],
+    "nextSteps": "string" // 下一步建议
+  }
 }
 ```
 
@@ -1810,15 +1940,19 @@
 
 ```json
 {
-  "categories": [
-    {
-      "id": "guid", // 分类ID
-      "name": "string", // 分类名称
-      "description": "string", // 分类描述
-      "imageUrl": "string", // 分类图片URL
-      "articleCount": "integer" // 文章数量
-    }
-  ]
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "categories": [
+      {
+        "id": "guid", // 分类ID
+        "name": "string", // 分类名称
+        "description": "string", // 分类描述
+        "imageUrl": "string", // 分类图片URL
+        "articleCount": "integer" // 文章数量
+      }
+    ]
+  }
 }
 ```
 
@@ -1842,26 +1976,30 @@
 
 ```json
 {
-  "items": [
-    {
-      "id": "guid", // 文章ID
-      "categoryId": "guid", // 分类ID
-      "categoryName": "string", // 分类名称
-      "title": "string", // 文章标题
-      "summary": "string", // 文章摘要
-      "coverImageUrl": "string", // 封面图片URL
-      "author": "string", // 作者
-      "viewCount": "integer", // 浏览次数
-      "likeCount": "integer", // 点赞次数
-      "createdAt": "datetime", // 创建时间
-      "updatedAt": "datetime", // 更新时间
-      "tags": ["string"] // 标签列表
-    }
-  ],
-  "totalCount": "integer", // 总数量
-  "pageCount": "integer", // 总页数
-  "currentPage": "integer", // 当前页码
-  "pageSize": "integer" // 每页数量
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "items": [
+      {
+        "id": "guid", // 文章ID
+        "categoryId": "guid", // 分类ID
+        "categoryName": "string", // 分类名称
+        "title": "string", // 文章标题
+        "summary": "string", // 文章摘要
+        "coverImageUrl": "string", // 封面图片URL
+        "author": "string", // 作者
+        "viewCount": "integer", // 浏览次数
+        "likeCount": "integer", // 点赞次数
+        "createdAt": "datetime", // 创建时间
+        "updatedAt": "datetime", // 更新时间
+        "tags": ["string"] // 标签列表
+      }
+    ],
+    "totalCount": "integer", // 总数量
+    "pageCount": "integer", // 总页数
+    "currentPage": "integer", // 当前页码
+    "pageSize": "integer" // 每页数量
+  }
 }
 ```
 
@@ -1881,27 +2019,31 @@
 
 ```json
 {
-  "id": "guid", // 文章ID
-  "categoryId": "guid", // 分类ID
-  "categoryName": "string", // 分类名称
-  "title": "string", // 文章标题
-  "content": "string", // 文章内容
-  "summary": "string", // 文章摘要
-  "coverImageUrl": "string", // 封面图片URL
-  "author": "string", // 作者
-  "viewCount": "integer", // 浏览次数
-  "likeCount": "integer", // 点赞次数
-  "createdAt": "datetime", // 创建时间
-  "updatedAt": "datetime", // 更新时间
-  "tags": ["string"], // 标签列表
-  "relatedArticles": [ // 相关文章
-    {
-      "id": "guid", // 文章ID
-      "title": "string", // 文章标题
-      "summary": "string", // 文章摘要
-      "coverImageUrl": "string" // 封面图片URL
-    }
-  ]
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "id": "guid", // 文章ID
+    "categoryId": "guid", // 分类ID
+    "categoryName": "string", // 分类名称
+    "title": "string", // 文章标题
+    "content": "string", // 文章内容
+    "summary": "string", // 文章摘要
+    "coverImageUrl": "string", // 封面图片URL
+    "author": "string", // 作者
+    "viewCount": "integer", // 浏览次数
+    "likeCount": "integer", // 点赞次数
+    "createdAt": "datetime", // 创建时间
+    "updatedAt": "datetime", // 更新时间
+    "tags": ["string"], // 标签列表
+    "relatedArticles": [ // 相关文章
+      {
+        "id": "guid", // 文章ID
+        "title": "string", // 文章标题
+        "summary": "string", // 文章摘要
+        "coverImageUrl": "string" // 封面图片URL
+      }
+    ]
+  }
 }
 ```
 
@@ -1921,8 +2063,12 @@
 
 ```json
 {
-  "id": "guid", // 文章ID
-  "likeCount": "integer" // 更新后的点赞次数
+  "success": true,
+  "message": "操作成功",
+  "data": {
+    "id": "guid", // 文章ID
+    "likeCount": "integer" // 更新后的点赞次数
+  }
 }
 ```
 
@@ -1943,8 +2089,12 @@
 
 ```json
 {
-  "id": "guid", // 文章ID
-  "likeCount": "integer" // 更新后的点赞次数
+  "success": true,
+  "message": "操作成功",
+  "data": {
+    "id": "guid", // 文章ID
+    "likeCount": "integer" // 更新后的点赞次数
+  }
 }
 ```
 
@@ -1964,10 +2114,14 @@
 
 ```json
 {
-  "id": "guid", // 收藏ID
-  "articleId": "guid", // 文章ID
-  "userId": "guid", // 用户ID
-  "createdAt": "datetime" // 创建时间
+  "success": true,
+  "message": "操作成功",
+  "data": {
+    "id": "guid", // 收藏ID
+    "articleId": "guid", // 文章ID
+    "userId": "guid", // 用户ID
+    "createdAt": "datetime" // 创建时间
+  }
 }
 ```
 
@@ -1988,7 +2142,8 @@
 
 ```json
 {
-  "success": true
+  "success": true,
+  "message": "操作成功"
 }
 ```
 
@@ -2011,27 +2166,31 @@
 
 ```json
 {
-  "items": [
-    {
-      "id": "guid", // 文章ID
-      "categoryId": "guid", // 分类ID
-      "categoryName": "string", // 分类名称
-      "title": "string", // 文章标题
-      "summary": "string", // 文章摘要
-      "coverImageUrl": "string", // 封面图片URL
-      "author": "string", // 作者
-      "viewCount": "integer", // 浏览次数
-      "likeCount": "integer", // 点赞次数
-      "createdAt": "datetime", // 创建时间
-      "updatedAt": "datetime", // 更新时间
-      "favoriteTime": "datetime", // 收藏时间
-      "tags": ["string"] // 标签列表
-    }
-  ],
-  "totalCount": "integer", // 总数量
-  "pageCount": "integer", // 总页数
-  "currentPage": "integer", // 当前页码
-  "pageSize": "integer" // 每页数量
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "items": [
+      {
+        "id": "guid", // 文章ID
+        "categoryId": "guid", // 分类ID
+        "categoryName": "string", // 分类名称
+        "title": "string", // 文章标题
+        "summary": "string", // 文章摘要
+        "coverImageUrl": "string", // 封面图片URL
+        "author": "string", // 作者
+        "viewCount": "integer", // 浏览次数
+        "likeCount": "integer", // 点赞次数
+        "createdAt": "datetime", // 创建时间
+        "updatedAt": "datetime", // 更新时间
+        "favoriteTime": "datetime", // 收藏时间
+        "tags": ["string"] // 标签列表
+      }
+    ],
+    "totalCount": "integer", // 总数量
+    "pageCount": "integer", // 总页数
+    "currentPage": "integer", // 当前页码
+    "pageSize": "integer" // 每页数量
+  }
 }
 ```
 
@@ -2054,27 +2213,31 @@
 
 ```json
 {
-  "items": [
-    {
-      "id": "guid", // 文章ID
-      "categoryId": "guid", // 分类ID
-      "categoryName": "string", // 分类名称
-      "title": "string", // 文章标题
-      "summary": "string", // 文章摘要
-      "coverImageUrl": "string", // 封面图片URL
-      "author": "string", // 作者
-      "viewCount": "integer", // 浏览次数
-      "likeCount": "integer", // 点赞次数
-      "createdAt": "datetime", // 创建时间
-      "updatedAt": "datetime", // 更新时间
-      "tags": ["string"], // 标签列表
-      "relevance": "decimal" // 相关度
-    }
-  ],
-  "totalCount": "integer", // 总数量
-  "pageCount": "integer", // 总页数
-  "currentPage": "integer", // 当前页码
-  "pageSize": "integer" // 每页数量
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "items": [
+      {
+        "id": "guid", // 文章ID
+        "categoryId": "guid", // 分类ID
+        "categoryName": "string", // 分类名称
+        "title": "string", // 文章标题
+        "summary": "string", // 文章摘要
+        "coverImageUrl": "string", // 封面图片URL
+        "author": "string", // 作者
+        "viewCount": "integer", // 浏览次数
+        "likeCount": "integer", // 点赞次数
+        "createdAt": "datetime", // 创建时间
+        "updatedAt": "datetime", // 更新时间
+        "tags": ["string"], // 标签列表
+        "relevance": "decimal" // 相关度
+      }
+    ],
+    "totalCount": "integer", // 总数量
+    "pageCount": "integer", // 总页数
+    "currentPage": "integer", // 当前页码
+    "pageSize": "integer" // 每页数量
+  }
 }
 ```
 
@@ -2112,37 +2275,41 @@
 
 ```json
 {
-  "id": "guid", // 帖子ID
-  "userId": "guid", // 用户ID
-  "title": "string", // 帖子标题
-  "content": "string", // 帖子内容
-  "topics": [ // 话题列表
-    {
-      "id": "guid", // 话题ID
-      "name": "string" // 话题名称
-    }
-  ],
-  "mediaFiles": [ // 媒体文件列表
-    {
-      "id": "guid", // 媒体文件ID
-      "mediaType": "string", // 媒体类型
-      "mediaUrl": "string", // 媒体URL
-      "description": "string", // 媒体描述
-      "createdAt": "datetime" // 创建时间
-    }
-  ],
-  "isAnonymous": "boolean", // 是否匿名
-  "author": { // 作者信息
-    "id": "guid", // 用户ID
-    "nickname": "string", // 昵称
-    "avatarUrl": "string", // 头像URL
-    "pregnancyWeek": "integer" // 孕周
-  },
-  "viewCount": "integer", // 浏览次数
-  "likeCount": "integer", // 点赞次数
-  "commentCount": "integer", // 评论次数
-  "createdAt": "datetime", // 创建时间
-  "updatedAt": "datetime" // 更新时间
+  "success": true,
+  "message": "创建成功",
+  "data": {
+    "id": "guid", // 帖子ID
+    "userId": "guid", // 用户ID
+    "title": "string", // 帖子标题
+    "content": "string", // 帖子内容
+    "topics": [ // 话题列表
+      {
+        "id": "guid", // 话题ID
+        "name": "string" // 话题名称
+      }
+    ],
+    "mediaFiles": [ // 媒体文件列表
+      {
+        "id": "guid", // 媒体文件ID
+        "mediaType": "string", // 媒体类型
+        "mediaUrl": "string", // 媒体URL
+        "description": "string", // 媒体描述
+        "createdAt": "datetime" // 创建时间
+      }
+    ],
+    "isAnonymous": "boolean", // 是否匿名
+    "author": { // 作者信息
+      "id": "guid", // 用户ID
+      "nickname": "string", // 昵称
+      "avatarUrl": "string", // 头像URL
+      "pregnancyWeek": "integer" // 孕周
+    },
+    "viewCount": "integer", // 浏览次数
+    "likeCount": "integer", // 点赞次数
+    "commentCount": "integer", // 评论次数
+    "createdAt": "datetime", // 创建时间
+    "updatedAt": "datetime" // 更新时间
+  }
 }
 ```
 
@@ -2162,75 +2329,79 @@
 
 ```json
 {
-  "id": "guid", // 帖子ID
-  "userId": "guid", // 用户ID
-  "title": "string", // 帖子标题
-  "content": "string", // 帖子内容
-  "topics": [ // 话题列表
-    {
-      "id": "guid", // 话题ID
-      "name": "string" // 话题名称
-    }
-  ],
-  "mediaFiles": [ // 媒体文件列表
-    {
-      "id": "guid", // 媒体文件ID
-      "mediaType": "string", // 媒体类型
-      "mediaUrl": "string", // 媒体URL
-      "description": "string", // 媒体描述
-      "createdAt": "datetime" // 创建时间
-    }
-  ],
-  "isAnonymous": "boolean", // 是否匿名
-  "author": { // 作者信息
-    "id": "guid", // 用户ID
-    "nickname": "string", // 昵称
-    "avatarUrl": "string", // 头像URL
-    "pregnancyWeek": "integer" // 孕周
-  },
-  "viewCount": "integer", // 浏览次数
-  "likeCount": "integer", // 点赞次数
-  "commentCount": "integer", // 评论次数
-  "isLiked": "boolean", // 当前用户是否已点赞
-  "isFavorited": "boolean", // 当前用户是否已收藏
-  "createdAt": "datetime", // 创建时间
-  "updatedAt": "datetime", // 更新时间
-  "comments": [ // 评论列表
-    {
-      "id": "guid", // 评论ID
-      "userId": "guid", // 用户ID
-      "content": "string", // 评论内容
-      "isAnonymous": "boolean", // 是否匿名
-      "author": { // 作者信息
-        "id": "guid", // 用户ID
-        "nickname": "string", // 昵称
-        "avatarUrl": "string", // 头像URL
-        "pregnancyWeek": "integer" // 孕周
-      },
-      "likeCount": "integer", // 点赞次数
-      "isLiked": "boolean", // 当前用户是否已点赞
-      "createdAt": "datetime", // 创建时间
-      "replies": [ // 回复列表
-        {
-          "id": "guid", // 回复ID
-          "userId": "guid", // 用户ID
-          "content": "string", // 回复内容
-          "isAnonymous": "boolean", // 是否匿名
-          "author": { // 作者信息
-            "id": "guid", // 用户ID
-            "nickname": "string", // 昵称
-            "avatarUrl": "string", // 头像URL
-            "pregnancyWeek": "integer" // 孕周
-          },
-          "replyToUserId": "guid", // 回复用户ID
-          "replyToNickname": "string", // 回复用户昵称
-          "likeCount": "integer", // 点赞次数
-          "isLiked": "boolean", // 当前用户是否已点赞
-          "createdAt": "datetime" // 创建时间
-        }
-      ]
-    }
-  ]
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "id": "guid", // 帖子ID
+    "userId": "guid", // 用户ID
+    "title": "string", // 帖子标题
+    "content": "string", // 帖子内容
+    "topics": [ // 话题列表
+      {
+        "id": "guid", // 话题ID
+        "name": "string" // 话题名称
+      }
+    ],
+    "mediaFiles": [ // 媒体文件列表
+      {
+        "id": "guid", // 媒体文件ID
+        "mediaType": "string", // 媒体类型
+        "mediaUrl": "string", // 媒体URL
+        "description": "string", // 媒体描述
+        "createdAt": "datetime" // 创建时间
+      }
+    ],
+    "isAnonymous": "boolean", // 是否匿名
+    "author": { // 作者信息
+      "id": "guid", // 用户ID
+      "nickname": "string", // 昵称
+      "avatarUrl": "string", // 头像URL
+      "pregnancyWeek": "integer" // 孕周
+    },
+    "viewCount": "integer", // 浏览次数
+    "likeCount": "integer", // 点赞次数
+    "commentCount": "integer", // 评论次数
+    "isLiked": "boolean", // 当前用户是否已点赞
+    "isFavorited": "boolean", // 当前用户是否已收藏
+    "createdAt": "datetime", // 创建时间
+    "updatedAt": "datetime", // 更新时间
+    "comments": [ // 评论列表
+      {
+        "id": "guid", // 评论ID
+        "userId": "guid", // 用户ID
+        "content": "string", // 评论内容
+        "isAnonymous": "boolean", // 是否匿名
+        "author": { // 作者信息
+          "id": "guid", // 用户ID
+          "nickname": "string", // 昵称
+          "avatarUrl": "string", // 头像URL
+          "pregnancyWeek": "integer" // 孕周
+        },
+        "likeCount": "integer", // 点赞次数
+        "isLiked": "boolean", // 当前用户是否已点赞
+        "createdAt": "datetime", // 创建时间
+        "replies": [ // 回复列表
+          {
+            "id": "guid", // 回复ID
+            "userId": "guid", // 用户ID
+            "content": "string", // 回复内容
+            "isAnonymous": "boolean", // 是否匿名
+            "author": { // 作者信息
+              "id": "guid", // 用户ID
+              "nickname": "string", // 昵称
+              "avatarUrl": "string", // 头像URL
+              "pregnancyWeek": "integer" // 孕周
+            },
+            "replyToUserId": "guid", // 回复用户ID
+            "replyToNickname": "string", // 回复用户昵称
+            "likeCount": "integer", // 点赞次数
+            "isLiked": "boolean", // 当前用户是否已点赞
+            "createdAt": "datetime" // 创建时间
+          }
+        ]
+      }
+    ]
+  }
 }
 ```
 
@@ -2256,47 +2427,51 @@
 
 ```json
 {
-  "items": [
-    {
-      "id": "guid", // 帖子ID
-      "userId": "guid", // 用户ID
-      "title": "string", // 帖子标题
-      "content": "string", // 帖子内容
-      "topics": [ // 话题列表
-        {
-          "id": "guid", // 话题ID
-          "name": "string" // 话题名称
-        }
-      ],
-      "mediaFiles": [ // 媒体文件列表
-        {
-          "id": "guid", // 媒体文件ID
-          "mediaType": "string", // 媒体类型
-          "mediaUrl": "string", // 媒体URL
-          "description": "string", // 媒体描述
-          "createdAt": "datetime" // 创建时间
-        }
-      ],
-      "isAnonymous": "boolean", // 是否匿名
-      "author": { // 作者信息
-        "id": "guid", // 用户ID
-        "nickname": "string", // 昵称
-        "avatarUrl": "string", // 头像URL
-        "pregnancyWeek": "integer" // 孕周
-      },
-      "viewCount": "integer", // 浏览次数
-      "likeCount": "integer", // 点赞次数
-      "commentCount": "integer", // 评论次数
-      "isLiked": "boolean", // 当前用户是否已点赞
-      "isFavorited": "boolean", // 当前用户是否已收藏
-      "createdAt": "datetime", // 创建时间
-      "updatedAt": "datetime" // 更新时间
-    }
-  ],
-  "totalCount": "integer", // 总数量
-  "pageCount": "integer", // 总页数
-  "currentPage": "integer", // 当前页码
-  "pageSize": "integer" // 每页数量
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "items": [
+      {
+        "id": "guid", // 帖子ID
+        "userId": "guid", // 用户ID
+        "title": "string", // 帖子标题
+        "content": "string", // 帖子内容
+        "topics": [ // 话题列表
+          {
+            "id": "guid", // 话题ID
+            "name": "string" // 话题名称
+          }
+        ],
+        "mediaFiles": [ // 媒体文件列表
+          {
+            "id": "guid", // 媒体文件ID
+            "mediaType": "string", // 媒体类型
+            "mediaUrl": "string", // 媒体URL
+            "description": "string", // 媒体描述
+            "createdAt": "datetime" // 创建时间
+          }
+        ],
+        "isAnonymous": "boolean", // 是否匿名
+        "author": { // 作者信息
+          "id": "guid", // 用户ID
+          "nickname": "string", // 昵称
+          "avatarUrl": "string", // 头像URL
+          "pregnancyWeek": "integer" // 孕周
+        },
+        "viewCount": "integer", // 浏览次数
+        "likeCount": "integer", // 点赞次数
+        "commentCount": "integer", // 评论次数
+        "isLiked": "boolean", // 当前用户是否已点赞
+        "isFavorited": "boolean", // 当前用户是否已收藏
+        "createdAt": "datetime", // 创建时间
+        "updatedAt": "datetime" // 更新时间
+      }
+    ],
+    "totalCount": "integer", // 总数量
+    "pageCount": "integer", // 总页数
+    "currentPage": "integer", // 当前页码
+    "pageSize": "integer" // 每页数量
+  }
 }
 ```
 
@@ -2327,37 +2502,41 @@
 
 ```json
 {
-  "id": "guid", // 帖子ID
-  "userId": "guid", // 用户ID
-  "title": "string", // 帖子标题
-  "content": "string", // 帖子内容
-  "topics": [ // 话题列表
-    {
-      "id": "guid", // 话题ID
-      "name": "string" // 话题名称
-    }
-  ],
-  "mediaFiles": [ // 媒体文件列表
-    {
-      "id": "guid", // 媒体文件ID
-      "mediaType": "string", // 媒体类型
-      "mediaUrl": "string", // 媒体URL
-      "description": "string", // 媒体描述
-      "createdAt": "datetime" // 创建时间
-    }
-  ],
-  "isAnonymous": "boolean", // 是否匿名
-  "author": { // 作者信息
-    "id": "guid", // 用户ID
-    "nickname": "string", // 昵称
-    "avatarUrl": "string", // 头像URL
-    "pregnancyWeek": "integer" // 孕周
-  },
-  "viewCount": "integer", // 浏览次数
-  "likeCount": "integer", // 点赞次数
-  "commentCount": "integer", // 评论次数
-  "createdAt": "datetime", // 创建时间
-  "updatedAt": "datetime" // 更新时间
+  "success": true,
+  "message": "更新成功",
+  "data": {
+    "id": "guid", // 帖子ID
+    "userId": "guid", // 用户ID
+    "title": "string", // 帖子标题
+    "content": "string", // 帖子内容
+    "topics": [ // 话题列表
+      {
+        "id": "guid", // 话题ID
+        "name": "string" // 话题名称
+      }
+    ],
+    "mediaFiles": [ // 媒体文件列表
+      {
+        "id": "guid", // 媒体文件ID
+        "mediaType": "string", // 媒体类型
+        "mediaUrl": "string", // 媒体URL
+        "description": "string", // 媒体描述
+        "createdAt": "datetime" // 创建时间
+      }
+    ],
+    "isAnonymous": "boolean", // 是否匿名
+    "author": { // 作者信息
+      "id": "guid", // 用户ID
+      "nickname": "string", // 昵称
+      "avatarUrl": "string", // 头像URL
+      "pregnancyWeek": "integer" // 孕周
+    },
+    "viewCount": "integer", // 浏览次数
+    "likeCount": "integer", // 点赞次数
+    "commentCount": "integer", // 评论次数
+    "createdAt": "datetime", // 创建时间
+    "updatedAt": "datetime" // 更新时间
+  }
 }
 ```
 
@@ -2379,7 +2558,8 @@
 
 ```json
 {
-  "success": true
+  "success": true,
+  "message": "删除成功"
 }
 ```
 
@@ -2400,8 +2580,12 @@
 
 ```json
 {
-  "id": "guid", // 帖子ID
-  "likeCount": "integer" // 更新后的点赞次数
+  "success": true,
+  "message": "操作成功",
+  "data": {
+    "id": "guid", // 帖子ID
+    "likeCount": "integer" // 更新后的点赞次数
+  }
 }
 ```
 
@@ -2422,8 +2606,12 @@
 
 ```json
 {
-  "id": "guid", // 帖子ID
-  "likeCount": "integer" // 更新后的点赞次数
+  "success": true,
+  "message": "操作成功",
+  "data": {
+    "id": "guid", // 帖子ID
+    "likeCount": "integer" // 更新后的点赞次数
+  }
 }
 ```
 
@@ -2443,10 +2631,14 @@
 
 ```json
 {
-  "id": "guid", // 收藏ID
-  "postId": "guid", // 帖子ID
-  "userId": "guid", // 用户ID
-  "createdAt": "datetime" // 创建时间
+  "success": true,
+  "message": "操作成功",
+  "data": {
+    "id": "guid", // 收藏ID
+    "postId": "guid", // 帖子ID
+    "userId": "guid", // 用户ID
+    "createdAt": "datetime" // 创建时间
+  }
 }
 ```
 
@@ -2467,7 +2659,8 @@
 
 ```json
 {
-  "success": true
+  "success": true,
+  "message": "操作成功"
 }
 ```
 
@@ -2490,46 +2683,50 @@
 
 ```json
 {
-  "items": [
-    {
-      "id": "guid", // 帖子ID
-      "userId": "guid", // 用户ID
-      "title": "string", // 帖子标题
-      "content": "string", // 帖子内容
-      "topics": [ // 话题列表
-        {
-          "id": "guid", // 话题ID
-          "name": "string" // 话题名称
-        }
-      ],
-      "mediaFiles": [ // 媒体文件列表
-        {
-          "id": "guid", // 媒体文件ID
-          "mediaType": "string", // 媒体类型
-          "mediaUrl": "string", // 媒体URL
-          "description": "string", // 媒体描述
-          "createdAt": "datetime" // 创建时间
-        }
-      ],
-      "isAnonymous": "boolean", // 是否匿名
-      "author": { // 作者信息
-        "id": "guid", // 用户ID
-        "nickname": "string", // 昵称
-        "avatarUrl": "string", // 头像URL
-        "pregnancyWeek": "integer" // 孕周
-      },
-      "viewCount": "integer", // 浏览次数
-      "likeCount": "integer", // 点赞次数
-      "commentCount": "integer", // 评论次数
-      "favoriteTime": "datetime", // 收藏时间
-      "createdAt": "datetime", // 创建时间
-      "updatedAt": "datetime" // 更新时间
-    }
-  ],
-  "totalCount": "integer", // 总数量
-  "pageCount": "integer", // 总页数
-  "currentPage": "integer", // 当前页码
-  "pageSize": "integer" // 每页数量
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "items": [
+      {
+        "id": "guid", // 帖子ID
+        "userId": "guid", // 用户ID
+        "title": "string", // 帖子标题
+        "content": "string", // 帖子内容
+        "topics": [ // 话题列表
+          {
+            "id": "guid", // 话题ID
+            "name": "string" // 话题名称
+          }
+        ],
+        "mediaFiles": [ // 媒体文件列表
+          {
+            "id": "guid", // 媒体文件ID
+            "mediaType": "string", // 媒体类型
+            "mediaUrl": "string", // 媒体URL
+            "description": "string", // 媒体描述
+            "createdAt": "datetime" // 创建时间
+          }
+        ],
+        "isAnonymous": "boolean", // 是否匿名
+        "author": { // 作者信息
+          "id": "guid", // 用户ID
+          "nickname": "string", // 昵称
+          "avatarUrl": "string", // 头像URL
+          "pregnancyWeek": "integer" // 孕周
+        },
+        "viewCount": "integer", // 浏览次数
+        "likeCount": "integer", // 点赞次数
+        "commentCount": "integer", // 评论次数
+        "favoriteTime": "datetime", // 收藏时间
+        "createdAt": "datetime", // 创建时间
+        "updatedAt": "datetime" // 更新时间
+      }
+    ],
+    "totalCount": "integer", // 总数量
+    "pageCount": "integer", // 总页数
+    "currentPage": "integer", // 当前页码
+    "pageSize": "integer" // 每页数量
+  }
 }
 ```
 
@@ -2558,19 +2755,23 @@
 
 ```json
 {
-  "id": "guid", // 评论ID
-  "postId": "guid", // 帖子ID
-  "userId": "guid", // 用户ID
-  "content": "string", // 评论内容
-  "isAnonymous": "boolean", // 是否匿名
-  "author": { // 作者信息
-    "id": "guid", // 用户ID
-    "nickname": "string", // 昵称
-    "avatarUrl": "string", // 头像URL
-    "pregnancyWeek": "integer" // 孕周
-  },
-  "likeCount": "integer", // 点赞次数
-  "createdAt": "datetime" // 创建时间
+  "success": true,
+  "message": "创建成功",
+  "data": {
+    "id": "guid", // 评论ID
+    "postId": "guid", // 帖子ID
+    "userId": "guid", // 用户ID
+    "content": "string", // 评论内容
+    "isAnonymous": "boolean", // 是否匿名
+    "author": { // 作者信息
+      "id": "guid", // 用户ID
+      "nickname": "string", // 昵称
+      "avatarUrl": "string", // 头像URL
+      "pregnancyWeek": "integer" // 孕周
+    },
+    "likeCount": "integer", // 点赞次数
+    "createdAt": "datetime" // 创建时间
+  }
 }
 ```
 
@@ -2601,21 +2802,25 @@
 
 ```json
 {
-  "id": "guid", // 回复ID
-  "commentId": "guid", // 评论ID
-  "userId": "guid", // 用户ID
-  "content": "string", // 回复内容
-  "isAnonymous": "boolean", // 是否匿名
-  "author": { // 作者信息
-    "id": "guid", // 用户ID
-    "nickname": "string", // 昵称
-    "avatarUrl": "string", // 头像URL
-    "pregnancyWeek": "integer" // 孕周
-  },
-  "replyToUserId": "guid", // 回复用户ID
-  "replyToNickname": "string", // 回复用户昵称
-  "likeCount": "integer", // 点赞次数
-  "createdAt": "datetime" // 创建时间
+  "success": true,
+  "message": "创建成功",
+  "data": {
+    "id": "guid", // 回复ID
+    "commentId": "guid", // 评论ID
+    "userId": "guid", // 用户ID
+    "content": "string", // 回复内容
+    "isAnonymous": "boolean", // 是否匿名
+    "author": { // 作者信息
+      "id": "guid", // 用户ID
+      "nickname": "string", // 昵称
+      "avatarUrl": "string", // 头像URL
+      "pregnancyWeek": "integer" // 孕周
+    },
+    "replyToUserId": "guid", // 回复用户ID
+    "replyToNickname": "string", // 回复用户昵称
+    "likeCount": "integer", // 点赞次数
+    "createdAt": "datetime" // 创建时间
+  }
 }
 ```
 
@@ -2636,8 +2841,12 @@
 
 ```json
 {
-  "id": "guid", // 评论ID
-  "likeCount": "integer" // 更新后的点赞次数
+  "success": true,
+  "message": "操作成功",
+  "data": {
+    "id": "guid", // 评论ID
+    "likeCount": "integer" // 更新后的点赞次数
+  }
 }
 ```
 
@@ -2658,8 +2867,12 @@
 
 ```json
 {
-  "id": "guid", // 评论ID
-  "likeCount": "integer" // 更新后的点赞次数
+  "success": true,
+  "message": "操作成功",
+  "data": {
+    "id": "guid", // 评论ID
+    "likeCount": "integer" // 更新后的点赞次数
+  }
 }
 ```
 
@@ -2681,22 +2894,26 @@
 
 ```json
 {
-  "items": [
-    {
-      "id": "guid", // 话题ID
-      "name": "string", // 话题名称
-      "description": "string", // 话题描述
-      "imageUrl": "string", // 话题图片URL
-      "postCount": "integer", // 帖子数量
-      "followerCount": "integer", // 关注者数量
-      "isFollowed": "boolean", // 当前用户是否已关注
-      "createdAt": "datetime" // 创建时间
-    }
-  ],
-  "totalCount": "integer", // 总数量
-  "pageCount": "integer", // 总页数
-  "currentPage": "integer", // 当前页码
-  "pageSize": "integer" // 每页数量
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "items": [
+      {
+        "id": "guid", // 话题ID
+        "name": "string", // 话题名称
+        "description": "string", // 话题描述
+        "imageUrl": "string", // 话题图片URL
+        "postCount": "integer", // 帖子数量
+        "followerCount": "integer", // 关注者数量
+        "isFollowed": "boolean", // 当前用户是否已关注
+        "createdAt": "datetime" // 创建时间
+      }
+    ],
+    "totalCount": "integer", // 总数量
+    "pageCount": "integer", // 总页数
+    "currentPage": "integer", // 当前页码
+    "pageSize": "integer" // 每页数量
+  }
 }
 ```
 
@@ -2716,8 +2933,12 @@
 
 ```json
 {
-  "id": "guid", // 话题ID
-  "followerCount": "integer" // 更新后的关注者数量
+  "success": true,
+  "message": "操作成功",
+  "data": {
+    "id": "guid", // 话题ID
+    "followerCount": "integer" // 更新后的关注者数量
+  }
 }
 ```
 
@@ -2738,8 +2959,12 @@
 
 ```json
 {
-  "id": "guid", // 话题ID
-  "followerCount": "integer" // 更新后的关注者数量
+  "success": true,
+  "message": "操作成功",
+  "data": {
+    "id": "guid", // 话题ID
+    "followerCount": "integer" // 更新后的关注者数量
+  }
 }
 ```
 
@@ -2782,51 +3007,55 @@
 
 ```json
 {
-  "id": "guid", // 计划ID
-  "userId": "guid", // 用户ID
-  "name": "string", // 计划名称
-  "description": "string", // 计划描述
-  "hospital": { // 医院信息
-    "id": "guid", // 医院ID
-    "name": "string", // 医院名称
-    "address": "string", // 医院地址
-    "phone": "string", // 医院电话
-    "level": "string" // 医院等级
-  },
-  "doctor": { // 医生信息
-    "id": "guid", // 医生ID
-    "name": "string", // 医生姓名
-    "title": "string", // 医生职称
-    "department": "string", // 科室
-    "phone": "string" // 医生电话
-  },
-  "startDate": "date", // 开始日期
-  "endDate": "date", // 结束日期
-  "checkupItems": [ // 产检项目列表
-    {
-      "id": "guid", // 项目ID
-      "name": "string", // 项目名称
-      "description": "string", // 项目描述
-      "scheduledDate": "date", // 计划日期
-      "pregnancyWeek": "integer", // 孕周
-      "isRequired": "boolean", // 是否必须
-      "status": "string", // 状态，可选值：Pending、Completed、Missed
-      "note": "string", // 备注
-      "completedDate": "date", // 完成日期
-      "result": "string", // 检查结果
-      "resultFiles": [ // 结果文件列表
-        {
-          "id": "guid", // 文件ID
-          "fileType": "string", // 文件类型
-          "fileUrl": "string", // 文件URL
-          "description": "string", // 文件描述
-          "uploadedAt": "datetime" // 上传时间
-        }
-      ]
-    }
-  ],
-  "createdAt": "datetime", // 创建时间
-  "updatedAt": "datetime" // 更新时间
+  "success": true,
+  "message": "创建成功",
+  "data": {
+    "id": "guid", // 计划ID
+    "userId": "guid", // 用户ID
+    "name": "string", // 计划名称
+    "description": "string", // 计划描述
+    "hospital": { // 医院信息
+      "id": "guid", // 医院ID
+      "name": "string", // 医院名称
+      "address": "string", // 医院地址
+      "phone": "string", // 医院电话
+      "level": "string" // 医院等级
+    },
+    "doctor": { // 医生信息
+      "id": "guid", // 医生ID
+      "name": "string", // 医生姓名
+      "title": "string", // 医生职称
+      "department": "string", // 科室
+      "phone": "string" // 医生电话
+    },
+    "startDate": "date", // 开始日期
+    "endDate": "date", // 结束日期
+    "checkupItems": [ // 产检项目列表
+      {
+        "id": "guid", // 项目ID
+        "name": "string", // 项目名称
+        "description": "string", // 项目描述
+        "scheduledDate": "date", // 计划日期
+        "pregnancyWeek": "integer", // 孕周
+        "isRequired": "boolean", // 是否必须
+        "status": "string", // 状态，可选值：Pending、Completed、Missed
+        "note": "string", // 备注
+        "completedDate": "date", // 完成日期
+        "result": "string", // 检查结果
+        "resultFiles": [ // 结果文件列表
+          {
+            "id": "guid", // 文件ID
+            "fileType": "string", // 文件类型
+            "fileUrl": "string", // 文件URL
+            "description": "string", // 文件描述
+            "uploadedAt": "datetime" // 上传时间
+          }
+        ]
+      }
+    ],
+    "createdAt": "datetime", // 创建时间
+    "updatedAt": "datetime" // 更新时间
+  }
 }
 ```
 
@@ -2846,51 +3075,55 @@
 
 ```json
 {
-  "id": "guid", // 计划ID
-  "userId": "guid", // 用户ID
-  "name": "string", // 计划名称
-  "description": "string", // 计划描述
-  "hospital": { // 医院信息
-    "id": "guid", // 医院ID
-    "name": "string", // 医院名称
-    "address": "string", // 医院地址
-    "phone": "string", // 医院电话
-    "level": "string" // 医院等级
-  },
-  "doctor": { // 医生信息
-    "id": "guid", // 医生ID
-    "name": "string", // 医生姓名
-    "title": "string", // 医生职称
-    "department": "string", // 科室
-    "phone": "string" // 医生电话
-  },
-  "startDate": "date", // 开始日期
-  "endDate": "date", // 结束日期
-  "checkupItems": [ // 产检项目列表
-    {
-      "id": "guid", // 项目ID
-      "name": "string", // 项目名称
-      "description": "string", // 项目描述
-      "scheduledDate": "date", // 计划日期
-      "pregnancyWeek": "integer", // 孕周
-      "isRequired": "boolean", // 是否必须
-      "status": "string", // 状态，可选值：Pending、Completed、Missed
-      "note": "string", // 备注
-      "completedDate": "date", // 完成日期
-      "result": "string", // 检查结果
-      "resultFiles": [ // 结果文件列表
-        {
-          "id": "guid", // 文件ID
-          "fileType": "string", // 文件类型
-          "fileUrl": "string", // 文件URL
-          "description": "string", // 文件描述
-          "uploadedAt": "datetime" // 上传时间
-        }
-      ]
-    }
-  ],
-  "createdAt": "datetime", // 创建时间
-  "updatedAt": "datetime" // 更新时间
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "id": "guid", // 计划ID
+    "userId": "guid", // 用户ID
+    "name": "string", // 计划名称
+    "description": "string", // 计划描述
+    "hospital": { // 医院信息
+      "id": "guid", // 医院ID
+      "name": "string", // 医院名称
+      "address": "string", // 医院地址
+      "phone": "string", // 医院电话
+      "level": "string" // 医院等级
+    },
+    "doctor": { // 医生信息
+      "id": "guid", // 医生ID
+      "name": "string", // 医生姓名
+      "title": "string", // 医生职称
+      "department": "string", // 科室
+      "phone": "string" // 医生电话
+    },
+    "startDate": "date", // 开始日期
+    "endDate": "date", // 结束日期
+    "checkupItems": [ // 产检项目列表
+      {
+        "id": "guid", // 项目ID
+        "name": "string", // 项目名称
+        "description": "string", // 项目描述
+        "scheduledDate": "date", // 计划日期
+        "pregnancyWeek": "integer", // 孕周
+        "isRequired": "boolean", // 是否必须
+        "status": "string", // 状态，可选值：Pending、Completed、Missed
+        "note": "string", // 备注
+        "completedDate": "date", // 完成日期
+        "result": "string", // 检查结果
+        "resultFiles": [ // 结果文件列表
+          {
+            "id": "guid", // 文件ID
+            "fileType": "string", // 文件类型
+            "fileUrl": "string", // 文件URL
+            "description": "string", // 文件描述
+            "uploadedAt": "datetime" // 上传时间
+          }
+        ]
+      }
+    ],
+    "createdAt": "datetime", // 创建时间
+    "updatedAt": "datetime" // 更新时间
+  }
 }
 ```
 
@@ -2914,40 +3147,44 @@
 
 ```json
 {
-  "items": [
-    {
-      "id": "guid", // 计划ID
-      "userId": "guid", // 用户ID
-      "name": "string", // 计划名称
-      "description": "string", // 计划描述
-      "hospital": { // 医院信息
-        "id": "guid", // 医院ID
-        "name": "string", // 医院名称
-        "address": "string", // 医院地址
-        "phone": "string", // 医院电话
-        "level": "string" // 医院等级
-      },
-      "doctor": { // 医生信息
-        "id": "guid", // 医生ID
-        "name": "string", // 医生姓名
-        "title": "string", // 医生职称
-        "department": "string", // 科室
-        "phone": "string" // 医生电话
-      },
-      "startDate": "date", // 开始日期
-      "endDate": "date", // 结束日期
-      "nextCheckupDate": "date", // 下次产检日期
-      "nextCheckupItem": "string", // 下次产检项目
-      "completedCount": "integer", // 已完成项目数量
-      "totalCount": "integer", // 总项目数量
-      "createdAt": "datetime", // 创建时间
-      "updatedAt": "datetime" // 更新时间
-    }
-  ],
-  "totalCount": "integer", // 总数量
-  "pageCount": "integer", // 总页数
-  "currentPage": "integer", // 当前页码
-  "pageSize": "integer" // 每页数量
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "items": [
+      {
+        "id": "guid", // 计划ID
+        "userId": "guid", // 用户ID
+        "name": "string", // 计划名称
+        "description": "string", // 计划描述
+        "hospital": { // 医院信息
+          "id": "guid", // 医院ID
+          "name": "string", // 医院名称
+          "address": "string", // 医院地址
+          "phone": "string", // 医院电话
+          "level": "string" // 医院等级
+        },
+        "doctor": { // 医生信息
+          "id": "guid", // 医生ID
+          "name": "string", // 医生姓名
+          "title": "string", // 医生职称
+          "department": "string", // 科室
+          "phone": "string" // 医生电话
+        },
+        "startDate": "date", // 开始日期
+        "endDate": "date", // 结束日期
+        "nextCheckupDate": "date", // 下次产检日期
+        "nextCheckupItem": "string", // 下次产检项目
+        "completedCount": "integer", // 已完成项目数量
+        "totalCount": "integer", // 总项目数量
+        "createdAt": "datetime", // 创建时间
+        "updatedAt": "datetime" // 更新时间
+      }
+    ],
+    "totalCount": "integer", // 总数量
+    "pageCount": "integer", // 总页数
+    "currentPage": "integer", // 当前页码
+    "pageSize": "integer" // 每页数量
+  }
 }
 ```
 
@@ -2980,51 +3217,55 @@
 
 ```json
 {
-  "id": "guid", // 计划ID
-  "userId": "guid", // 用户ID
-  "name": "string", // 计划名称
-  "description": "string", // 计划描述
-  "hospital": { // 医院信息
-    "id": "guid", // 医院ID
-    "name": "string", // 医院名称
-    "address": "string", // 医院地址
-    "phone": "string", // 医院电话
-    "level": "string" // 医院等级
-  },
-  "doctor": { // 医生信息
-    "id": "guid", // 医生ID
-    "name": "string", // 医生姓名
-    "title": "string", // 医生职称
-    "department": "string", // 科室
-    "phone": "string" // 医生电话
-  },
-  "startDate": "date", // 开始日期
-  "endDate": "date", // 结束日期
-  "checkupItems": [ // 产检项目列表
-    {
-      "id": "guid", // 项目ID
-      "name": "string", // 项目名称
-      "description": "string", // 项目描述
-      "scheduledDate": "date", // 计划日期
-      "pregnancyWeek": "integer", // 孕周
-      "isRequired": "boolean", // 是否必须
-      "status": "string", // 状态，可选值：Pending、Completed、Missed
-      "note": "string", // 备注
-      "completedDate": "date", // 完成日期
-      "result": "string", // 检查结果
-      "resultFiles": [ // 结果文件列表
-        {
-          "id": "guid", // 文件ID
-          "fileType": "string", // 文件类型
-          "fileUrl": "string", // 文件URL
-          "description": "string", // 文件描述
-          "uploadedAt": "datetime" // 上传时间
-        }
-      ]
-    }
-  ],
-  "createdAt": "datetime", // 创建时间
-  "updatedAt": "datetime" // 更新时间
+  "success": true,
+  "message": "更新成功",
+  "data": {
+    "id": "guid", // 计划ID
+    "userId": "guid", // 用户ID
+    "name": "string", // 计划名称
+    "description": "string", // 计划描述
+    "hospital": { // 医院信息
+      "id": "guid", // 医院ID
+      "name": "string", // 医院名称
+      "address": "string", // 医院地址
+      "phone": "string", // 医院电话
+      "level": "string" // 医院等级
+    },
+    "doctor": { // 医生信息
+      "id": "guid", // 医生ID
+      "name": "string", // 医生姓名
+      "title": "string", // 医生职称
+      "department": "string", // 科室
+      "phone": "string" // 医生电话
+    },
+    "startDate": "date", // 开始日期
+    "endDate": "date", // 结束日期
+    "checkupItems": [ // 产检项目列表
+      {
+        "id": "guid", // 项目ID
+        "name": "string", // 项目名称
+        "description": "string", // 项目描述
+        "scheduledDate": "date", // 计划日期
+        "pregnancyWeek": "integer", // 孕周
+        "isRequired": "boolean", // 是否必须
+        "status": "string", // 状态，可选值：Pending、Completed、Missed
+        "note": "string", // 备注
+        "completedDate": "date", // 完成日期
+        "result": "string", // 检查结果
+        "resultFiles": [ // 结果文件列表
+          {
+            "id": "guid", // 文件ID
+            "fileType": "string", // 文件类型
+            "fileUrl": "string", // 文件URL
+            "description": "string", // 文件描述
+            "uploadedAt": "datetime" // 上传时间
+          }
+        ]
+      }
+    ],
+    "createdAt": "datetime", // 创建时间
+    "updatedAt": "datetime" // 更新时间
+  }
 }
 ```
 
@@ -3046,7 +3287,8 @@
 
 ```json
 {
-  "success": true
+  "success": true,
+  "message": "删除成功"
 }
 ```
 
@@ -3080,16 +3322,20 @@
 
 ```json
 {
-  "id": "guid", // 项目ID
-  "planId": "guid", // 计划ID
-  "name": "string", // 项目名称
-  "description": "string", // 项目描述
-  "scheduledDate": "date", // 计划日期
-  "pregnancyWeek": "integer", // 孕周
-  "isRequired": "boolean", // 是否必须
-  "status": "string", // 状态，可选值：Pending、Completed、Missed
-  "note": "string", // 备注
-  "createdAt": "datetime" // 创建时间
+  "success": true,
+  "message": "操作成功",
+  "data": {
+    "id": "guid", // 项目ID
+    "planId": "guid", // 计划ID
+    "name": "string", // 项目名称
+    "description": "string", // 项目描述
+    "scheduledDate": "date", // 计划日期
+    "pregnancyWeek": "integer", // 孕周
+    "isRequired": "boolean", // 是否必须
+    "status": "string", // 状态，可选值：Pending、Completed、Missed
+    "note": "string", // 备注
+    "createdAt": "datetime" // 创建时间
+  }
 }
 ```
 
@@ -3127,28 +3373,32 @@
 
 ```json
 {
-  "id": "guid", // 项目ID
-  "planId": "guid", // 计划ID
-  "name": "string", // 项目名称
-  "description": "string", // 项目描述
-  "scheduledDate": "date", // 计划日期
-  "pregnancyWeek": "integer", // 孕周
-  "isRequired": "boolean", // 是否必须
-  "status": "string", // 状态，可选值：Pending、Completed、Missed
-  "note": "string", // 备注
-  "completedDate": "date", // 完成日期
-  "result": "string", // 检查结果
-  "resultFiles": [ // 结果文件列表
-    {
-      "id": "guid", // 文件ID
-      "fileType": "string", // 文件类型
-      "fileUrl": "string", // 文件URL
-      "description": "string", // 文件描述
-      "uploadedAt": "datetime" // 上传时间
-    }
-  ],
-  "createdAt": "datetime", // 创建时间
-  "updatedAt": "datetime" // 更新时间
+  "success": true,
+  "message": "更新成功",
+  "data": {
+    "id": "guid", // 项目ID
+    "planId": "guid", // 计划ID
+    "name": "string", // 项目名称
+    "description": "string", // 项目描述
+    "scheduledDate": "date", // 计划日期
+    "pregnancyWeek": "integer", // 孕周
+    "isRequired": "boolean", // 是否必须
+    "status": "string", // 状态，可选值：Pending、Completed、Missed
+    "note": "string", // 备注
+    "completedDate": "date", // 完成日期
+    "result": "string", // 检查结果
+    "resultFiles": [ // 结果文件列表
+      {
+        "id": "guid", // 文件ID
+        "fileType": "string", // 文件类型
+        "fileUrl": "string", // 文件URL
+        "description": "string", // 文件描述
+        "uploadedAt": "datetime" // 上传时间
+      }
+    ],
+    "createdAt": "datetime", // 创建时间
+    "updatedAt": "datetime" // 更新时间
+  }
 }
 ```
 
@@ -3170,7 +3420,8 @@
 
 ```json
 {
-  "success": true
+  "success": true,
+  "message": "删除成功"
 }
 ```
 
@@ -3201,12 +3452,16 @@
 
 ```json
 {
-  "id": "guid", // 文件ID
-  "itemId": "guid", // 项目ID
-  "fileType": "string", // 文件类型
-  "fileUrl": "string", // 文件URL
-  "description": "string", // 文件描述
-  "uploadedAt": "datetime" // 上传时间
+  "success": true,
+  "message": "操作成功",
+  "data": {
+    "id": "guid", // 文件ID
+    "itemId": "guid", // 项目ID
+    "fileType": "string", // 文件类型
+    "fileUrl": "string", // 文件URL
+    "description": "string", // 文件描述
+    "uploadedAt": "datetime" // 上传时间
+  }
 }
 ```
 
@@ -3228,7 +3483,8 @@
 
 ```json
 {
-  "success": true
+  "success": true,
+  "message": "删除成功"
 }
 ```
 
@@ -3253,25 +3509,29 @@
 
 ```json
 {
-  "items": [
-    {
-      "id": "guid", // 医院ID
-      "name": "string", // 医院名称
-      "address": "string", // 医院地址
-      "phone": "string", // 医院电话
-      "level": "string", // 医院等级
-      "city": "string", // 城市
-      "province": "string", // 省份
-      "description": "string", // 医院描述
-      "imageUrl": "string", // 医院图片URL
-      "departments": ["string"], // 科室列表
-      "createdAt": "datetime" // 创建时间
-    }
-  ],
-  "totalCount": "integer", // 总数量
-  "pageCount": "integer", // 总页数
-  "currentPage": "integer", // 当前页码
-  "pageSize": "integer" // 每页数量
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "items": [
+      {
+        "id": "guid", // 医院ID
+        "name": "string", // 医院名称
+        "address": "string", // 医院地址
+        "phone": "string", // 医院电话
+        "level": "string", // 医院等级
+        "city": "string", // 城市
+        "province": "string", // 省份
+        "description": "string", // 医院描述
+        "imageUrl": "string", // 医院图片URL
+        "departments": ["string"], // 科室列表
+        "createdAt": "datetime" // 创建时间
+      }
+    ],
+    "totalCount": "integer", // 总数量
+    "pageCount": "integer", // 总页数
+    "currentPage": "integer", // 当前页码
+    "pageSize": "integer" // 每页数量
+  }
 }
 ```
 
@@ -3291,34 +3551,38 @@
 
 ```json
 {
-  "id": "guid", // 医院ID
-  "name": "string", // 医院名称
-  "address": "string", // 医院地址
-  "phone": "string", // 医院电话
-  "level": "string", // 医院等级
-  "city": "string", // 城市
-  "province": "string", // 省份
-  "description": "string", // 医院描述
-  "imageUrl": "string", // 医院图片URL
-  "departments": [ // 科室列表
-    {
-      "id": "guid", // 科室ID
-      "name": "string", // 科室名称
-      "description": "string" // 科室描述
-    }
-  ],
-  "doctors": [ // 医生列表
-    {
-      "id": "guid", // 医生ID
-      "name": "string", // 医生姓名
-      "title": "string", // 医生职称
-      "department": "string", // 科室
-      "phone": "string", // 医生电话
-      "imageUrl": "string", // 医生图片URL
-      "description": "string" // 医生描述
-    }
-  ],
-  "createdAt": "datetime" // 创建时间
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "id": "guid", // 医院ID
+    "name": "string", // 医院名称
+    "address": "string", // 医院地址
+    "phone": "string", // 医院电话
+    "level": "string", // 医院等级
+    "city": "string", // 城市
+    "province": "string", // 省份
+    "description": "string", // 医院描述
+    "imageUrl": "string", // 医院图片URL
+    "departments": [ // 科室列表
+      {
+        "id": "guid", // 科室ID
+        "name": "string", // 科室名称
+        "description": "string" // 科室描述
+      }
+    ],
+    "doctors": [ // 医生列表
+      {
+        "id": "guid", // 医生ID
+        "name": "string", // 医生姓名
+        "title": "string", // 医生职称
+        "department": "string", // 科室
+        "phone": "string", // 医生电话
+        "imageUrl": "string", // 医生图片URL
+        "description": "string" // 医生描述
+      }
+    ],
+    "createdAt": "datetime" // 创建时间
+  }
 }
 ```
 
@@ -3342,27 +3606,31 @@
 
 ```json
 {
-  "items": [
-    {
-      "id": "guid", // 医生ID
-      "name": "string", // 医生姓名
-      "title": "string", // 医生职称
-      "department": "string", // 科室
-      "phone": "string", // 医生电话
-      "imageUrl": "string", // 医生图片URL
-      "description": "string", // 医生描述
-      "hospital": { // 医院信息
-        "id": "guid", // 医院ID
-        "name": "string", // 医院名称
-        "level": "string" // 医院等级
-      },
-      "createdAt": "datetime" // 创建时间
-    }
-  ],
-  "totalCount": "integer", // 总数量
-  "pageCount": "integer", // 总页数
-  "currentPage": "integer", // 当前页码
-  "pageSize": "integer" // 每页数量
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "items": [
+      {
+        "id": "guid", // 医生ID
+        "name": "string", // 医生姓名
+        "title": "string", // 医生职称
+        "department": "string", // 科室
+        "phone": "string", // 医生电话
+        "imageUrl": "string", // 医生图片URL
+        "description": "string", // 医生描述
+        "hospital": { // 医院信息
+          "id": "guid", // 医院ID
+          "name": "string", // 医院名称
+          "level": "string" // 医院等级
+        },
+        "createdAt": "datetime" // 创建时间
+      }
+    ],
+    "totalCount": "integer", // 总数量
+    "pageCount": "integer", // 总页数
+    "currentPage": "integer", // 当前页码
+    "pageSize": "integer" // 每页数量
+  }
 }
 ```
 
@@ -3382,24 +3650,28 @@
 
 ```json
 {
-  "id": "guid", // 医生ID
-  "name": "string", // 医生姓名
-  "title": "string", // 医生职称
-  "department": "string", // 科室
-  "phone": "string", // 医生电话
-  "imageUrl": "string", // 医生图片URL
-  "description": "string", // 医生描述
-  "specialties": ["string"], // 专长列表
-  "education": "string", // 教育背景
-  "experience": "string", // 工作经验
-  "hospital": { // 医院信息
-    "id": "guid", // 医院ID
-    "name": "string", // 医院名称
-    "address": "string", // 医院地址
-    "phone": "string", // 医院电话
-    "level": "string" // 医院等级
-  },
-  "createdAt": "datetime" // 创建时间
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "id": "guid", // 医生ID
+    "name": "string", // 医生姓名
+    "title": "string", // 医生职称
+    "department": "string", // 科室
+    "phone": "string", // 医生电话
+    "imageUrl": "string", // 医生图片URL
+    "description": "string", // 医生描述
+    "specialties": ["string"], // 专长列表
+    "education": "string", // 教育背景
+    "experience": "string", // 工作经验
+    "hospital": { // 医院信息
+      "id": "guid", // 医院ID
+      "name": "string", // 医院名称
+      "address": "string", // 医院地址
+      "phone": "string", // 医院电话
+      "level": "string" // 医院等级
+    },
+    "createdAt": "datetime" // 创建时间
+  }
 }
 ```
 
@@ -3419,16 +3691,20 @@
 
 ```json
 {
-  "pregnancyWeek": "integer", // 孕周
-  "items": [
-    {
-      "name": "string", // 项目名称
-      "description": "string", // 项目描述
-      "isRequired": "boolean", // 是否必须
-      "note": "string" // 备注
-    }
-  ],
-  "tips": "string" // 提示信息
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "pregnancyWeek": "integer", // 孕周
+    "items": [
+      {
+        "name": "string", // 项目名称
+        "description": "string", // 项目描述
+        "isRequired": "boolean", // 是否必须
+        "note": "string" // 备注
+      }
+    ],
+    "tips": "string" // 提示信息
+  }
 }
 ```
 

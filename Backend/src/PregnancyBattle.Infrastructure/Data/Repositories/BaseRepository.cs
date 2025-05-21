@@ -79,7 +79,7 @@ namespace PregnancyBattle.Infrastructure.Data.Repositories
                             id, username, email,
                             phone_number as PhoneNumber,
                             password_hash as PasswordHash,
-                            nickname, avatar_url,
+                            nickname, avatar_url AS ""AvatarUrl"",
                             created_at as CreatedAt,
                             updated_at as UpdatedAt,
                             last_login_at as LastLoginAt
@@ -101,6 +101,10 @@ namespace PregnancyBattle.Infrastructure.Data.Repositories
                 }
                 else
                 {
+                    if (typeof(T).Name == "User" && result is User userResult) // C# 7.0+ pattern matching
+                    {
+                        Logger?.LogInformation($"[BaseRepository.GetByIdAsync] Raw AvatarUrl from Dapper for user ID {userResult.Id}: '{userResult.AvatarUrl}'"); // 添加日志
+                    }
                     Logger?.LogInformation($"成功获取 {TableName} 记录，ID: {id}");
                 }
 

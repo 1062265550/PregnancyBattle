@@ -76,6 +76,8 @@ class UserInfoSettingsViewModel: ObservableObject {
     @Published var userProfile: AuthManager.UserInfo?
     @Published var nickname: String = ""
     @Published var avatarUrl: String = ""
+    @Published var originalNickname: String = ""
+    @Published var originalAvatarUrl: String = ""
     
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
@@ -121,6 +123,9 @@ class UserInfoSettingsViewModel: ObservableObject {
                     )
                     self.nickname = userData.nickname ?? ""
                     self.avatarUrl = userData.avatarUrl ?? ""
+                    print("[UserInfoSettingsViewModel] Fetched and set avatarUrl: \(self.avatarUrl)")
+                    self.originalNickname = self.nickname
+                    self.originalAvatarUrl = self.avatarUrl
                 } else {
                     self.errorMessage = response.message ?? "获取用户信息失败"
                 }
@@ -137,15 +142,26 @@ class UserInfoSettingsViewModel: ObservableObject {
         isLoading = true
         errorMessage = nil
 
+        let nicknameChanged = self.nickname != self.originalNickname
+        let avatarUrlChanged = self.avatarUrl != self.originalAvatarUrl
+
+        if !nicknameChanged && !avatarUrlChanged {
+            self.alertItem = AlertInfo(id: "no_changes", title: "提示", message: "信息未做任何修改")
+            isLoading = false
+            return
+        }
+
         Task {
-            struct UpdateUserRequest: Codable {
+            // 请求结构允许字段可选，以便只发送更改的字段
+            struct FlexibleUpdateUserRequest: Codable {
                 let nickname: String?
                 let avatarUrl: String?
             }
-            // API文档中 PUT /users/me 的请求体字段是 nickname 和 avatarUrl
-            // 后端 UpdateUserDto 也是这两个字段
-            let requestBody = UpdateUserRequest(nickname: self.nickname.isEmpty ? nil : self.nickname,
-                                                 avatarUrl: self.avatarUrl.isEmpty ? nil : self.avatarUrl)
+            
+            let requestBody = FlexibleUpdateUserRequest(
+                nickname: nicknameChanged ? self.nickname : nil,
+                avatarUrl: avatarUrlChanged ? self.avatarUrl : nil
+            )
             
             // 响应结构应该与获取用户信息时类似，返回更新后的 UserDto
             struct UpdateUserResponseData: Codable {
@@ -187,6 +203,11 @@ class UserInfoSettingsViewModel: ObservableObject {
                     // 更新本地UserDefaults缓存
                     AuthManager.shared.saveCurrentUserToUserDefaults()
 
+                    // 同步更新 ViewModel 的本地 @Published 属性，以便UI能够正确反映更改
+                    self.nickname = updatedUserData.nickname ?? ""
+                    self.avatarUrl = updatedUserData.avatarUrl ?? ""
+                    self.originalNickname = self.nickname
+                    self.originalAvatarUrl = self.avatarUrl
 
                     self.alertItem = AlertInfo(id: "update_success", title: "成功", message: response.message ?? "用户信息更新成功")
                 } else {
