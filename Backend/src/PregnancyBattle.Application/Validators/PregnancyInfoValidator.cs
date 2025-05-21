@@ -1,6 +1,7 @@
 using System;
 using FluentValidation;
 using PregnancyBattle.Application.DTOs;
+using PregnancyBattle.Domain.Enums;
 
 namespace PregnancyBattle.Application.Validators
 {
@@ -19,11 +20,10 @@ namespace PregnancyBattle.Application.Validators
                 .LessThanOrEqualTo(DateTime.Today).WithMessage("末次月经日期不能晚于今天");
             
             RuleFor(x => x.CalculationMethod)
-                .NotEmpty().WithMessage("预产期计算方式不能为空")
-                .Must(x => x == "LMP" || x == "Ultrasound" || x == "IVF")
-                .WithMessage("预产期计算方式必须是LMP、Ultrasound或IVF");
+                // .NotEmpty().WithMessage("预产期计算方式不能为空") // 暂时注释掉这一行
+                .IsInEnum().WithMessage("预产期计算方式必须是LMP、Ultrasound或IVF中的一个"); // 使用 IsInEnum
             
-            When(x => x.CalculationMethod == "Ultrasound", () =>
+            When(x => x.CalculationMethod == PregnancyCalculationMethod.Ultrasound, () =>
             {
                 RuleFor(x => x.UltrasoundDate)
                     .NotEmpty().WithMessage("B超日期不能为空")
@@ -63,10 +63,10 @@ namespace PregnancyBattle.Application.Validators
                     .GreaterThan(DateTime.Today).WithMessage("预产期必须晚于今天");
             });
             
-            When(x => !string.IsNullOrEmpty(x.CalculationMethod), () =>
+            When(x => x.CalculationMethod.HasValue, () =>
             {
                 RuleFor(x => x.CalculationMethod)
-                    .Must(x => x == "LMP" || x == "Ultrasound" || x == "IVF")
+                    .Must(x => x.HasValue && (x.Value == PregnancyCalculationMethod.LMP || x.Value == PregnancyCalculationMethod.Ultrasound || x.Value == PregnancyCalculationMethod.IVF))
                     .WithMessage("预产期计算方式必须是LMP、Ultrasound或IVF");
             });
             

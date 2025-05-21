@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Foundation
 
 struct MainTabView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -13,10 +14,7 @@ struct MainTabView: View {
     var body: some View {
         TabView {
             // 孕期追踪
-            NavigationView {
-                Text("孕期追踪")
-                    .navigationTitle("孕期追踪")
-            }
+            PregnancyTrackerTabView()
             .tabItem {
                 Label("追踪", systemImage: "calendar")
             }

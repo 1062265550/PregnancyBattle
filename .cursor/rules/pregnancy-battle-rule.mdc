@@ -23,7 +23,8 @@ alwaysApply: true
 ### 后端
 - **语言/框架:** C# ASP.NET Core 8.0
 - **架构:** Clean Architecture
-- **数据库:** Supabase (基于 PostgreSQL)
+- **数据库:** Supabase (基于 PostgreSQL) 
+- 如果想要获取到数据库中相关表和字段的信息包括表中对应数据的的话，可以通过supabase MCP直接访问“孕期大作战”这个项目数据库
 - **数据访问:** Dapper, Npgsql
 - **认证授权:** JWT, Supabase Auth
 - **项目文件夹:** `@Backend` (在工作区根目录下的 `Backend/`)
@@ -42,3 +43,5 @@ alwaysApply: true
 ## 项目目标
 - 提供全面的孕期健康管理、信息获取、社区交流等功能。
 
+当项目中前端的代码做了较大的更改之后，你可以先使用XcodeBuildMCP进行构建项目，如果项目启动失败了，
+我希望你能够读取失败的日志信息，然后结合错误的内容和之前修改的代码进行分析，找出产生错误的原因，然后采取最好的方案进行修复错误

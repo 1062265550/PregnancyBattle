@@ -140,6 +140,10 @@ class APIService {
         }
 
         jsonEncoder.dateEncodingStrategy = .iso8601
+
+        // 配置枚举编码策略，确保枚举值正确序列化
+        jsonEncoder.outputFormatting = .prettyPrinted
+
         // 添加User-Agent，方便后端识别请求来源 (可选)
         // URLSessionConfiguration.default.httpAdditionalHeaders = ["User-Agent": "PregnancyBattleApp/1.0"]
     }

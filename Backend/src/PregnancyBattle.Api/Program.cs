@@ -120,6 +120,8 @@ builder.Services.AddScoped<IUserRepository>(provider =>
     var logger = provider.GetRequiredService<ILogger<UserRepository>>();
     return new UserRepository(dbContext, logger);
 });
+// 添加孕期信息仓储
+builder.Services.AddScoped<IPregnancyInfoRepository, PregnancyInfoRepository>();
 // 添加其他仓储...
 
 // 添加服务
@@ -131,6 +133,8 @@ builder.Services.AddScoped<IUserService>(provider =>
     var emailService = provider.GetRequiredService<IEmailService>();
     return new UserService(userRepository, configuration, logger, emailService);
 });
+// 添加孕期信息服务
+builder.Services.AddScoped<IPregnancyInfoService, PregnancyInfoService>();
 // 添加其他服务...
 
 // 添加邮件服务

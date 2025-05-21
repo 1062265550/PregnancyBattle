@@ -30,6 +30,14 @@ namespace PregnancyBattle.Api.Models
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public T? Data { get; set; }
 
+        public ApiResponse(bool success, string? message, T? data, string? code = null)
+        {
+            Success = success;
+            Message = message;
+            Data = data;
+            Code = code;
+        }
+
         /// <summary>
         /// 创建成功响应
         /// </summary>
@@ -38,12 +46,7 @@ namespace PregnancyBattle.Api.Models
         /// <returns>API响应</returns>
         public static ApiResponse<T> CreateSuccess(T data, string? message = null)
         {
-            return new ApiResponse<T>
-            {
-                Success = true,
-                Message = message,
-                Data = data
-            };
+            return new ApiResponse<T>(true, message, data);
         }
 
         /// <summary>
@@ -54,12 +57,7 @@ namespace PregnancyBattle.Api.Models
         /// <returns>API响应</returns>
         public static ApiResponse<T> CreateFailure(string message, string? code = null)
         {
-            return new ApiResponse<T>
-            {
-                Success = false,
-                Message = message,
-                Code = code
-            };
+            return new ApiResponse<T>(false, message, default, code);
         }
     }
 

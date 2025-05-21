@@ -46,11 +46,17 @@ namespace PregnancyBattle.Application.Validators
         /// </summary>
         public UpdateUserValidator()
         {
-            RuleFor(x => x.Nickname)
-                .MaximumLength(50).WithMessage("昵称长度不能超过50个字符");
+            // 昵称：如果提供了，则验证长度
+            When(x => x.Nickname != null, () => {
+                RuleFor(x => x.Nickname)
+                    .MaximumLength(50).WithMessage("昵称长度不能超过50个字符");
+            });
 
-            RuleFor(x => x.AvatarUrl)
-                .MaximumLength(500).WithMessage("头像URL长度不能超过500个字符");
+            // 头像URL：如果提供了，则验证长度 (允许空字符串以清空头像)
+            When(x => x.AvatarUrl != null, () => {
+                RuleFor(x => x.AvatarUrl)
+                    .MaximumLength(1024).WithMessage("头像URL长度不能超过1024个字符");
+            });
         }
     }
 

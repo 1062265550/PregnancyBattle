@@ -37,21 +37,33 @@ struct LoginView: View {
                         .textContentType(.oneTimeCode)
 
                     // 登录按钮
-                    Button(action: {
-                        Task {
-                            await viewModel.login()
+                    if viewModel.isLoading {
+                        HStack {
+                            ProgressView()
+                            Text("正在登录中...")
+                                .foregroundColor(.gray)
                         }
-                    }) {
-                        Text("登录")
-                            .fontWeight(.semibold)
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.blue)
-                            .cornerRadius(10)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.gray.opacity(0.1))
+                        .cornerRadius(10)
+                        .padding(.horizontal)
+                    } else {
+                        Button(action: {
+                            Task {
+                                await viewModel.login()
+                            }
+                        }) {
+                            Text("登录")
+                                .fontWeight(.semibold)
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.blue)
+                                .cornerRadius(10)
+                        }
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
-                    .disabled(viewModel.isLoading)
 
                     // 忘记密码链接
                     Button(action: {
