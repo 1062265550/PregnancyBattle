@@ -14,25 +14,31 @@ namespace PregnancyBattle.Domain.Repositories
         /// </summary>
         /// <param name="userId">用户ID</param>
         /// <returns>孕期信息</returns>
-        Task<PregnancyInfo?> GetByUserIdAsync(Guid userId);
+        Task<PregnancyInfo?> GetPregnancyInfoByUserIdAsync(Guid userId);
         
         /// <summary>
         /// 添加孕期信息
         /// </summary>
         /// <param name="pregnancyInfo">孕期信息</param>
-        Task AddAsync(PregnancyInfo pregnancyInfo);
+        Task CreatePregnancyInfoAsync(PregnancyInfo pregnancyInfo);
         
         /// <summary>
         /// 更新孕期信息
         /// </summary>
         /// <param name="pregnancyInfo">孕期信息</param>
-        Task UpdateAsync(PregnancyInfo pregnancyInfo);
+        Task UpdatePregnancyInfoAsync(PregnancyInfo pregnancyInfo);
         
         /// <summary>
         /// 判断用户是否存在孕期信息
         /// </summary>
         /// <param name="userId">用户ID</param>
         /// <returns>是否存在</returns>
-        Task<bool> ExistsByUserIdAsync(Guid userId);
+        Task<bool> PregnancyInfoExistsAsync(Guid userId);
+        
+        /// <summary>
+        /// 删除孕期信息
+        /// </summary>
+        /// <param name="userId">用户ID</param>
+        Task DeletePregnancyInfoAsync(Guid userId);
     }
 }

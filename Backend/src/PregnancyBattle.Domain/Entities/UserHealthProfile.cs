@@ -30,7 +30,7 @@ namespace PregnancyBattle.Domain.Entities
         /// <summary>
         /// 血型
         /// </summary>
-        public string BloodType { get; set; }
+        public required string BloodType { get; set; }
         
         /// <summary>
         /// 年龄
@@ -40,22 +40,22 @@ namespace PregnancyBattle.Domain.Entities
         /// <summary>
         /// 个人病史
         /// </summary>
-        public string MedicalHistory { get; set; }
+        public required string MedicalHistory { get; set; }
         
         /// <summary>
         /// 家族病史
         /// </summary>
-        public string FamilyHistory { get; set; }
+        public required string FamilyHistory { get; set; }
         
         /// <summary>
         /// 过敏史
         /// </summary>
-        public string AllergiesHistory { get; set; }
+        public required string AllergiesHistory { get; set; }
         
         /// <summary>
         /// 既往孕产史
         /// </summary>
-        public string ObstetricHistory { get; set; }
+        public required string ObstetricHistory { get; set; }
         
         /// <summary>
         /// 是否吸烟

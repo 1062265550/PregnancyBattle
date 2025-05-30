@@ -8,6 +8,9 @@
 import SwiftUI
 import Foundation
 
+// 导入健康管理视图
+import Charts
+
 struct MainTabView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
@@ -21,11 +24,16 @@ struct MainTabView: View {
 
             // 健康管理
             NavigationView {
-                Text("健康管理")
-                    .navigationTitle("健康管理")
+                HealthManagementView()
             }
             .tabItem {
                 Label("健康", systemImage: "heart.fill")
+            }
+
+            // 日记
+            DiaryView()
+            .tabItem {
+                Label("日记", systemImage: "book.closed")
             }
 
             // 孕期指南

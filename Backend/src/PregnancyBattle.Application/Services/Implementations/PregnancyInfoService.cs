@@ -1,6 +1,7 @@
 using AutoMapper;
 using PregnancyBattle.Application.DTOs;
 using PregnancyBattle.Application.Models;
+using PregnancyBattle.Application.Services.Interfaces;
 using PregnancyBattle.Domain.Entities;
 using PregnancyBattle.Domain.Enums;
 using PregnancyBattle.Domain.Repositories;
@@ -25,7 +26,7 @@ namespace PregnancyBattle.Application.Services.Implementations
         public async Task<ServiceResult<PregnancyInfoDto>> CreatePregnancyInfoAsync(Guid userId, CreatePregnancyInfoDto createDto)
         {
             // 检查用户是否已存在孕期信息
-            if (await _pregnancyInfoRepository.ExistsByUserIdAsync(userId))
+            if (await _pregnancyInfoRepository.PregnancyInfoExistsAsync(userId))
             {
                 return ServiceResult<PregnancyInfoDto>.FailureResult("User already has pregnancy information.", "409");
             }
@@ -63,7 +64,7 @@ namespace PregnancyBattle.Application.Services.Implementations
                 createDto.IvfEmbryoAge
             );
 
-            await _pregnancyInfoRepository.AddAsync(pregnancyInfo);
+            await _pregnancyInfoRepository.CreatePregnancyInfoAsync(pregnancyInfo);
             
             var resultDto = _mapper.Map<PregnancyInfoDto>(pregnancyInfo);
             // 手动计算DTO中的动态字段
@@ -78,7 +79,7 @@ namespace PregnancyBattle.Application.Services.Implementations
 
         public async Task<ServiceResult<PregnancyInfoDto>> GetPregnancyInfoAsync(Guid userId)
         {
-            var pregnancyInfo = await _pregnancyInfoRepository.GetByUserIdAsync(userId);
+            var pregnancyInfo = await _pregnancyInfoRepository.GetPregnancyInfoByUserIdAsync(userId);
             if (pregnancyInfo == null)
             {
                 return ServiceResult<PregnancyInfoDto>.FailureResult("Pregnancy information not found.", "404");
@@ -96,7 +97,7 @@ namespace PregnancyBattle.Application.Services.Implementations
 
         public async Task<ServiceResult<PregnancyInfoDto>> UpdatePregnancyInfoAsync(Guid userId, UpdatePregnancyInfoDto updateDto)
         {
-            var pregnancyInfo = await _pregnancyInfoRepository.GetByUserIdAsync(userId);
+            var pregnancyInfo = await _pregnancyInfoRepository.GetPregnancyInfoByUserIdAsync(userId);
             if (pregnancyInfo == null)
             {
                 return ServiceResult<PregnancyInfoDto>.FailureResult("Pregnancy information not found.", "404");
@@ -143,7 +144,7 @@ namespace PregnancyBattle.Application.Services.Implementations
                 updateDto.IvfEmbryoAge
             );
 
-            await _pregnancyInfoRepository.UpdateAsync(pregnancyInfo);
+            await _pregnancyInfoRepository.UpdatePregnancyInfoAsync(pregnancyInfo);
 
             var resultDto = _mapper.Map<PregnancyInfoDto>(pregnancyInfo);
             var (currentWeek, currentDay) = pregnancyInfo.GetCurrentGestation();

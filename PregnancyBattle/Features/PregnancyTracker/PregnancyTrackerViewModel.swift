@@ -182,7 +182,9 @@ class PregnancyTrackerViewModel: ObservableObject {
 
     // 加载孕期信息
     func loadPregnancyInfo() async {
+        print("[PregnancyTrackerViewModel] 开始加载孕期信息")
         guard AuthManager.shared.isAuthenticated else {
+            print("[PregnancyTrackerViewModel] 用户未认证，显示LMP输入表单")
             showLMPInput = true
             // If not authenticated, ensure constraints are based on default values.
             Task {
@@ -192,14 +194,34 @@ class PregnancyTrackerViewModel: ObservableObject {
             return
         }
 
+        print("[PregnancyTrackerViewModel] 用户已认证，用户ID: \(AuthManager.shared.currentUser?.id.uuidString ?? "未知")")
+
         isLoading = true
         error = nil
         self.pregnancyInfo = nil // Reset before loading
 
         do {
+            print("[PregnancyTrackerViewModel] 开始请求孕期信息API")
             let loadedInfo = try await PregnancyInfoService.shared.getPregnancyInfo()
             // If successful, loadedInfo is a non-optional PregnancyInfo
             self.pregnancyInfo = loadedInfo // Assign to the @Published Optional property
+
+            // 打印获取到的孕期信息详情
+            print("[PregnancyTrackerViewModel] 成功获取孕期信息:")
+            print("  - ID: \(loadedInfo.id)")
+            print("  - 用户ID: \(loadedInfo.userId)")
+            print("  - 末次月经日期: \(loadedInfo.lmpDate)")
+            print("  - 预产期: \(loadedInfo.dueDate)")
+            print("  - 计算方式: \(loadedInfo.calculationMethod.rawValue)")
+            print("  - B超日期: \(loadedInfo.ultrasoundDate?.description ?? "无")")
+            print("  - B超孕周: \(loadedInfo.ultrasoundWeeks?.description ?? "无")")
+            print("  - B超孕天: \(loadedInfo.ultrasoundDays?.description ?? "无")")
+            print("  - 是否多胎: \(loadedInfo.isMultiplePregnancy)")
+            print("  - 胎儿数量: \(loadedInfo.fetusCount?.description ?? "无")")
+            print("  - 当前孕周: \(loadedInfo.currentWeek)")
+            print("  - 当前孕天: \(loadedInfo.currentDay)")
+            print("  - 孕期阶段: \(loadedInfo.pregnancyStage)")
+            print("  - 距离预产期天数: \(loadedInfo.daysUntilDueDate)")
 
             // Populate ViewModel properties from loadedInfo
             self.lmpDate = loadedInfo.lmpDate
@@ -227,7 +249,9 @@ class PregnancyTrackerViewModel: ObservableObject {
             showLMPInput = false // Successfully loaded, so don't show input form
 
         } catch let apiError as APIError {
+            print("[PregnancyTrackerViewModel] API错误: \(apiError)")
             if case .notFound = apiError {
+                print("[PregnancyTrackerViewModel] 未找到孕期信息，显示LMP输入表单")
                 showLMPInput = true
                 // if not found, it's like a new entry, initialize constraints for defaults
                 Task {
@@ -235,10 +259,13 @@ class PregnancyTrackerViewModel: ObservableObject {
                     self.applyConstraintUpdateResults(results)
                 }
             } else {
-                error = handleError(apiError)
+                let errorMessage = handleError(apiError)
+                print("[PregnancyTrackerViewModel] 其他API错误: \(errorMessage)")
+                error = errorMessage
                 showLMPInput = true // Also show input if other error, so user can try to set manually
             }
         } catch {
+            print("[PregnancyTrackerViewModel] 未知错误: \(error.localizedDescription)")
             self.error = error.localizedDescription
             showLMPInput = true // Show input on generic error
         }
@@ -307,14 +334,28 @@ class PregnancyTrackerViewModel: ObservableObject {
 
     // 刷新孕周信息
     func refreshPregnancyInfo() async {
+        print("[PregnancyTrackerViewModel] 开始刷新孕期信息")
         isLoading = true
         error = nil
 
         do {
-            pregnancyInfo = try await PregnancyInfoService.shared.getCurrentWeekAndDay()
+            print("[PregnancyTrackerViewModel] 请求current-week API")
+            let refreshedInfo = try await PregnancyInfoService.shared.getCurrentWeekAndDay()
+            pregnancyInfo = refreshedInfo
+
+            // 打印刷新后的孕期信息
+            print("[PregnancyTrackerViewModel] 成功刷新孕期信息:")
+            print("  - 当前孕周: \(refreshedInfo.currentWeek)")
+            print("  - 当前孕天: \(refreshedInfo.currentDay)")
+            print("  - 孕期阶段: \(refreshedInfo.pregnancyStage)")
+            print("  - 距离预产期天数: \(refreshedInfo.daysUntilDueDate)")
+
         } catch let apiError as APIError {
-            error = handleError(apiError)
+            let errorMessage = handleError(apiError)
+            print("[PregnancyTrackerViewModel] 刷新孕期信息失败: \(errorMessage)")
+            error = errorMessage
         } catch {
+            print("[PregnancyTrackerViewModel] 刷新孕期信息未知错误: \(error.localizedDescription)")
             self.error = error.localizedDescription
         }
 

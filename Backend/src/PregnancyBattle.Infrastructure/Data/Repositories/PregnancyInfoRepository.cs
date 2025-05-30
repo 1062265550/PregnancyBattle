@@ -1,47 +1,30 @@
 using Dapper;
+using Microsoft.Extensions.Configuration;
+using Npgsql;
 using PregnancyBattle.Domain.Entities;
+using PregnancyBattle.Domain.Enums;
 using PregnancyBattle.Domain.Repositories;
-using PregnancyBattle.Infrastructure.Data.Contexts;
 using System;
-using System.Data;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace PregnancyBattle.Infrastructure.Data.Repositories
 {
     public class PregnancyInfoRepository : IPregnancyInfoRepository
     {
-        private readonly IDbContext _dbContext;
+        private readonly string _connectionString;
 
-        public PregnancyInfoRepository(IDbContext dbContext)
+        public PregnancyInfoRepository(IConfiguration configuration)
         {
-            _dbContext = dbContext;
+            _connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("DefaultConnection string is not configured.");
         }
 
-        public async Task<PregnancyInfo?> GetByUserIdAsync(Guid userId)
+        public async Task<PregnancyInfo?> GetPregnancyInfoByUserIdAsync(Guid userId)
         {
+            using var connection = new NpgsqlConnection(_connectionString);
+            // 使用明确的列名映射，确保user_id正确映射到UserId属性
             const string sql = @"
                 SELECT
-                    id AS ""Id"",
-                    user_id AS ""UserId"",
-                    lmp_date AS ""LmpDate"",
-                    due_date AS ""DueDate"",
-                    calculation_method AS ""CalculationMethod"",
-                    ultrasound_date AS ""UltrasoundDate"",
-                    ultrasound_weeks AS ""UltrasoundWeeks"",
-                    ultrasound_days AS ""UltrasoundDays"",
-                    is_multiple_pregnancy AS ""IsMultiplePregnancy"",
-                    fetus_count AS ""FetusCount""
-                FROM pregnancy_info
-                WHERE user_id = @UserId;
-            ";
-            using var connection = _dbContext.GetConnection();
-            return await connection.QueryFirstOrDefaultAsync<PregnancyInfo>(sql, new { UserId = userId });
-        }
-
-        public async Task AddAsync(PregnancyInfo pregnancyInfo)
-        {
-            const string sql = @"
-                INSERT INTO pregnancy_info (
                     id,
                     user_id,
                     lmp_date,
@@ -50,76 +33,143 @@ namespace PregnancyBattle.Infrastructure.Data.Repositories
                     ultrasound_date,
                     ultrasound_weeks,
                     ultrasound_days,
+                    ivf_transfer_date,
+                    ivf_embryo_age,
                     is_multiple_pregnancy,
-                    fetus_count
-                ) VALUES (
-                    @Id,
-                    @UserId,
-                    @LmpDate,
-                    @DueDate,
-                    @CalculationMethodString,
-                    @UltrasoundDate,
-                    @UltrasoundWeeks,
-                    @UltrasoundDays,
-                    @IsMultiplePregnancy,
-                    @FetusCount
-                );
-            ";
-            using var connection = _dbContext.GetConnection();
+                    fetus_count,
+                    created_at,
+                    updated_at
+                FROM pregnancy_info
+                WHERE user_id = @UserId";
+
+            var result = await connection.QuerySingleOrDefaultAsync<dynamic>(sql, new { UserId = userId });
+
+            if (result == null)
+                return null;
+
+            // 手动将查询结果映射到PregnancyInfo实体
+            Guid id = result.id;
+            Guid dbUserId = result.user_id;
+            DateTime lmpDate = result.lmp_date;
+            PregnancyCalculationMethod calculationMethod = Enum.Parse<PregnancyCalculationMethod>(result.calculation_method);
+            DateTime? ultrasoundDate = result.ultrasound_date;
+            int? ultrasoundWeeks = result.ultrasound_weeks;
+            int? ultrasoundDays = result.ultrasound_days;
+            DateTime? ivfTransferDate = result.ivf_transfer_date;
+            int? ivfEmbryoAge = result.ivf_embryo_age;
+            bool isMultiplePregnancy = result.is_multiple_pregnancy;
+            int? fetusCount = result.fetus_count;
+
+            // 使用构造函数创建PregnancyInfo实例
+            var pregnancyInfo = new PregnancyInfo(
+                dbUserId,
+                lmpDate,
+                calculationMethod,
+                ultrasoundDate,
+                ultrasoundWeeks,
+                ultrasoundDays,
+                isMultiplePregnancy,
+                fetusCount,
+                ivfTransferDate,
+                ivfEmbryoAge);
+
+            // 使用反射设置ID，因为ID是在构造函数中自动生成的，但我们需要使用数据库中的ID
+            typeof(PregnancyInfo).GetProperty("Id")?.SetValue(pregnancyInfo, id);
+
+            return pregnancyInfo;
+        }
+
+        public async Task CreatePregnancyInfoAsync(PregnancyInfo pregnancyInfo)
+        {
+            using var connection = new NpgsqlConnection(_connectionString);
+            const string sql = @"
+                INSERT INTO pregnancy_info
+                (id, user_id, lmp_date, due_date, calculation_method, ultrasound_date, ultrasound_weeks, ultrasound_days,
+                 ivf_transfer_date, ivf_embryo_age, is_multiple_pregnancy, fetus_count, created_at, updated_at)
+                VALUES
+                (@Id, @UserId, @LmpDate, @DueDate, @CalculationMethod, @UltrasoundDate, @UltrasoundWeeks, @UltrasoundDays,
+                 @IvfTransferDate, @IvfEmbryoAge, @IsMultiplePregnancy, @FetusCount, @CreatedAt, @UpdatedAt)";
+
+            // 确保UserId不为空
+            if (pregnancyInfo.UserId == Guid.Empty)
+            {
+                throw new InvalidOperationException("UserId cannot be empty when creating pregnancy info.");
+            }
+
             await connection.ExecuteAsync(sql, new
             {
-                pregnancyInfo.Id,
-                pregnancyInfo.UserId,
-                pregnancyInfo.LmpDate,
-                pregnancyInfo.DueDate,
-                CalculationMethodString = pregnancyInfo.CalculationMethod.ToString(),
-                pregnancyInfo.UltrasoundDate,
-                pregnancyInfo.UltrasoundWeeks,
-                pregnancyInfo.UltrasoundDays,
-                pregnancyInfo.IsMultiplePregnancy,
-                pregnancyInfo.FetusCount
+                Id = pregnancyInfo.Id,
+                UserId = pregnancyInfo.UserId,
+                LmpDate = pregnancyInfo.LmpDate,
+                DueDate = pregnancyInfo.DueDate,
+                CalculationMethod = pregnancyInfo.CalculationMethod.ToString(),
+                UltrasoundDate = pregnancyInfo.UltrasoundDate,
+                UltrasoundWeeks = pregnancyInfo.UltrasoundWeeks,
+                UltrasoundDays = pregnancyInfo.UltrasoundDays,
+                IvfTransferDate = pregnancyInfo.IvfTransferDate,
+                IvfEmbryoAge = pregnancyInfo.IvfEmbryoAge,
+                IsMultiplePregnancy = pregnancyInfo.IsMultiplePregnancy,
+                FetusCount = pregnancyInfo.FetusCount,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
             });
         }
 
-        public async Task UpdateAsync(PregnancyInfo pregnancyInfo)
+        public async Task UpdatePregnancyInfoAsync(PregnancyInfo pregnancyInfo)
         {
+            using var connection = new NpgsqlConnection(_connectionString);
             const string sql = @"
                 UPDATE pregnancy_info SET
-                    lmp_date = @LmpDate,
-                    due_date = @DueDate,
-                    calculation_method = @CalculationMethodString,
-                    ultrasound_date = @UltrasoundDate,
-                    ultrasound_weeks = @UltrasoundWeeks,
-                    ultrasound_days = @UltrasoundDays,
-                    is_multiple_pregnancy = @IsMultiplePregnancy,
-                    fetus_count = @FetusCount
-                WHERE id = @Id;
-            ";
-            using var connection = _dbContext.GetConnection();
+                lmp_date = @LmpDate,
+                due_date = @DueDate,
+                calculation_method = @CalculationMethod,
+                ultrasound_date = @UltrasoundDate,
+                ultrasound_weeks = @UltrasoundWeeks,
+                ultrasound_days = @UltrasoundDays,
+                ivf_transfer_date = @IvfTransferDate,
+                ivf_embryo_age = @IvfEmbryoAge,
+                is_multiple_pregnancy = @IsMultiplePregnancy,
+                fetus_count = @FetusCount,
+                updated_at = @UpdatedAt
+                WHERE id = @Id AND user_id = @UserId";
+
+            // 确保UserId不为空
+            if (pregnancyInfo.UserId == Guid.Empty)
+            {
+                throw new InvalidOperationException("UserId cannot be empty when updating pregnancy info.");
+            }
+
             await connection.ExecuteAsync(sql, new
             {
-                pregnancyInfo.Id,
-                pregnancyInfo.LmpDate,
-                pregnancyInfo.DueDate,
-                CalculationMethodString = pregnancyInfo.CalculationMethod.ToString(),
-                pregnancyInfo.UltrasoundDate,
-                pregnancyInfo.UltrasoundWeeks,
-                pregnancyInfo.UltrasoundDays,
-                pregnancyInfo.IsMultiplePregnancy,
-                pregnancyInfo.FetusCount
+                Id = pregnancyInfo.Id,
+                UserId = pregnancyInfo.UserId,
+                LmpDate = pregnancyInfo.LmpDate,
+                DueDate = pregnancyInfo.DueDate,
+                CalculationMethod = pregnancyInfo.CalculationMethod.ToString(),
+                UltrasoundDate = pregnancyInfo.UltrasoundDate,
+                UltrasoundWeeks = pregnancyInfo.UltrasoundWeeks,
+                UltrasoundDays = pregnancyInfo.UltrasoundDays,
+                IvfTransferDate = pregnancyInfo.IvfTransferDate,
+                IvfEmbryoAge = pregnancyInfo.IvfEmbryoAge,
+                IsMultiplePregnancy = pregnancyInfo.IsMultiplePregnancy,
+                FetusCount = pregnancyInfo.FetusCount,
+                UpdatedAt = DateTime.UtcNow
             });
         }
 
-        public async Task<bool> ExistsByUserIdAsync(Guid userId)
+        public async Task<bool> PregnancyInfoExistsAsync(Guid userId)
         {
-            const string sql = @"
-                SELECT COUNT(1)
-                FROM pregnancy_info
-                WHERE user_id = @UserId;
-            ";
-            using var connection = _dbContext.GetConnection();
+            using var connection = new NpgsqlConnection(_connectionString);
+            const string sql = "SELECT COUNT(1) FROM pregnancy_info WHERE user_id = @UserId";
             var count = await connection.ExecuteScalarAsync<int>(sql, new { UserId = userId });
             return count > 0;
+        }
+
+        public async Task DeletePregnancyInfoAsync(Guid userId)
+        {
+            using var connection = new NpgsqlConnection(_connectionString);
+            const string sql = "DELETE FROM pregnancy_info WHERE user_id = @UserId";
+            await connection.ExecuteAsync(sql, new { UserId = userId });
         }
     }
 }

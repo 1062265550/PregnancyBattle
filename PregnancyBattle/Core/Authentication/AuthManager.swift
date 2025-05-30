@@ -514,6 +514,42 @@ class AuthManager: ObservableObject {
         isAuthenticated = false
     }
 
+    /// 检查Token是否有效（简单的过期时间检查）
+    func isTokenValid() -> Bool {
+        guard let token = accessToken else {
+            print("[AuthManager] 没有访问令牌")
+            return false
+        }
+
+        // 解析JWT Token检查过期时间
+        let parts = token.components(separatedBy: ".")
+        guard parts.count == 3 else {
+            print("[AuthManager] Token格式无效")
+            return false
+        }
+
+        // 解码payload部分
+        let payload = parts[1]
+        // 添加必要的padding
+        let paddedPayload = payload + String(repeating: "=", count: (4 - payload.count % 4) % 4)
+
+        guard let data = Data(base64Encoded: paddedPayload),
+              let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let exp = json["exp"] as? TimeInterval else {
+            print("[AuthManager] 无法解析Token过期时间")
+            return false
+        }
+
+        let expirationDate = Date(timeIntervalSince1970: exp)
+        let isValid = expirationDate > Date()
+
+        if !isValid {
+            print("[AuthManager] Token已过期: \(expirationDate)")
+        }
+
+        return isValid
+    }
+
     // 发送验证码请求模型
     struct SendVerificationCodeRequest: Codable {
         let email: String?

@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import Network
 
 /// API响应模型（泛型）
 struct ApiResponse<T: Decodable>: Decodable {
@@ -28,7 +29,7 @@ struct ApiResponseEmpty: Decodable {
     let code: String?
 }
 
-enum APIError: Error {
+public enum APIError: Error {
     case invalidURL
     case invalidResponse
     case invalidData
@@ -46,10 +47,44 @@ enum APIError: Error {
 class APIService {
     static let shared = APIService()
 
-    private let baseURL = "http://localhost:5094/api"
-    private let session = URLSession.shared
+    // 后端API地址
+    // 注意：后端控制器已经包含了"api"前缀，所以baseURL不需要再加"/api"
+    // 生产环境
+    // private let baseURL = "https://api.pregnancybattle.com"
+    // 开发环境 - 使用127.0.0.1而不是localhost以确保iOS模拟器能够连接
+    private let baseURL = "http://127.0.0.1:5094"
+    // Azure部署环境
+    // private let baseURL = "https://pregnancybattle-api.azurewebsites.net"
+
+    // 配置URLSession，添加超时设置
+    private let session: URLSession = {
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 60.0  // 请求超时60秒（增加AI处理时间）
+        config.timeoutIntervalForResource = 120.0 // 资源超时120秒
+        config.waitsForConnectivity = true       // 等待网络连接
+        return URLSession(configuration: config)
+    }()
+
     private let jsonDecoder = JSONDecoder()
+
+    // 调试模式开关
+    private let isDebugMode = true
     private let jsonEncoder = JSONEncoder()
+
+    // 网络监控
+    private let networkMonitor = NWPathMonitor()
+    private let networkQueue = DispatchQueue(label: "NetworkMonitor")
+    private var isNetworkAvailable = true
+
+    // 获取完整的API URL
+    private func getFullURL(endpoint: String) -> String {
+        // 检查endpoint是否已经包含了api前缀
+        if endpoint.hasPrefix("api/") {
+            return "\(baseURL)/\(endpoint)"
+        } else {
+            return "\(baseURL)/api/\(endpoint)"
+        }
+    }
 
     private init() {
         // 自定义日期解码策略，兼容后端返回的日期格式
@@ -146,11 +181,30 @@ class APIService {
 
         // 添加User-Agent，方便后端识别请求来源 (可选)
         // URLSessionConfiguration.default.httpAdditionalHeaders = ["User-Agent": "PregnancyBattleApp/1.0"]
+
+        // 启动网络监控
+        startNetworkMonitoring()
+    }
+
+    private func startNetworkMonitoring() {
+        networkMonitor.pathUpdateHandler = { [weak self] path in
+            DispatchQueue.main.async {
+                self?.isNetworkAvailable = path.status == .satisfied
+                print("[APIService] Network status: \(path.status == .satisfied ? "Available" : "Unavailable")")
+            }
+        }
+        networkMonitor.start(queue: networkQueue)
     }
 
     func request<T: Decodable>(endpoint: String, method: String = "GET", body: Encodable? = nil, headers: [String: String]? = nil) async throws -> T {
+        // 检查网络连接状态 - 暂时禁用此检查以解决iOS模拟器连接问题
+        // if !isNetworkAvailable {
+        //     print("[APIService] Error: No network connection available")
+        //     throw APIError.requestFailed(URLError(.notConnectedToInternet))
+        // }
+
         let isLoginOrRegister = endpoint == "users/login" || endpoint == "users/register"
-        let fullURLString = "\(baseURL)/\(endpoint)"
+        let fullURLString = getFullURL(endpoint: endpoint)
         print("[APIService] Requesting: \(method) \(fullURLString)")
 
         guard let url = URL(string: fullURLString) else {
@@ -160,6 +214,13 @@ class APIService {
 
         var request = URLRequest(url: url)
         request.httpMethod = method
+
+        // 设置请求超时，对于可能需要AI处理的接口增加超时时间
+        if endpoint.contains("risk-assessment") {
+            request.timeoutInterval = 90.0  // AI风险评估需要更长时间
+        } else {
+            request.timeoutInterval = 60.0  // 其他接口60秒
+        }
 
         // 设置默认请求头
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -174,9 +235,29 @@ class APIService {
         }
 
         // 添加认证令牌
-        if let token = await AuthManager.shared.accessToken, !isLoginOrRegister {
-            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-            print("[APIService] Headers: Authorization: Bearer [TOKEN_PRESENT]") // 不打印完整token
+        if !isLoginOrRegister {
+            let (token, isTokenValid) = await MainActor.run {
+                let authManager = AuthManager.shared
+                return (authManager.accessToken, authManager.isTokenValid())
+            }
+
+            if let token = token {
+                // 检查Token是否有效
+                if !isTokenValid {
+                    print("[APIService] Token已过期，清除认证状态")
+                    await MainActor.run {
+                        AuthManager.shared.logout()
+                    }
+                    throw APIError.unauthorized
+                }
+
+                request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+                print("[APIService] Headers: Authorization: Bearer [TOKEN_PRESENT]") // 不打印完整token
+            } else {
+                print("[APIService] Warning: No access token available for authenticated request")
+                // 对于需要认证的请求，如果没有token，直接抛出未授权错误
+                throw APIError.unauthorized
+            }
         }
 
         // 编码请求体
@@ -196,6 +277,10 @@ class APIService {
 
         do {
             print("[APIService] Sending request to \(url.absoluteString)")
+            print("[APIService] Request method: \(request.httpMethod ?? "GET")")
+            print("[APIService] Request headers: \(request.allHTTPHeaderFields ?? [:])")
+            print("[APIService] Network monitor available: \(isNetworkAvailable)")
+            
             let (data, response) = try await session.data(for: request)
 
             guard let httpResponse = response as? HTTPURLResponse else {
@@ -214,10 +299,14 @@ class APIService {
             case 200...299:
                 do {
                     // 尝试解析为ApiResponse<T>格式
-                    if let apiResponse = try? jsonDecoder.decode(ApiResponse<T>.self, from: data) {
+                    do {
+                        let apiResponse = try jsonDecoder.decode(ApiResponse<T>.self, from: data)
+                        print("[APIService] 成功解码为ApiResponse<T>格式")
+
                         if apiResponse.success {
                             if let responseData = apiResponse.data {
                                 print("[APIService] Success (ApiResponse.data): Decoded successfully.")
+                                print("[APIService] 响应数据类型: \(type(of: responseData))")
                                 return responseData
                             } else {
                                 print("[APIService] Success (ApiResponse) but no data field, attempting to decode T directly from root.")
@@ -227,8 +316,10 @@ class APIService {
                             print("[APIService] Business Error (ApiResponse.success == false): \(apiResponse.message ?? "N/A"), Code: \(apiResponse.code ?? "N/A")")
                             throw APIError.businessError(message: apiResponse.message ?? "未知业务错误", code: apiResponse.code)
                         }
-                    } else {
-                        print("[APIService] Success (200-299), but failed to decode as ApiResponse<T>. Attempting to decode T directly.")
+                    } catch {
+                        print("[APIService] 解码为ApiResponse<T>格式失败: \(error)")
+                        print("[APIService] 尝试直接解码为\(T.self)类型")
+
                         do {
                             let result = try jsonDecoder.decode(T.self, from: data)
                             print("[APIService] 直接解码成功，类型: \(T.self)")
@@ -356,23 +447,246 @@ class APIService {
                 }
             case 401:
                 print("[APIService] Error (401 Unauthorized)")
+
+                // 如果不是登录或注册请求，尝试刷新Token
+                if !isLoginOrRegister {
+                    print("[APIService] 尝试刷新Token...")
+
+                    // 清除当前无效的Token
+                    await MainActor.run {
+                        AuthManager.shared.logout()
+                    }
+
+                    print("[APIService] Token已清除，用户需要重新登录")
+                }
+
                 throw APIError.unauthorized
             case 404:
                 print("[APIService] Error (404 Not Found) for URL: \(fullURLString)")
+
+                // 尝试解析后端返回的错误消息
+                do {
+                    // 尝试解析为ApiResponse<T>格式
+                    if let apiResponse = try? jsonDecoder.decode(ApiResponse<T>.self, from: data) {
+                        print("[APIService] Successfully parsed 404 response as ApiResponse<T>: \(apiResponse.message ?? "N/A")")
+                        throw APIError.notFound
+                    }
+
+                    // 尝试解析为ApiResponseEmpty格式
+                    if let apiResponse = try? jsonDecoder.decode(ApiResponseEmpty.self, from: data) {
+                        print("[APIService] Successfully parsed 404 response as ApiResponseEmpty: \(apiResponse.message ?? "N/A")")
+                        throw APIError.notFound
+                    }
+
+                    // 尝试解析为简单消息格式
+                    if let jsonObject = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                       let message = jsonObject["message"] as? String {
+                        print("[APIService] Parsed 404 response using JSONSerialization: Message=\(message)")
+                        throw APIError.notFound
+                    }
+                } catch let apiErr as APIError {
+                    throw apiErr
+                } catch {
+                    print("[APIService] Failed to parse 404 response: \(error)")
+                }
+
+                // 如果无法解析，使用默认的notFound错误
                 throw APIError.notFound
             default:
                 print("[APIService] Error (Server Error): Status \(httpResponse.statusCode)")
+
+                // 对于409冲突错误，尝试解析后端返回的错误消息
+                if httpResponse.statusCode == 409 {
+                    do {
+                        // 尝试解析为ApiResponse<T>格式
+                        if let apiResponse = try? jsonDecoder.decode(ApiResponse<T>.self, from: data) {
+                            print("[APIService] Successfully parsed 409 response as ApiResponse<T>: \(apiResponse.message ?? "N/A")")
+                            throw APIError.businessError(message: apiResponse.message ?? "资源冲突", code: apiResponse.code)
+                        }
+
+                        // 尝试解析为ApiResponseEmpty格式
+                        if let apiResponse = try? jsonDecoder.decode(ApiResponseEmpty.self, from: data) {
+                            print("[APIService] Successfully parsed 409 response as ApiResponseEmpty: \(apiResponse.message ?? "N/A")")
+                            throw APIError.businessError(message: apiResponse.message ?? "资源冲突", code: apiResponse.code)
+                        }
+                    } catch let apiErr as APIError {
+                        throw apiErr
+                    } catch {
+                        print("[APIService] Failed to parse 409 response: \(error)")
+                    }
+                }
+
                 throw APIError.serverError(httpResponse.statusCode)
             }
         } catch let urlError as URLError {
             print("[APIService] Error: URLSession task failed - \(urlError.localizedDescription)")
-            throw APIError.requestFailed(urlError)
+            print("[APIService] URLError code: \(urlError.code.rawValue)")
+
+            // 处理不同类型的URLError
+            switch urlError.code {
+            case .cancelled:
+                print("[APIService] Request was cancelled")
+                // 对于取消的请求，抛出特殊的取消错误
+                throw CancellationError()
+            case .timedOut:
+                print("[APIService] Request timed out")
+                throw APIError.requestFailed(urlError)
+            case .notConnectedToInternet:
+                print("[APIService] No internet connection")
+                throw APIError.requestFailed(urlError)
+            case .networkConnectionLost:
+                print("[APIService] Network connection lost")
+                throw APIError.requestFailed(urlError)
+            default:
+                print("[APIService] Other URLError: \(urlError.localizedDescription)")
+                throw APIError.requestFailed(urlError)
+            }
         } catch let apiErr as APIError {
              print("[APIService] Error: APIError caught - \(apiErr)")
              throw apiErr // Re-throw known API errors
         } catch {
             print("[APIService] Error: Unknown error during request - \(error.localizedDescription)")
             throw APIError.unknown // Or re-throw error directly
+        }
+    }
+
+    // MARK: - 文件上传方法
+
+    /// 上传单个文件
+    /// - Parameters:
+    ///   - endpoint: API端点
+    ///   - fileData: 文件数据
+    ///   - fileName: 文件名
+    ///   - contentType: 文件类型
+    ///   - folder: 存储文件夹
+    /// - Returns: 文件上传结果
+    func uploadFile<T: Decodable>(
+        endpoint: String,
+        fileData: Data,
+        fileName: String,
+        contentType: String,
+        folder: String = "diary-media"
+    ) async throws -> T {
+        // 检查网络连接状态 - 暂时禁用此检查以解决iOS模拟器连接问题
+        // if !isNetworkAvailable {
+        //     print("[APIService] Error: No network connection available")
+        //     throw APIError.requestFailed(URLError(.notConnectedToInternet))
+        // }
+
+        let fullURLString = getFullURL(endpoint: endpoint)
+        print("[APIService] Uploading file to: \(fullURLString)")
+
+        guard let url = URL(string: fullURLString) else {
+            print("[APIService] Error: Invalid URL - \(fullURLString)")
+            throw APIError.invalidURL
+        }
+
+        // 创建multipart/form-data请求
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.timeoutInterval = 120.0 // 文件上传需要更长时间
+
+        // 生成boundary
+        let boundary = UUID().uuidString
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+        // 添加认证令牌
+        let token = await MainActor.run {
+            return AuthManager.shared.accessToken
+        }
+        if let token = token {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            print("[APIService] Headers: Authorization: Bearer [TOKEN_PRESENT]")
+        } else {
+            print("[APIService] Warning: No access token available for file upload")
+            throw APIError.unauthorized
+        }
+
+        // 构建multipart body
+        var body = Data()
+
+        // 添加文件数据
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"file\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
+        body.append("Content-Type: \(contentType)\r\n\r\n".data(using: .utf8)!)
+        body.append(fileData)
+        body.append("\r\n".data(using: .utf8)!)
+
+        // 添加folder参数
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"folder\"\r\n\r\n".data(using: .utf8)!)
+        body.append(folder.data(using: .utf8)!)
+        body.append("\r\n".data(using: .utf8)!)
+
+        // 结束boundary
+        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
+
+        request.httpBody = body
+
+        print("[APIService] Uploading file: \(fileName), size: \(fileData.count) bytes")
+
+        do {
+            let (data, response) = try await session.data(for: request)
+
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("[APIService] Error: Invalid response object")
+                throw APIError.invalidResponse
+            }
+
+            print("[APIService] Upload Response Status Code: \(httpResponse.statusCode)")
+            if let responseDataString = String(data: data, encoding: .utf8) {
+                print("[APIService] Upload Response Data: \(responseDataString)")
+            }
+
+            switch httpResponse.statusCode {
+            case 200...299:
+                do {
+                    // 尝试解析为ApiResponse<T>格式
+                    let apiResponse = try jsonDecoder.decode(ApiResponse<T>.self, from: data)
+                    print("[APIService] 文件上传成功解码为ApiResponse<T>格式")
+
+                    if apiResponse.success {
+                        if let responseData = apiResponse.data {
+                            print("[APIService] File upload success: \(apiResponse.message ?? "N/A")")
+                            return responseData
+                        } else {
+                            print("[APIService] File upload success but no data field")
+                            return try jsonDecoder.decode(T.self, from: data)
+                        }
+                    } else {
+                        print("[APIService] File upload business error: \(apiResponse.message ?? "N/A")")
+                        throw APIError.businessError(message: apiResponse.message ?? "文件上传失败", code: apiResponse.code)
+                    }
+                } catch {
+                    print("[APIService] 文件上传解码失败: \(error)")
+                    throw APIError.decodingError(error)
+                }
+            case 400:
+                print("[APIService] File upload error (400 Bad Request)")
+                // 尝试解析错误消息
+                if let errorData = try? jsonDecoder.decode(ApiResponseEmpty.self, from: data) {
+                    throw APIError.businessError(message: errorData.message ?? "文件上传参数错误", code: errorData.code)
+                } else {
+                    throw APIError.badRequest("文件上传参数错误")
+                }
+            case 401:
+                print("[APIService] File upload error (401 Unauthorized)")
+                throw APIError.unauthorized
+            case 413:
+                print("[APIService] File upload error (413 Payload Too Large)")
+                throw APIError.businessError(message: "文件大小超过限制", code: "FILE_TOO_LARGE")
+            default:
+                print("[APIService] File upload error: Status \(httpResponse.statusCode)")
+                throw APIError.serverError(httpResponse.statusCode)
+            }
+        } catch let urlError as URLError {
+            print("[APIService] File upload URLError: \(urlError.localizedDescription)")
+            throw APIError.requestFailed(urlError)
+        } catch let apiErr as APIError {
+            throw apiErr
+        } catch {
+            print("[APIService] File upload unknown error: \(error.localizedDescription)")
+            throw APIError.unknown
         }
     }
 }

@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using PregnancyBattle.Application.DTOs;
+using PregnancyBattle.Application.Services.Interfaces;
 using PregnancyBattle.Domain.Entities;
 using PregnancyBattle.Domain.Exceptions;
 using PregnancyBattle.Domain.Repositories;

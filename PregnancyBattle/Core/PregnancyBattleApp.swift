@@ -14,12 +14,33 @@ struct PregnancyBattleApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if authManager.isAuthenticated {
-                MainTabView()
-                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
-            } else {
-                AuthView()
-                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            Group {
+                if authManager.isAuthenticated {
+                    MainTabView()
+                        .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                } else {
+                    AuthView()
+                        .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                }
+            }
+            .onAppear {
+                // 在应用启动时测试网络连接
+                testNetworkConnection()
+            }
+        }
+    }
+    
+    private func testNetworkConnection() {
+        Task {
+            do {
+                let url = URL(string: "http://127.0.0.1:5094/")!
+                let (_, response) = try await URLSession.shared.data(from: url)
+                if let httpResponse = response as? HTTPURLResponse {
+                    print("[PregnancyBattleApp] 网络连接测试成功: \(httpResponse.statusCode)")
+                }
+            } catch {
+                print("[PregnancyBattleApp] 网络连接测试失败: \(error)")
+                print("[PregnancyBattleApp] 错误详情: \(error.localizedDescription)")
             }
         }
     }

@@ -4,13 +4,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PregnancyBattle.Api.Models;
 using PregnancyBattle.Application.DTOs;
-using PregnancyBattle.Application.Services;
+using PregnancyBattle.Application.Services.Interfaces;
 
 namespace PregnancyBattle.Api.Controllers
 {
     /// <summary>
     /// 用户控制器
     /// </summary>
+    [Route("api/users")]
     public class UsersController : BaseApiController
     {
         private readonly IUserService _userService;

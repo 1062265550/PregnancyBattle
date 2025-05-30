@@ -12,7 +12,19 @@
 - **数据格式**: JSON
 - **认证方式**: Bearer Token (JWT)
 
-## 三、统一响应格式
+## 三、API命名规范
+
+为确保API路径的一致性和可维护性，我们采用以下命名规范：
+
+1. **路径全部使用小写字母**：所有API路径均使用小写字母，例如`/users`而非`/Users`
+2. **使用连字符分隔多个单词**：当路径包含多个单词时，使用连字符（-）连接，例如`/health-profiles`而非`/healthprofiles`或`/HealthProfiles`
+3. **使用复数形式表示资源集合**：资源集合使用复数形式，例如`/users`、`/diaries`、`/health-profiles`
+4. **使用名词而非动词**：API路径使用名词表示资源，而非动词表示操作，操作通过HTTP方法（GET、POST、PUT、DELETE）表示
+5. **子资源使用嵌套路径**：子资源通过嵌套路径表示，例如`/users/{id}/posts`表示用户的帖子
+6. **查询参数使用camelCase**：查询参数使用camelCase命名法，例如`sortDirection`而非`sort_direction`
+7. **版本号放在路径中**：API版本号放在路径中，例如`/api/v1/users`
+
+## 四、统一响应格式
 
 所有API接口都使用统一的响应格式，包括成功和失败的情况。
 
@@ -45,7 +57,7 @@
 - 409: 资源冲突
 - 500: 服务器错误
 
-## 四、认证相关API ✅
+## 五、认证相关API ✅
 
 ### 1. 用户注册 ✅
 
@@ -259,7 +271,7 @@
   - 400: 重置密码令牌不存在或已过期
   - 404: 用户不存在
 
-## 五、用户相关API
+## 六、用户相关API
 
 ### 1. 获取当前用户信息 ✅
 
@@ -328,11 +340,11 @@
   - 401: 未授权
   - 404: 用户不存在
 
-## 六、孕期信息相关API
+## 七、孕期信息相关API
 
 ### 1. 创建孕期信息 ✅
 
-- **URL**: `/pregnancyinfo`
+- **URL**: `/pregnancy-info`
 - **方法**: POST
 - **描述**: 创建用户的孕期信息
 - **请求头**: Authorization: Bearer {accessToken}
@@ -382,7 +394,7 @@
 
 ### 2. 获取孕期信息 ✅
 
-- **URL**: `/pregnancyinfo`
+- **URL**: `/pregnancy-info`
 - **方法**: GET
 - **描述**: 获取当前登录用户的孕期信息
 - **请求头**: Authorization: Bearer {accessToken}
@@ -417,7 +429,7 @@
 
 ### 3. 更新孕期信息 ✅
 
-- **URL**: `/pregnancyinfo`
+- **URL**: `/pregnancy-info`
 - **方法**: PUT
 - **描述**: 更新当前登录用户的孕期信息
 - **请求头**: Authorization: Bearer {accessToken}
@@ -467,7 +479,7 @@
 
 ### 4. 计算当前孕周和孕天 ✅
 
-- **URL**: `/pregnancyinfo/current-week`
+- **URL**: `/pregnancy-info/current-week`
 - **方法**: GET
 - **描述**: 计算当前登录用户的孕周和孕天
 - **请求头**: Authorization: Bearer {accessToken}
@@ -500,11 +512,11 @@
   - 401: 未授权
   - 404: 孕期信息不存在
 
-## 七、健康档案相关API
+## 八、健康档案相关API
 
-### 1. 创建健康档案
+### 1. 创建健康档案 ✅
 
-- **URL**: `/healthprofile`
+- **URL**: `/health-profiles`
 - **方法**: POST
 - **描述**: 创建用户的健康档案
 - **请求头**: Authorization: Bearer {accessToken}
@@ -558,9 +570,9 @@
   - 401: 未授权
   - 409: 用户已有健康档案
 
-### 2. 获取健康档案
+### 2. 获取健康档案 ✅
 
-- **URL**: `/healthprofile`
+- **URL**: `/health-profiles`
 - **方法**: GET
 - **描述**: 获取当前登录用户的健康档案
 - **请求头**: Authorization: Bearer {accessToken}
@@ -595,9 +607,9 @@
   - 401: 未授权
   - 404: 健康档案不存在
 
-### 3. 更新健康档案
+### 3. 更新健康档案 ✅
 
-- **URL**: `/healthprofile`
+- **URL**: `/health-profiles`
 - **方法**: PUT
 - **描述**: 更新当前登录用户的健康档案
 - **请求头**: Authorization: Bearer {accessToken}
@@ -649,9 +661,50 @@
   - 401: 未授权
   - 404: 健康档案不存在
 
-### 4. 获取体重变化趋势
+### 4. 记录每日体重 ✅
 
-- **URL**: `/healthprofile/weight-trend`
+- **URL**: `/health-profiles/weight-records`
+- **方法**: POST
+- **描述**: 记录当前登录用户的每日体重
+- **请求头**: Authorization: Bearer {accessToken}
+- **请求参数**:
+
+```json
+{
+  "weight": "decimal", // 体重（千克），必填，30-200千克
+  "recordDate": "date", // 记录日期，选填，默认为今天，不能晚于今天
+  "note": "string" // 备注，选填
+}
+```
+
+- **响应**:
+
+```json
+{
+  "success": true,
+  "message": "记录成功",
+  "data": {
+    "id": "guid", // 体重记录ID
+    "userId": "guid", // 用户ID
+    "weight": "decimal", // 体重（千克）
+    "recordDate": "date", // 记录日期
+    "pregnancyWeek": "integer", // 孕周
+    "pregnancyDay": "integer", // 孕天
+    "note": "string", // 备注
+    "createdAt": "datetime", // 创建时间
+    "updatedAt": "datetime" // 更新时间
+  }
+}
+```
+
+- **错误码**:
+  - 400: 请求参数无效
+  - 401: 未授权
+  - 404: 健康档案不存在
+
+### 5. 获取体重变化趋势 ✅
+
+- **URL**: `/health-profiles/weight-trend`
 - **方法**: GET
 - **描述**: 获取当前登录用户的体重变化趋势
 - **请求头**: Authorization: Bearer {accessToken}
@@ -685,12 +738,16 @@
   - 401: 未授权
   - 404: 健康档案不存在
 
-### 5. 获取健康风险评估
+### 5. 获取健康风险评估 ✅ (AI增强，支持缓存)
 
-- **URL**: `/healthprofile/risk-assessment`
+- **URL**: `/health-profiles/risk-assessment`
 - **方法**: GET
-- **描述**: 获取当前登录用户的健康风险评估
+- **描述**: 获取当前登录用户的健康风险评估（集成DeepSeek AI智能分析，支持智能缓存）
 - **请求头**: Authorization: Bearer {accessToken}
+- **功能说明**:
+  - 优先从缓存中获取风险评估结果
+  - 只有当健康档案数据发生变化时才会重新调用AI生成评估
+  - 大幅减少AI API调用次数和响应时间
 - **响应**:
 
 ```json
@@ -713,7 +770,41 @@
         "category": "string", // 建议类别
         "description": "string" // 建议描述
       }
-    ]
+    ],
+    // AI增强分析结果
+    "aiAnalysis": {
+      "overallAssessment": "string", // 整体评估
+      "detailedAnalyses": [
+        {
+          "category": "string", // 分析类别 (BMI/年龄/病史/生活习惯等)
+          "dataValue": "string", // 数据值
+          "analysis": "string", // 详细分析
+          "impact": "string", // 对孕期的影响
+          "recommendation": "string", // 针对性建议
+          "severity": "string" // 严重程度 (低/中/高)
+        }
+      ],
+      "comprehensiveRecommendation": "string", // 综合建议
+      "riskScore": "integer", // 风险评分 (1-10)
+      "riskLevel": "string" // 风险等级 (低/中/高)
+    },
+    "personalizedRecommendations": {
+      "categoryRecommendations": [
+        {
+          "category": "string", // 建议类别
+          "title": "string", // 建议标题
+          "description": "string", // 详细描述
+          "priority": "string", // 优先级 (高/中/低)
+          "actionItems": ["string"] // 具体行动项
+        }
+      ],
+      "dietPlan": "string", // 饮食计划
+      "exercisePlan": "string", // 运动计划
+      "lifestyleAdjustments": "string", // 生活方式调整
+      "monitoringAdvice": "string", // 监测建议
+      "warningSignsToWatch": ["string"] // 需要关注的警告信号
+    },
+    "isAiEnhanced": "boolean" // 是否使用了AI增强
   }
 }
 ```
@@ -722,9 +813,347 @@
   - 401: 未授权
   - 404: 健康档案不存在
 
-## 七、日记相关API
+### 6. 强制刷新健康风险评估 ✅ (AI增强)
 
-### 1. 创建日记
+- **URL**: `/health-profiles/risk-assessment/refresh`
+- **方法**: POST
+- **描述**: 强制重新生成健康风险评估，忽略缓存（用于测试或用户主动刷新）
+- **请求头**: Authorization: Bearer {accessToken}
+- **功能说明**:
+  - 强制重新调用DeepSeek AI生成风险评估
+  - 更新缓存中的评估结果
+  - 适用于用户主动要求刷新或测试场景
+- **响应**:
+
+```json
+{
+  "success": true,
+  "message": "风险评估已刷新",
+  "data": {
+    // 同获取健康风险评估接口的响应格式
+    "bmiCategory": "string",
+    "bmiRisk": "string",
+    "ageRisk": "string",
+    "medicalRisks": [...],
+    "recommendations": [...],
+    "aiAnalysis": {...},
+    "personalizedRecommendations": {...},
+    "isAiEnhanced": true
+  }
+}
+```
+
+- **错误码**:
+  - 401: 未授权
+  - 404: 健康档案不存在
+  - 500: AI服务不可用
+
+## 九、文件上传API
+
+### 1. 上传文件 ✅
+
+- **URL**: `/files/upload`
+- **方法**: POST
+- **描述**: 上传文件到服务器（支持图片、视频、音频等多种格式）
+- **请求头**:
+  - Authorization: Bearer {accessToken}
+  - Content-Type: multipart/form-data
+- **请求参数**:
+
+```
+Form Data:
+file: (binary) // 文件数据，必填
+fileType: string // 文件类型，必填，可选值：Image、Video、Audio、Document
+category: string // 业务分类，选填，默认为"general"，可选值：diary、profile、prenatal-care等
+description: string // 文件描述，选填
+```
+
+- **响应**:
+
+```json
+{
+  "success": true,
+  "message": "文件上传成功",
+  "data": {
+    "fileId": "guid", // 文件ID
+    "fileName": "string", // 文件名称
+    "originalFileName": "string", // 原始文件名
+    "fileUrl": "string", // 文件访问URL
+    "fileType": "string", // 文件类型
+    "fileSize": "integer", // 文件大小（字节）
+    "mimeType": "string", // MIME类型
+    "category": "string", // 业务分类
+    "description": "string", // 文件描述
+    "uploadedAt": "datetime", // 上传时间
+    "createdBy": "guid" // 上传用户ID
+  }
+}
+```
+
+- **错误码**:
+  - 400: 请求参数无效（文件格式不支持、文件过大等）
+  - 401: 未授权
+  - 413: 文件过大
+  - 415: 不支持的文件类型
+  - 500: 文件上传失败
+
+### 2. 获取文件信息 ✅
+
+- **URL**: `/files/{fileId}`
+- **方法**: GET
+- **描述**: 获取指定ID的文件信息
+- **请求头**: Authorization: Bearer {accessToken}
+- **路径参数**:
+  - fileId: 文件ID
+- **响应**:
+
+```json
+{
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "fileId": "guid", // 文件ID
+    "fileName": "string", // 文件名称
+    "originalFileName": "string", // 原始文件名
+    "fileUrl": "string", // 文件访问URL
+    "fileType": "string", // 文件类型
+    "fileSize": "integer", // 文件大小（字节）
+    "mimeType": "string", // MIME类型
+    "category": "string", // 业务分类
+    "description": "string", // 文件描述
+    "uploadedAt": "datetime", // 上传时间
+    "createdBy": "guid" // 上传用户ID
+  }
+}
+```
+
+- **错误码**:
+  - 401: 未授权
+  - 403: 禁止访问（尝试访问其他用户的文件）
+  - 404: 文件不存在
+
+### 3. 删除文件 ✅
+
+- **URL**: `/files/{fileId}`
+- **方法**: DELETE
+- **描述**: 删除指定ID的文件
+- **请求头**: Authorization: Bearer {accessToken}
+- **路径参数**:
+  - fileId: 文件ID
+- **响应**:
+
+```json
+{
+  "success": true,
+  "message": "删除成功"
+}
+```
+
+- **错误码**:
+  - 401: 未授权
+  - 403: 禁止访问（尝试删除其他用户的文件）
+  - 404: 文件不存在
+
+### 4. 获取用户文件列表 ✅
+
+- **URL**: `/files`
+- **方法**: GET
+- **描述**: 获取当前登录用户的文件列表
+- **请求头**: Authorization: Bearer {accessToken}
+- **查询参数**:
+  - page: 页码，默认为1
+  - pageSize: 每页数量，默认为20
+  - fileType: 文件类型筛选，选填，可选值：Image、Video、Audio、Document
+  - category: 业务分类筛选，选填
+  - keyword: 关键词搜索，选填
+  - sortBy: 排序字段，可选值：uploadedAt、fileName、fileSize，默认为uploadedAt
+  - sortDirection: 排序方向，可选值：asc、desc，默认为desc
+- **响应**:
+
+```json
+{
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "items": [
+      {
+        "fileId": "guid", // 文件ID
+        "fileName": "string", // 文件名称
+        "originalFileName": "string", // 原始文件名
+        "fileUrl": "string", // 文件访问URL
+        "fileType": "string", // 文件类型
+        "fileSize": "integer", // 文件大小（字节）
+        "mimeType": "string", // MIME类型
+        "category": "string", // 业务分类
+        "description": "string", // 文件描述
+        "uploadedAt": "datetime", // 上传时间
+        "createdBy": "guid" // 上传用户ID
+      }
+    ],
+    "totalCount": "integer", // 总数量
+    "pageCount": "integer", // 总页数
+    "currentPage": "integer", // 当前页码
+    "pageSize": "integer" // 每页数量
+  }
+}
+```
+
+- **错误码**:
+  - 400: 请求参数无效
+  - 401: 未授权
+
+## 十、文件管理相关API
+
+### 1. 上传文件 ✅
+- **URL**: `/files/upload`
+- **方法**: POST
+- **描述**: 上传文件到服务器
+- **请求头**: Authorization: Bearer {accessToken}
+- **请求方式**: multipart/form-data
+- **请求参数**:
+  - file: 文件数据 (必填)
+  - fileType: 文件类型 (必填) - image/video/audio/document
+  - category: 业务分类 (可选，默认general) - diary/profile/prenatal-care/general
+  - description: 文件描述 (可选)
+
+- **响应**:
+
+```json
+{
+  "success": true,
+  "message": "文件上传成功",
+  "data": {
+    "fileId": "550e8400-e29b-41d4-a716-446655440000",
+    "fileName": "550e8400-e29b-41d4-a716-446655440000.jpg",
+    "originalFileName": "photo.jpg",
+    "fileUrl": "https://supabase.co/storage/v1/object/public/diary-media/diary/2024/01/15/550e8400-e29b-41d4-a716-446655440000.jpg",
+    "fileType": "image",
+    "fileSize": 1024000,
+    "mimeType": "image/jpeg",
+    "category": "diary",
+    "description": "用户上传的照片",
+    "uploadedAt": "2024-01-15T10:30:00Z",
+    "createdBy": "550e8400-e29b-41d4-a716-446655440000"
+  }
+}
+```
+
+- **错误码**:
+  - 400: 请求参数无效
+  - 401: 未授权
+  - 413: 文件大小超过限制
+  - 415: 不支持的文件类型
+  - 500: 服务器错误
+
+### 2. 获取文件信息 ✅
+- **URL**: `/files/{fileId}`
+- **方法**: GET
+- **描述**: 获取指定文件的详细信息
+- **请求头**: Authorization: Bearer {accessToken}
+- **路径参数**:
+  - fileId: 文件ID
+
+- **响应**:
+
+```json
+{
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "fileId": "550e8400-e29b-41d4-a716-446655440000",
+    "fileName": "550e8400-e29b-41d4-a716-446655440000.jpg",
+    "originalFileName": "photo.jpg",
+    "fileUrl": "https://supabase.co/storage/v1/object/public/diary-media/diary/2024/01/15/550e8400-e29b-41d4-a716-446655440000.jpg",
+    "fileType": "image",
+    "fileSize": 1024000,
+    "mimeType": "image/jpeg",
+    "category": "diary",
+    "description": "用户上传的照片",
+    "uploadedAt": "2024-01-15T10:30:00Z",
+    "createdBy": "550e8400-e29b-41d4-a716-446655440000"
+  }
+}
+```
+
+- **错误码**:
+  - 401: 未授权
+  - 403: 禁止访问
+  - 404: 文件不存在
+
+### 3. 删除文件 ✅
+- **URL**: `/files/{fileId}`
+- **方法**: DELETE
+- **描述**: 删除指定文件
+- **请求头**: Authorization: Bearer {accessToken}
+- **路径参数**:
+  - fileId: 文件ID
+
+- **响应**:
+
+```json
+{
+  "success": true,
+  "message": "删除成功",
+  "data": null
+}
+```
+
+- **错误码**:
+  - 401: 未授权
+  - 403: 禁止访问
+  - 404: 文件不存在
+
+### 4. 获取用户文件列表 ✅
+- **URL**: `/files`
+- **方法**: GET
+- **描述**: 获取当前用户的文件列表
+- **请求头**: Authorization: Bearer {accessToken}
+- **查询参数**:
+  - page: 页码，默认1
+  - pageSize: 每页数量，默认20
+  - fileType: 文件类型筛选 (image/video/audio/document)
+  - category: 业务分类筛选 (diary/profile/prenatal-care/general)
+  - keyword: 关键词搜索
+  - sortBy: 排序字段，默认uploadedAt
+  - sortDirection: 排序方向，默认desc
+
+- **响应**:
+
+```json
+{
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "items": [
+      {
+        "fileId": "550e8400-e29b-41d4-a716-446655440000",
+        "fileName": "550e8400-e29b-41d4-a716-446655440000.jpg",
+        "originalFileName": "photo.jpg",
+        "fileUrl": "https://supabase.co/storage/v1/object/public/diary-media/diary/2024/01/15/550e8400-e29b-41d4-a716-446655440000.jpg",
+        "fileType": "image",
+        "fileSize": 1024000,
+        "mimeType": "image/jpeg",
+        "category": "diary",
+        "description": "用户上传的照片",
+        "uploadedAt": "2024-01-15T10:30:00Z",
+        "createdBy": "550e8400-e29b-41d4-a716-446655440000"
+      }
+    ],
+    "totalCount": 1,
+    "pageCount": 1,
+    "currentPage": 1,
+    "pageSize": 20
+  }
+}
+```
+
+- **错误码**:
+  - 400: 请求参数无效
+  - 401: 未授权
+
+## 十一、日记相关API
+
+### 1. 创建日记 ✅
 
 - **URL**: `/diaries`
 - **方法**: POST
@@ -784,7 +1213,7 @@
   - 400: 请求参数无效
   - 401: 未授权
 
-### 2. 获取日记
+### 2. 获取日记 ✅
 
 - **URL**: `/diaries/{id}`
 - **方法**: GET
@@ -828,7 +1257,7 @@
   - 403: 禁止访问（尝试访问其他用户的日记）
   - 404: 日记不存在
 
-### 3. 获取用户所有日记
+### 3. 获取用户所有日记 ✅
 
 - **URL**: `/diaries`
 - **方法**: GET
@@ -881,7 +1310,7 @@
 - **错误码**:
   - 401: 未授权
 
-### 4. 根据日期范围获取日记
+### 4. 根据日期范围获取日记 ✅
 
 - **URL**: `/diaries/date-range`
 - **方法**: GET
@@ -937,7 +1366,7 @@
   - 400: 请求参数无效
   - 401: 未授权
 
-### 5. 根据标签获取日记
+### 5. 根据标签获取日记 ✅
 
 - **URL**: `/diaries/tag/{tag}`
 - **方法**: GET
@@ -992,7 +1421,7 @@
 - **错误码**:
   - 401: 未授权
 
-### 6. 根据情绪获取日记
+### 6. 根据情绪获取日记 ✅
 
 - **URL**: `/diaries/mood/{mood}`
 - **方法**: GET
@@ -1048,7 +1477,7 @@
   - 400: 请求参数无效
   - 401: 未授权
 
-### 7. 更新日记
+### 7. 更新日记 ✅
 
 - **URL**: `/diaries/{id}`
 - **方法**: PUT
@@ -1104,7 +1533,7 @@
   - 403: 禁止访问（尝试更新其他用户的日记）
   - 404: 日记不存在
 
-### 8. 删除日记
+### 8. 删除日记 ✅
 
 - **URL**: `/diaries/{id}`
 - **方法**: DELETE
@@ -1126,7 +1555,7 @@
   - 403: 禁止访问（尝试删除其他用户的日记）
   - 404: 日记不存在
 
-### 9. 添加日记标签
+### 9. 添加日记标签 ✅
 
 - **URL**: `/diaries/{id}/tags`
 - **方法**: POST
@@ -1161,7 +1590,7 @@
   - 403: 禁止访问（尝试更新其他用户的日记）
   - 404: 日记不存在
 
-### 10. 删除日记标签
+### 10. 删除日记标签 ✅
 
 - **URL**: `/diaries/{id}/tags/{tag}`
 - **方法**: DELETE
@@ -1188,11 +1617,54 @@
   - 403: 禁止访问（尝试更新其他用户的日记）
   - 404: 日记不存在或标签不存在
 
-### 11. 添加日记媒体文件
+### 11. 添加日记媒体文件 ✅
 
 - **URL**: `/diaries/{id}/media`
 - **方法**: POST
-- **描述**: 为指定ID的日记添加媒体文件
+- **描述**: 为指定ID的日记添加媒体文件（使用已上传的文件ID）
+- **请求头**: Authorization: Bearer {accessToken}
+- **路径参数**:
+  - id: 日记ID
+- **请求参数**:
+
+```json
+{
+  "fileId": "string", // 文件ID，必填，必须是通过文件上传接口获得的fileId
+  "description": "string" // 媒体描述，选填
+}
+```
+
+- **响应**:
+
+```json
+{
+  "success": true,
+  "message": "操作成功",
+  "data": {
+    "id": "guid", // 媒体文件ID
+    "diaryId": "guid", // 日记ID
+    "fileId": "guid", // 文件ID
+    "mediaType": "string", // 媒体类型（从文件信息中获取）
+    "mediaUrl": "string", // 媒体URL（从文件信息中获取）
+    "fileName": "string", // 文件名称
+    "fileSize": "integer", // 文件大小（字节）
+    "description": "string", // 媒体描述
+    "createdAt": "datetime" // 创建时间
+  }
+}
+```
+
+- **错误码**:
+  - 400: 请求参数无效
+  - 401: 未授权
+  - 403: 禁止访问（尝试更新其他用户的日记或文件）
+  - 404: 日记不存在或文件不存在
+
+### 12. 添加日记媒体文件（旧版本 - 使用URL） ✅
+
+- **URL**: `/diaries/{id}/media/by-url`
+- **方法**: POST
+- **描述**: 为指定ID的日记添加媒体文件（使用直接URL，保持向后兼容）
 - **请求头**: Authorization: Bearer {accessToken}
 - **路径参数**:
   - id: 日记ID
@@ -1215,8 +1687,11 @@
   "data": {
     "id": "guid", // 媒体文件ID
     "diaryId": "guid", // 日记ID
+    "fileId": null, // 文件ID（旧版本为null）
     "mediaType": "string", // 媒体类型
     "mediaUrl": "string", // 媒体URL
+    "fileName": null, // 文件名称（旧版本为null）
+    "fileSize": null, // 文件大小（旧版本为null）
     "description": "string", // 媒体描述
     "createdAt": "datetime" // 创建时间
   }
@@ -1229,7 +1704,7 @@
   - 403: 禁止访问（尝试更新其他用户的日记）
   - 404: 日记不存在
 
-### 12. 删除日记媒体文件
+### 13. 删除日记媒体文件 ✅
 
 - **URL**: `/diaries/{diaryId}/media/{mediaId}`
 - **方法**: DELETE
@@ -1252,11 +1727,34 @@
   - 403: 禁止访问（尝试更新其他用户的日记）
   - 404: 日记不存在或媒体文件不存在
 
-## 八、胎动和宫缩记录API
+### 14. 媒体文件预览功能 ✅
+
+**功能描述：** 前端媒体文件预览功能，支持图片、视频、音频的预览和播放
+
+**已实现功能：**
+- **图片预览**：支持全屏预览、缩放、双击缩放、拖拽移动
+- **视频预览**：支持视频播放控制、全屏播放
+- **音频预览**：支持音频播放控制、进度条、播放时间显示
+- **统一预览界面**：黑色背景、导航栏、分享功能
+- **错误处理**：加载失败提示、重试功能
+- **交互优化**：点击媒体文件卡片即可预览
+
+**技术实现：**
+- 使用 SwiftUI 构建预览界面
+- 集成 AVKit 框架支持视频和音频播放
+- 支持手势操作（缩放、拖拽）
+- 异步图片加载和错误处理
+
+**使用方式：**
+- 在日记详情页面点击媒体文件卡片
+- 自动根据媒体类型显示对应的预览界面
+- 支持分享功能和错误重试
+
+## 九、胎动和宫缩记录API
 
 ### 1. 创建胎动记录
 
-- **URL**: `/fetalmovement`
+- **URL**: `/fetal-movements`
 - **方法**: POST
 - **描述**: 创建胎动记录
 - **请求头**: Authorization: Bearer {accessToken}
@@ -1301,7 +1799,7 @@
 
 ### 2. 获取胎动记录
 
-- **URL**: `/fetalmovement/{id}`
+- **URL**: `/fetal-movements/{id}`
 - **方法**: GET
 - **描述**: 获取指定ID的胎动记录
 - **请求头**: Authorization: Bearer {accessToken}
@@ -1336,7 +1834,7 @@
 
 ### 3. 获取用户所有胎动记录
 
-- **URL**: `/fetalmovement`
+- **URL**: `/fetal-movements`
 - **方法**: GET
 - **描述**: 获取当前登录用户的所有胎动记录
 - **请求头**: Authorization: Bearer {accessToken}
@@ -1383,7 +1881,7 @@
 
 ### 4. 更新胎动记录
 
-- **URL**: `/fetalmovement/{id}`
+- **URL**: `/fetal-movements/{id}`
 - **方法**: PUT
 - **描述**: 更新指定ID的胎动记录
 - **请求头**: Authorization: Bearer {accessToken}
@@ -1431,7 +1929,7 @@
 
 ### 5. 删除胎动记录
 
-- **URL**: `/fetalmovement/{id}`
+- **URL**: `/fetal-movements/{id}`
 - **方法**: DELETE
 - **描述**: 删除指定ID的胎动记录
 - **请求头**: Authorization: Bearer {accessToken}
@@ -1452,7 +1950,7 @@
 
 ### 6. 获取胎动统计数据
 
-- **URL**: `/fetalmovement/statistics`
+- **URL**: `/fetal-movements/statistics`
 - **方法**: GET
 - **描述**: 获取当前登录用户的胎动统计数据
 - **请求头**: Authorization: Bearer {accessToken}
@@ -1497,7 +1995,7 @@
 
 ### 7. 创建宫缩记录
 
-- **URL**: `/contraction`
+- **URL**: `/contractions`
 - **方法**: POST
 - **描述**: 创建宫缩记录
 - **请求头**: Authorization: Bearer {accessToken}
@@ -1542,7 +2040,7 @@
 
 ### 8. 获取宫缩记录
 
-- **URL**: `/contraction/{id}`
+- **URL**: `/contractions/{id}`
 - **方法**: GET
 - **描述**: 获取指定ID的宫缩记录
 - **请求头**: Authorization: Bearer {accessToken}
@@ -1577,7 +2075,7 @@
 
 ### 9. 获取用户所有宫缩记录
 
-- **URL**: `/contraction`
+- **URL**: `/contractions`
 - **方法**: GET
 - **描述**: 获取当前登录用户的所有宫缩记录
 - **请求头**: Authorization: Bearer {accessToken}
@@ -1624,7 +2122,7 @@
 
 ### 10. 更新宫缩记录
 
-- **URL**: `/contraction/{id}`
+- **URL**: `/contractions/{id}`
 - **方法**: PUT
 - **描述**: 更新指定ID的宫缩记录
 - **请求头**: Authorization: Bearer {accessToken}
@@ -1672,7 +2170,7 @@
 
 ### 11. 删除宫缩记录
 
-- **URL**: `/contraction/{id}`
+- **URL**: `/contractions/{id}`
 - **方法**: DELETE
 - **描述**: 删除指定ID的宫缩记录
 - **请求头**: Authorization: Bearer {accessToken}
@@ -1693,7 +2191,7 @@
 
 ### 12. 获取宫缩统计数据
 
-- **URL**: `/contraction/statistics`
+- **URL**: `/contractions/statistics`
 - **方法**: GET
 - **描述**: 获取当前登录用户的宫缩统计数据
 - **请求头**: Authorization: Bearer {accessToken}
@@ -1743,11 +2241,11 @@
   - 400: 请求参数无效
   - 401: 未授权
 
-## 九、孕期指南和知识百科API
+## 十一、孕期指南和知识百科API
 
 ### 1. 获取孕期阶段列表
 
-- **URL**: `/pregnancyguide/stages`
+- **URL**: `/pregnancy-guide/stages`
 - **方法**: GET
 - **描述**: 获取孕期阶段列表
 - **请求头**: Authorization: Bearer {accessToken}
@@ -1777,7 +2275,7 @@
 
 ### 2. 获取孕周指南
 
-- **URL**: `/pregnancyguide/weeks/{week}`
+- **URL**: `/pregnancy-guide/weeks/{week}`
 - **方法**: GET
 - **描述**: 获取指定孕周的指南信息
 - **请求头**: Authorization: Bearer {accessToken}
@@ -1856,7 +2354,7 @@
 
 ### 3. 获取当前孕周指南
 
-- **URL**: `/pregnancyguide/current-week`
+- **URL**: `/pregnancy-guide/current-week`
 - **方法**: GET
 - **描述**: 获取当前登录用户的当前孕周指南
 - **请求头**: Authorization: Bearer {accessToken}
@@ -2245,7 +2743,7 @@
   - 400: 请求参数无效
   - 401: 未授权
 
-## 十、社区功能API
+## 十二、社区功能API
 
 ### 1. 创建社区帖子
 

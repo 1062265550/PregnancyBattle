@@ -109,7 +109,7 @@ struct PregnancyTrackerView: View {
                 VStack(spacing: 20) { // 统一模块间距
                     // 孕周信息卡片
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("第 \(info.currentWeek) 周 \(info.currentDay) 天")
+                        Text("第 \(getDisplayWeek(info)) 周 \(getDisplayDay(info)) 天")
                             .font(.largeTitle)
                             .fontWeight(.bold)
                             .foregroundColor(cardForegroundColor)
@@ -118,18 +118,18 @@ struct PregnancyTrackerView: View {
                             .font(.headline)
                             .foregroundColor(cardForegroundColor)
 
-                        Text("距离预产期还有 \(info.daysUntilDueDate) 天")
+                        Text("距离预产期还有 \(getDisplayDaysUntilDueDate(info)) 天")
                             .font(.subheadline)
                             .foregroundColor(cardSecondaryForegroundColor)
 
-                        Text("孕期阶段: \(info.pregnancyStage)")
+                        Text("孕期阶段: \(getDisplayPregnancyStage(info))")
                             .font(.subheadline)
                             .fontWeight(.medium)
                             .foregroundColor(cardForegroundColor)
 
                         Divider()
                             .background(cardSecondaryForegroundColor.opacity(0.5))
-                        
+
                         if info.currentWeek == 0 {
                             Text("受精卵刚刚着床呢，请耐心期待")
                                 .font(.body)
@@ -231,13 +231,12 @@ struct PregnancyTrackerView: View {
                             Text("末次月经日期")
                                 .font(.headline)
                                 .foregroundColor(Color.gray)
-                            
-                            DatePicker("末次月经", 
+
+                            DatePicker("末次月经",
                                        selection: Binding(
-                                           get: { viewModel.lmpDate }, 
-                                           set: { newValue in 
+                                           get: { viewModel.lmpDate },
+                                           set: { newValue in
                                                viewModel.lmpDate = newValue
-                                               print("LMP Date selected in DatePicker: \(newValue)")
                                            }
                                        ),
                                        in: minLMPDate...today,
@@ -311,7 +310,7 @@ struct PregnancyTrackerView: View {
                                 .frame(maxWidth: .infinity)
                                 .transition(.opacity)
                             }
-                            
+
                             // 提示信息
                             Text("注意：总孕期不超过40周，各项选择将相互约束")
                                 .font(.caption)
@@ -335,7 +334,6 @@ struct PregnancyTrackerView: View {
                                                get: { viewModel.ivfTransferDate },
                                                set: { newValue in
                                                    viewModel.ivfTransferDate = newValue
-                                                   print("IVF Date selected: \(newValue)")
                                                }
                                            ),
                                            in: minIvfTransferDate...today,
@@ -344,7 +342,7 @@ struct PregnancyTrackerView: View {
                                     .frame(height: 320) // 添加固定高度
                                     .environment(\.locale, Locale(identifier: "zh_CN"))
                             }
-                            
+
                             VStack(alignment: .leading, spacing: 8) {
                                 Text("移植时胚胎天数 (1-7天)")
                                     .font(.headline)
@@ -371,7 +369,7 @@ struct PregnancyTrackerView: View {
                     Text("预产期计算方式")
                         .font(.headline)
                         .foregroundColor(Color.gray)
-                    
+
                     Picker("计算方式", selection: $viewModel.calculationMethod) {
                         Text("末次月经").tag(PregnancyCalculationMethod.lmp)
                         Text("B超").tag(PregnancyCalculationMethod.ultrasound)
@@ -393,7 +391,7 @@ struct PregnancyTrackerView: View {
                     Toggle("多胎妊娠", isOn: $viewModel.isMultiplePregnancy)
                         .font(.headline)
                         .tint(Color("pt_color_primary"))
-                    
+
                     if viewModel.isMultiplePregnancy {
                         VStack(alignment: .leading, spacing: 8) {
                              Text("胎儿数量 (2-10个)")
@@ -471,7 +469,7 @@ struct PregnancyTrackerView: View {
                         .cornerRadius(8)
                         .padding(.horizontal)
                 }
-                
+
                 Spacer()
             }
             .padding(.bottom, 30)
@@ -539,6 +537,67 @@ struct PregnancyTrackerView: View {
             return "你已经接近预产期，可能会感到非常不舒服。你可能会注意到分泌物增加，这是为分娩做准备。随时关注分娩征兆。"
         default:
             return "未知"
+        }
+    }
+
+    // 辅助方法：获取显示的孕周
+    private func getDisplayWeek(_ info: PregnancyInfo) -> Int {
+        // 检查孕周是否在合理范围内
+        if info.currentWeek < 0 || info.currentWeek > 45 {
+            // 如果孕周异常，根据预产期重新计算
+            let calendar = Calendar.current
+            let today = Date()
+            let components = calendar.dateComponents([.day], from: today, to: info.dueDate)
+            if let daysUntilDueDate = components.day {
+                let gestationDays = 280 - daysUntilDueDate
+                let week = gestationDays / 7
+                return max(0, min(45, week))
+            }
+            return 0
+        }
+        return info.currentWeek
+    }
+
+    // 辅助方法：获取显示的孕天
+    private func getDisplayDay(_ info: PregnancyInfo) -> Int {
+        // 检查孕天是否在合理范围内
+        if info.currentDay < 0 || info.currentDay > 6 {
+            // 如果孕天异常，根据预产期重新计算
+            let calendar = Calendar.current
+            let today = Date()
+            let components = calendar.dateComponents([.day], from: today, to: info.dueDate)
+            if let daysUntilDueDate = components.day {
+                let gestationDays = 280 - daysUntilDueDate
+                let day = gestationDays % 7
+                return max(0, min(6, day))
+            }
+            return 0
+        }
+        return info.currentDay
+    }
+
+    // 辅助方法：获取显示的距离预产期天数
+    private func getDisplayDaysUntilDueDate(_ info: PregnancyInfo) -> Int {
+        // 检查距离预产期天数是否在合理范围内
+        if info.daysUntilDueDate < -100 || info.daysUntilDueDate > 300 {
+            // 如果距离预产期天数异常，重新计算
+            let calendar = Calendar.current
+            let today = Date()
+            let components = calendar.dateComponents([.day], from: today, to: info.dueDate)
+            return components.day ?? 0
+        }
+        return info.daysUntilDueDate
+    }
+
+    // 辅助方法：获取显示的孕期阶段
+    private func getDisplayPregnancyStage(_ info: PregnancyInfo) -> String {
+        let week = getDisplayWeek(info)
+        if week <= 13 {
+            return "早期"
+        } else if week <= 27 {
+            return "中期"
+        } else {
+            return "晚期"
         }
     }
 }

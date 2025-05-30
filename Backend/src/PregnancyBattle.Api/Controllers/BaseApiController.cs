@@ -9,7 +9,6 @@ namespace PregnancyBattle.Api.Controllers
     /// API控制器基类
     /// </summary>
     [ApiController]
-    [Route("api/[controller]")]
     public abstract class BaseApiController : ControllerBase
     {
         /// <summary>
@@ -30,7 +29,7 @@ namespace PregnancyBattle.Api.Controllers
 
             var allClaims = User.Claims.Select(c => $"{c.Type}: {c.Value}").ToList();
             Console.WriteLine($"[BaseApiController] 无法获取用户ID。Claims: {string.Join(", ", allClaims)}");
-            
+
             throw new System.Security.Authentication.AuthenticationException("无法从令牌中识别用户身份。");
         }
 

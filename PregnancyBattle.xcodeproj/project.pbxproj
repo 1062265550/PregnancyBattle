@@ -6,27 +6,8 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXContainerItemProxy section */
-		E264F8212DD1F11A00D5E02F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E264F8062DD1F11A00D5E02F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E264F80D2DD1F11A00D5E02F;
-			remoteInfo = PregnancyBattle;
-		};
-		E264F82B2DD1F11A00D5E02F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E264F8062DD1F11A00D5E02F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E264F80D2DD1F11A00D5E02F;
-			remoteInfo = PregnancyBattle;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		E264F80E2DD1F11A00D5E02F /* PregnancyBattle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PregnancyBattle.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E264F8202DD1F11A00D5E02F /* PregnancyBattleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PregnancyBattleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E264F82A2DD1F11A00D5E02F /* PregnancyBattleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PregnancyBattleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -35,34 +16,10 @@
 			path = PregnancyBattle;
 			sourceTree = "<group>";
 		};
-		E264F8232DD1F11A00D5E02F /* PregnancyBattleTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = PregnancyBattleTests;
-			sourceTree = "<group>";
-		};
-		E264F82D2DD1F11A00D5E02F /* PregnancyBattleUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = PregnancyBattleUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		E264F80B2DD1F11A00D5E02F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E264F81D2DD1F11A00D5E02F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E264F8272DD1F11A00D5E02F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -76,8 +33,6 @@
 			isa = PBXGroup;
 			children = (
 				E264F8102DD1F11A00D5E02F /* PregnancyBattle */,
-				E264F8232DD1F11A00D5E02F /* PregnancyBattleTests */,
-				E264F82D2DD1F11A00D5E02F /* PregnancyBattleUITests */,
 				E264F80F2DD1F11A00D5E02F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -86,8 +41,6 @@
 			isa = PBXGroup;
 			children = (
 				E264F80E2DD1F11A00D5E02F /* PregnancyBattle.app */,
-				E264F8202DD1F11A00D5E02F /* PregnancyBattleTests.xctest */,
-				E264F82A2DD1F11A00D5E02F /* PregnancyBattleUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -117,52 +70,6 @@
 			productReference = E264F80E2DD1F11A00D5E02F /* PregnancyBattle.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E264F81F2DD1F11A00D5E02F /* PregnancyBattleTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E264F8372DD1F11A00D5E02F /* Build configuration list for PBXNativeTarget "PregnancyBattleTests" */;
-			buildPhases = (
-				E264F81C2DD1F11A00D5E02F /* Sources */,
-				E264F81D2DD1F11A00D5E02F /* Frameworks */,
-				E264F81E2DD1F11A00D5E02F /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				E264F8222DD1F11A00D5E02F /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				E264F8232DD1F11A00D5E02F /* PregnancyBattleTests */,
-			);
-			name = PregnancyBattleTests;
-			packageProductDependencies = (
-			);
-			productName = PregnancyBattleTests;
-			productReference = E264F8202DD1F11A00D5E02F /* PregnancyBattleTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		E264F8292DD1F11A00D5E02F /* PregnancyBattleUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E264F83A2DD1F11A00D5E02F /* Build configuration list for PBXNativeTarget "PregnancyBattleUITests" */;
-			buildPhases = (
-				E264F8262DD1F11A00D5E02F /* Sources */,
-				E264F8272DD1F11A00D5E02F /* Frameworks */,
-				E264F8282DD1F11A00D5E02F /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				E264F82C2DD1F11A00D5E02F /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				E264F82D2DD1F11A00D5E02F /* PregnancyBattleUITests */,
-			);
-			name = PregnancyBattleUITests;
-			packageProductDependencies = (
-			);
-			productName = PregnancyBattleUITests;
-			productReference = E264F82A2DD1F11A00D5E02F /* PregnancyBattleUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -175,14 +82,6 @@
 				TargetAttributes = {
 					E264F80D2DD1F11A00D5E02F = {
 						CreatedOnToolsVersion = 16.3;
-					};
-					E264F81F2DD1F11A00D5E02F = {
-						CreatedOnToolsVersion = 16.3;
-						TestTargetID = E264F80D2DD1F11A00D5E02F;
-					};
-					E264F8292DD1F11A00D5E02F = {
-						CreatedOnToolsVersion = 16.3;
-						TestTargetID = E264F80D2DD1F11A00D5E02F;
 					};
 				};
 			};
@@ -201,28 +100,12 @@
 			projectRoot = "";
 			targets = (
 				E264F80D2DD1F11A00D5E02F /* PregnancyBattle */,
-				E264F81F2DD1F11A00D5E02F /* PregnancyBattleTests */,
-				E264F8292DD1F11A00D5E02F /* PregnancyBattleUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		E264F80C2DD1F11A00D5E02F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E264F81E2DD1F11A00D5E02F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E264F8282DD1F11A00D5E02F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -239,34 +122,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E264F81C2DD1F11A00D5E02F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E264F8262DD1F11A00D5E02F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		E264F8222DD1F11A00D5E02F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E264F80D2DD1F11A00D5E02F /* PregnancyBattle */;
-			targetProxy = E264F8212DD1F11A00D5E02F /* PBXContainerItemProxy */;
-		};
-		E264F82C2DD1F11A00D5E02F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E264F80D2DD1F11A00D5E02F /* PregnancyBattle */;
-			targetProxy = E264F82B2DD1F11A00D5E02F /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		E264F8322DD1F11A00D5E02F /* Debug */ = {
@@ -400,6 +256,7 @@
 				DEVELOPMENT_TEAM = G9KG4N4ZC2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "孕期大作战需要访问您的照片库，以便您选择和上传图片到日记中。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -428,6 +285,7 @@
 				DEVELOPMENT_TEAM = G9KG4N4ZC2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "孕期大作战需要访问您的照片库，以便您选择和上传图片到日记中。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -443,78 +301,6 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		E264F8382DD1F11A00D5E02F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G9KG4N4ZC2;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.hanzhao.PregnancyBattleTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PregnancyBattle.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PregnancyBattle";
-			};
-			name = Debug;
-		};
-		E264F8392DD1F11A00D5E02F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G9KG4N4ZC2;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.hanzhao.PregnancyBattleTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PregnancyBattle.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PregnancyBattle";
-			};
-			name = Release;
-		};
-		E264F83B2DD1F11A00D5E02F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G9KG4N4ZC2;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.hanzhao.PregnancyBattleUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = PregnancyBattle;
-			};
-			name = Debug;
-		};
-		E264F83C2DD1F11A00D5E02F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G9KG4N4ZC2;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.hanzhao.PregnancyBattleUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = PregnancyBattle;
 			};
 			name = Release;
 		};
@@ -535,24 +321,6 @@
 			buildConfigurations = (
 				E264F8352DD1F11A00D5E02F /* Debug */,
 				E264F8362DD1F11A00D5E02F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E264F8372DD1F11A00D5E02F /* Build configuration list for PBXNativeTarget "PregnancyBattleTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E264F8382DD1F11A00D5E02F /* Debug */,
-				E264F8392DD1F11A00D5E02F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E264F83A2DD1F11A00D5E02F /* Build configuration list for PBXNativeTarget "PregnancyBattleUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E264F83B2DD1F11A00D5E02F /* Debug */,
-				E264F83C2DD1F11A00D5E02F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
